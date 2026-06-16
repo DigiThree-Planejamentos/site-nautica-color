@@ -44,7 +44,7 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
         </nav>
 
         <div className="grid gap-10 lg:grid-cols-[0.9fr_1.1fr]">
-          <div className="rounded-lg bg-white p-8 shadow-soft">
+          <div className="rounded-3xl bg-sky p-8 shadow-soft">
             <ProductImage src={product.imageUrl} alt={product.name} className="mx-auto h-[420px] w-full object-contain" />
           </div>
           <div>

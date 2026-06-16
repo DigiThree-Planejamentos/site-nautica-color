@@ -45,7 +45,7 @@ export function Header({ phone }: { phone?: string }) {
               type="button"
               onClick={openCart}
               className="relative grid h-11 w-11 place-items-center rounded-full bg-navy text-white hover:bg-navy-light"
-              aria-label="Abrir meu orçamento"
+              aria-label="Abrir carrinho de compras"
             >
               <ShoppingBasket size={19} aria-hidden="true" />
               {count > 0 ? <span className="absolute -right-1 -top-1 grid h-5 min-w-5 place-items-center rounded-full bg-red px-1 text-xs">{count}</span> : null}

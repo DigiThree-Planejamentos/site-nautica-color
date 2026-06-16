@@ -16,12 +16,12 @@ export function CartDrawer({ settings }: { settings: Record<string, string> }) {
   return (
     <>
       {isOpen ? (
-        <div className="fixed inset-0 z-50" role="dialog" aria-modal="true" aria-label="Meu orçamento">
-          <button className="absolute inset-0 bg-ink/55" aria-label="Fechar orçamento" onClick={closeCart} />
+        <div className="fixed inset-0 z-50" role="dialog" aria-modal="true" aria-label="Carrinho de compras">
+          <button className="absolute inset-0 bg-ink/55" aria-label="Fechar carrinho" onClick={closeCart} />
           <aside className="absolute right-0 top-0 flex h-full w-full max-w-md flex-col bg-white shadow-2xl">
             <header className="flex items-center justify-between border-b border-navy/10 p-5">
               <div>
-                <p className="text-sm font-semibold uppercase tracking-[0.2em] text-red">Meu orçamento</p>
+                <p className="text-sm font-semibold uppercase tracking-[0.2em] text-red">Carrinho de compras</p>
                 <h2 className="font-heading text-2xl font-bold text-navy">{count} item(ns)</h2>
               </div>
               <button className="grid h-11 w-11 place-items-center rounded-full hover:bg-off-white" onClick={closeCart} aria-label="Fechar">
@@ -34,8 +34,8 @@ export function CartDrawer({ settings }: { settings: Record<string, string> }) {
                 <div className="grid min-h-72 place-items-center rounded-lg bg-off-white p-8 text-center">
                   <div>
                     <ShoppingBasket className="mx-auto mb-4 text-navy" size={42} aria-hidden="true" />
-                    <p className="font-heading text-xl font-bold text-navy">Seu orçamento está vazio.</p>
-                    <p className="mt-2 text-sm text-ink/70">Adicione produtos ao catálogo para solicitar uma cotação.</p>
+                    <p className="font-heading text-xl font-bold text-navy">Seu carrinho está vazio.</p>
+                    <p className="mt-2 text-sm text-ink/70">Adicione produtos ao catálogo e envie a lista pelo WhatsApp.</p>
                   </div>
                 </div>
               ) : (
@@ -72,6 +72,13 @@ export function CartDrawer({ settings }: { settings: Record<string, string> }) {
               </div>
               <p className="mb-4 text-xs text-ink/60">Valores demonstrativos sujeitos à confirmação de preço e disponibilidade.</p>
               <div className="grid gap-2">
+                <Link
+                  href="/produtos"
+                  onClick={closeCart}
+                  className="inline-flex min-h-11 items-center justify-center rounded-full bg-navy px-5 py-2.5 text-sm font-semibold text-white hover:bg-navy-light"
+                >
+                  Continuar comprando
+                </Link>
                 <a
                   href={items.length > 0 ? quoteHref : undefined}
                   target="_blank"
@@ -84,7 +91,7 @@ export function CartDrawer({ settings }: { settings: Record<string, string> }) {
                 </a>
                 {items.length > 0 ? (
                   <Button type="button" variant="ghost" onClick={clearCart}>
-                    Limpar orçamento
+                    Limpar carrinho
                   </Button>
                 ) : null}
               </div>
@@ -100,7 +107,7 @@ export function CartDrawer({ settings }: { settings: Record<string, string> }) {
           className="fixed bottom-4 left-4 right-4 z-40 inline-flex min-h-12 items-center justify-center gap-2 rounded-full bg-red px-5 py-3 text-sm font-bold text-white shadow-soft sm:hidden"
         >
           <ShoppingBasket size={18} aria-hidden="true" />
-          Meu orçamento • {formatCurrency(totalCents)}
+          Carrinho • {formatCurrency(totalCents)}
         </button>
       ) : null}
     </>

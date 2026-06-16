@@ -18,7 +18,7 @@ export function buildQuoteMessage(items: CartItem[]) {
 
   const total = items.reduce((sum, item) => sum + item.priceCents * item.quantity, 0);
 
-  return `Olá, equipe Náutica Color! Gostaria de solicitar um orçamento para os seguintes produtos:
+  return `Olá, equipe Náutica Color! Montei um carrinho de compras no site e gostaria de confirmar os seguintes produtos:
 
 ${lines.join("\n\n")}
 
@@ -30,7 +30,7 @@ Nome:
 Embarcação:
 Preferência de retirada ou entrega:
 
-Aguardo a confirmação de disponibilidade, valores e condições. Obrigado!`;
+Aguardo a confirmação de disponibilidade, valores e condições pelo WhatsApp. Obrigado!`;
 }
 
 export function buildSupportMessage() {

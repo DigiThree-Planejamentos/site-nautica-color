@@ -10,7 +10,7 @@ Prévia funcional de catálogo digital para a Náutica Color, preparada para dep
 - Supabase e PostgreSQL
 - `@supabase/supabase-js`
 - React Context com `useReducer`
-- `localStorage` para o Meu orçamento
+- `localStorage` para o carrinho de compras
 - Lucide React
 - ESLint
 
@@ -38,7 +38,7 @@ npm run build
 
 - `src/app`: rotas, metadata, sitemap e robots.
 - `src/components`: layout, home, catálogo, produtos, carrinho e UI.
-- `src/context`: estado do Meu orçamento.
+- `src/context`: estado do carrinho de compras.
 - `src/lib/catalog`: camada de dados Supabase e fallback demonstrativo.
 - `src/lib/supabase`: cliente público.
 - `src/lib/whatsapp.ts`: geração de mensagens e links.

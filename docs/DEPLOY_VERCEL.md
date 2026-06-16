@@ -40,7 +40,7 @@ Depois do deploy, acesse **Settings > Domains** e configure o domínio oficial q
 
 ## 7. Validar produção
 
-Confira home, catálogo, página de produto, links de WhatsApp, imagens, SEO básico e persistência do orçamento.
+Confira home, catálogo, página de produto, links de WhatsApp, imagens, SEO básico e persistência do carrinho.
 
 ## 8. Novo deploy após variáveis
 

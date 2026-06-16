@@ -10,7 +10,9 @@ const config: Config = {
         red: "#BE1A2C",
         "red-bright": "#C81E31",
         "off-white": "#EDECEC",
-        ink: "#172133"
+        ink: "#172133",
+        sky: "#E8F0FA",
+        mist: "#D7E5F4"
       },
       fontFamily: {
         heading: ["var(--font-poppins)", "sans-serif"],

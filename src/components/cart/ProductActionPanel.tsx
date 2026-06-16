@@ -28,7 +28,7 @@ export function ProductActionPanel({ product, settings }: { product: Product; se
       <QuantityPicker value={quantity} onChange={setQuantity} />
       <Button type="button" onClick={() => addProduct(product, quantity)} className="sm:flex-1">
         <ShoppingBasket size={18} aria-hidden="true" />
-        Adicionar ao orçamento
+        Adicionar ao carrinho
       </Button>
       <a
         href={whatsappUrl(buildQuoteMessage([directItem]), resolveWhatsappNumber(settings))}
@@ -37,7 +37,7 @@ export function ProductActionPanel({ product, settings }: { product: Product; se
         className="inline-flex min-h-11 items-center justify-center gap-2 rounded-full bg-navy px-5 py-2.5 text-sm font-semibold text-white transition hover:bg-navy-light focus-visible:outline focus-visible:outline-2"
       >
         <MessageCircle size={18} aria-hidden="true" />
-        Orçamento direto
+        Enviar pelo WhatsApp
       </a>
     </div>
   );

@@ -48,8 +48,8 @@ export default async function HomePage() {
         <div className="mx-auto grid max-w-7xl gap-4 px-4 sm:px-6 md:grid-cols-3 lg:px-8">
           {[
             [ShieldCheck, "Proteção de casco", "Antifouling, primers e acabamentos para manutenção náutica."],
-            [Brush, "Preparação completa", "Abrasivos, polimento, limpeza e proteção no mesmo orçamento."],
-            [PackageCheck, "Cotação assistida", "Você seleciona os itens e confirma preço e disponibilidade com a loja."]
+            [Brush, "Preparação completa", "Abrasivos, polimento, limpeza e proteção no mesmo carrinho."],
+            [PackageCheck, "Compra assistida", "Você seleciona os itens e confirma preço e disponibilidade com a loja."]
           ].map(([Icon, title, text]) => (
             <div key={String(title)} className="rounded-lg border border-navy/10 p-6">
               <Icon className="mb-4 text-red" size={30} aria-hidden="true" />
@@ -83,7 +83,7 @@ export default async function HomePage() {
       <section className="bg-white py-16">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <p className="font-bold uppercase tracking-[0.2em] text-red">Destaques</p>
-          <h2 className="mt-2 font-heading text-4xl font-extrabold text-navy">Produtos de referência para orçamento.</h2>
+          <h2 className="mt-2 font-heading text-4xl font-extrabold text-navy">Produtos de referência para seu carrinho.</h2>
           <div className="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
             {featured.map((product) => <ProductCard key={product.id} product={product} />)}
           </div>
@@ -110,16 +110,16 @@ export default async function HomePage() {
             <h2 className="mt-3 font-heading text-4xl font-extrabold">Mais do que pintura, é sobre preservar valor, estética e prestígio.</h2>
           </div>
           <p className="text-lg leading-8 text-white/75">
-            Um catálogo focado em soluções para embarcações, preparado para consulta rápida, montagem de orçamento e atendimento direto pela equipe da loja.
+            Um catálogo focado em soluções para embarcações, preparado para consulta rápida, montagem do carrinho e atendimento direto pela equipe da loja.
           </p>
         </div>
       </section>
 
       <section id="como-comprar" className="bg-white py-16">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <h2 className="font-heading text-4xl font-extrabold text-navy">Como solicitar seu orçamento</h2>
+          <h2 className="font-heading text-4xl font-extrabold text-navy">Como comprar pelo WhatsApp</h2>
           <div className="mt-8 grid gap-5 md:grid-cols-4">
-            {["Explore marcas e categorias.", "Adicione produtos ao Meu orçamento.", "Envie a lista pelo WhatsApp.", "Confirme preço, estoque e condições."].map((step) => (
+            {["Explore marcas e categorias.", "Adicione produtos ao carrinho.", "Envie a lista pelo WhatsApp.", "Confirme preço, estoque e condições."].map((step) => (
               <div key={step} className="rounded-lg border border-navy/10 p-5">
                 <CheckCircle2 className="mb-4 text-red" aria-hidden="true" />
                 <p className="font-semibold text-navy">{step}</p>
@@ -147,7 +147,7 @@ export default async function HomePage() {
             <div className="mt-6 space-y-5">
               {[
                 ["Os preços são finais?", "Não. São valores demonstrativos e devem ser confirmados com a loja."],
-                ["O site vende online?", "Não. O catálogo gera uma lista de orçamento para atendimento via WhatsApp."],
+                ["O site vende online?", "O carrinho reúne os produtos e envia a lista para atendimento via WhatsApp."],
                 ["A equipe indica o produto correto?", "Sim. Confirme aplicação, disponibilidade e condições diretamente com a equipe."]
               ].map(([question, answer]) => (
                 <div key={question}>
