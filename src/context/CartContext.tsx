@@ -12,7 +12,7 @@ type CartState = {
 
 type CartAction =
   | { type: "hydrate"; items: CartItem[] }
-  | { type: "add"; product: Product; quantity?: number }
+  | { type: "add"; product: Product; quantity?: number; open?: boolean }
   | { type: "update"; productId: string; quantity: number }
   | { type: "remove"; productId: string }
   | { type: "clear" }
@@ -23,7 +23,7 @@ type CartAction =
 type CartContextValue = CartState & {
   count: number;
   totalCents: number;
-  addProduct: (product: Product, quantity?: number) => void;
+  addProduct: (product: Product, quantity?: number, options?: { open?: boolean }) => void;
   updateQuantity: (productId: string, quantity: number) => void;
   removeItem: (productId: string) => void;
   clearCart: () => void;
@@ -56,17 +56,18 @@ function reducer(state: CartState, action: CartAction): CartState {
       return { ...state, items: action.items, hydrated: true };
     case "add": {
       const quantity = Math.max(1, action.quantity ?? 1);
+      const open = action.open ?? true;
       const existing = state.items.find((item) => item.productId === action.product.id);
       if (existing) {
         return {
           ...state,
-          isOpen: true,
+          isOpen: open,
           items: state.items.map((item) =>
             item.productId === action.product.id ? { ...item, quantity: item.quantity + quantity } : item
           )
         };
       }
-      return { ...state, isOpen: true, items: [...state.items, toCartItem(action.product, quantity)] };
+      return { ...state, isOpen: open, items: [...state.items, toCartItem(action.product, quantity)] };
     }
     case "update":
       return {
@@ -123,7 +124,7 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
       ...state,
       count,
       totalCents,
-      addProduct: (product, quantity) => dispatch({ type: "add", product, quantity }),
+      addProduct: (product, quantity, options) => dispatch({ type: "add", product, quantity, open: options?.open }),
       updateQuantity: (productId, quantity) => dispatch({ type: "update", productId, quantity }),
       removeItem: (productId) => dispatch({ type: "remove", productId }),
       clearCart: () => dispatch({ type: "clear" }),

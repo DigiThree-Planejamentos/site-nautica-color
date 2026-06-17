@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
-import { AddToCartButton } from "@/components/cart/AddToCartButton";
+import { CartStepper } from "@/components/cart/CartStepper";
 import { ProductImage } from "@/components/ui/ProductImage";
 import { formatCurrency } from "@/lib/currency";
 import type { Product } from "@/types/catalog";
@@ -29,7 +29,7 @@ export function ProductCard({ product }: { product: Product }) {
           <p className="mt-1 text-xs text-ink/55">Valores demonstrativos sujeitos à confirmação de preço e disponibilidade.</p>
         </div>
         <div className="mt-5 flex items-center gap-2">
-          <AddToCartButton product={product} className="flex-1" />
+          <CartStepper product={product} className="flex-1" />
           <Link
             href={`/produtos/${product.slug}`}
             aria-label={`Ver detalhes de ${product.name}`}
