@@ -23,8 +23,11 @@ export default async function HomePage() {
               Tintas, acabamentos, abrasivos e soluções de alta performance para preservar o valor, a estética e o prestígio do seu barco.
             </p>
             <div className="mt-9 flex animate-fade-up flex-col gap-3 [animation-delay:240ms] sm:flex-row">
-              <LinkButton href="/produtos">Explorar produtos <ArrowRight size={18} aria-hidden="true" /></LinkButton>
-              <a href={supportUrl} target="_blank" rel="noopener noreferrer" className="inline-flex min-h-11 items-center justify-center gap-2 rounded-full bg-white px-5 py-2.5 text-sm font-semibold text-navy hover:bg-off-white">
+              <LinkButton href="/produtos" className="group duration-300 ease-nautica hover:-translate-y-0.5 hover:shadow-soft">
+                Explorar produtos
+                <ArrowRight size={18} aria-hidden="true" className="transition-transform duration-300 ease-nautica group-hover:translate-x-1" />
+              </LinkButton>
+              <a href={supportUrl} target="_blank" rel="noopener noreferrer" className="inline-flex min-h-11 items-center justify-center gap-2 rounded-full bg-white px-5 py-2.5 text-sm font-semibold text-navy transition duration-300 ease-nautica hover:-translate-y-0.5 hover:bg-off-white hover:shadow-soft">
                 <MessageCircle size={18} aria-hidden="true" /> Falar com um especialista
               </a>
             </div>
