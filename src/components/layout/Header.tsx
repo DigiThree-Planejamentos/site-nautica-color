@@ -3,7 +3,7 @@
 /* eslint-disable @next/next/no-img-element */
 
 import Link from "next/link";
-import { motion, useReducedMotion } from "motion/react";
+import { AnimatePresence, motion, useReducedMotion } from "motion/react";
 import { Menu, Phone, ShoppingBasket, X } from "lucide-react";
 import { useState } from "react";
 import { useCart } from "@/hooks/useCart";
@@ -73,15 +73,34 @@ export function Header({ phone }: { phone?: string }) {
             </button>
           </div>
         </div>
-        {open ? (
-          <nav className="border-t border-navy/10 bg-white px-4 py-4 md:hidden" aria-label="Menu mobile">
-            {nav.map((item) => (
-              <Link key={item.href} href={item.href} onClick={() => setOpen(false)} className="block rounded-lg px-3 py-3 font-semibold text-navy hover:bg-off-white">
-                {item.label}
-              </Link>
-            ))}
-          </nav>
-        ) : null}
+        <AnimatePresence initial={false}>
+          {open ? (
+            <motion.nav
+              key="mobile-menu"
+              initial={{ height: 0, opacity: 0 }}
+              animate={{ height: "auto", opacity: 1 }}
+              exit={{ height: 0, opacity: 0 }}
+              transition={{ duration: reduce ? 0 : 0.28, ease: [0.16, 1, 0.3, 1] }}
+              className="overflow-hidden border-t border-navy/10 bg-white md:hidden"
+              aria-label="Menu mobile"
+            >
+              <div className="px-4 py-4">
+                {nav.map((item, index) => (
+                  <motion.div
+                    key={item.href}
+                    initial={reduce ? false : { opacity: 0, x: -8 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ duration: reduce ? 0 : 0.25, ease: [0.16, 1, 0.3, 1], delay: reduce ? 0 : 0.06 + index * 0.05 }}
+                  >
+                    <Link href={item.href} onClick={() => setOpen(false)} className="block rounded-lg px-3 py-3 font-semibold text-navy hover:bg-off-white">
+                      {item.label}
+                    </Link>
+                  </motion.div>
+                ))}
+              </div>
+            </motion.nav>
+          ) : null}
+        </AnimatePresence>
       </header>
     </>
   );
