@@ -31,13 +31,13 @@ export function Header({ phone }: { phone?: string }) {
         </div>
       </div>
       <header className="sticky top-0 z-40 border-b border-navy/10 bg-white/95 backdrop-blur">
-        <div className="mx-auto flex h-20 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
+        <div className="relative mx-auto flex h-20 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
           <Link href="/" className="flex items-center gap-3" aria-label="Náutica Color">
             <img src="/brand/nautica-color-logo.svg" alt="Náutica Color" className="h-12 w-auto" />
           </Link>
-          <nav className="hidden items-center gap-7 md:flex" aria-label="Menu principal">
+          <nav className="absolute left-1/2 hidden -translate-x-1/2 items-center gap-6 md:flex" aria-label="Menu principal">
             {nav.map((item) => (
-              <Link key={item.href} href={item.href} className="text-sm font-semibold text-navy hover:text-red">
+              <Link key={item.href} href={item.href} className="text-xs font-semibold text-navy hover:text-red">
                 {item.label}
               </Link>
             ))}
@@ -92,7 +92,7 @@ export function Header({ phone }: { phone?: string }) {
                     animate={{ opacity: 1, x: 0 }}
                     transition={{ duration: reduce ? 0 : 0.25, ease: [0.16, 1, 0.3, 1], delay: reduce ? 0 : 0.06 + index * 0.05 }}
                   >
-                    <Link href={item.href} onClick={() => setOpen(false)} className="block rounded-lg px-3 py-3 font-semibold text-navy hover:bg-off-white">
+                    <Link href={item.href} onClick={() => setOpen(false)} className="block rounded-lg px-3 py-3 text-center text-xs font-semibold text-navy hover:bg-off-white">
                       {item.label}
                     </Link>
                   </motion.div>
