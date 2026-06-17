@@ -3,6 +3,7 @@
 /* eslint-disable @next/next/no-img-element */
 
 import Link from "next/link";
+import { motion, useReducedMotion } from "motion/react";
 import { Menu, Phone, ShoppingBasket, X } from "lucide-react";
 import { useState } from "react";
 import { useCart } from "@/hooks/useCart";
@@ -17,6 +18,7 @@ const nav = [
 export function Header({ phone }: { phone?: string }) {
   const [open, setOpen] = useState(false);
   const { count, openCart } = useCart();
+  const reduce = useReducedMotion();
 
   return (
     <>
@@ -48,7 +50,17 @@ export function Header({ phone }: { phone?: string }) {
               aria-label="Abrir carrinho de compras"
             >
               <ShoppingBasket size={19} aria-hidden="true" />
-              {count > 0 ? <span className="absolute -right-1 -top-1 grid h-5 min-w-5 place-items-center rounded-full bg-red px-1 text-xs">{count}</span> : null}
+              {count > 0 ? (
+                <motion.span
+                  key={count}
+                  initial={reduce ? false : { scale: 0.4 }}
+                  animate={{ scale: 1 }}
+                  transition={reduce ? { duration: 0 } : { type: "spring", stiffness: 520, damping: 16 }}
+                  className="absolute -right-1 -top-1 grid h-5 min-w-5 place-items-center rounded-full bg-red px-1 text-xs"
+                >
+                  {count}
+                </motion.span>
+              ) : null}
             </button>
             <button
               type="button"
