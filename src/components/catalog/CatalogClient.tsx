@@ -3,8 +3,8 @@
 import { useMemo, useState, useTransition } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { Search, SlidersHorizontal, X } from "lucide-react";
+import { AnimatePresence, motion, useReducedMotion } from "motion/react";
 import { ProductCard } from "@/components/products/ProductCard";
-import { Reveal } from "@/components/ui/Reveal";
 import type { Brand, Category, Product } from "@/types/catalog";
 
 type Sort = "featured" | "price-asc" | "price-desc" | "alpha";
@@ -17,6 +17,8 @@ export function CatalogClient({ products, brands, categories }: { products: Prod
   const [brand, setBrand] = useState(searchParams.get("marca") ?? "");
   const [category, setCategory] = useState(searchParams.get("categoria") ?? "");
   const [sort, setSort] = useState<Sort>((searchParams.get("ordem") as Sort) || "featured");
+  const reduce = useReducedMotion();
+  const ease = [0.16, 1, 0.3, 1] as const;
 
   function updateUrl(next: { q?: string; marca?: string; categoria?: string; ordem?: string }) {
     const params = new URLSearchParams(searchParams.toString());
@@ -127,11 +129,25 @@ export function CatalogClient({ products, brands, categories }: { products: Prod
 
       {filtered.length > 0 ? (
         <div className="mt-6 grid gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-          {filtered.map((product, index) => (
-            <Reveal key={product.id} delay={(index % 4) * 180} className="h-full">
-              <ProductCard product={product} />
-            </Reveal>
-          ))}
+          <AnimatePresence mode="popLayout">
+            {filtered.map((product, index) => (
+              <motion.div
+                key={product.id}
+                layout
+                initial={{ opacity: 0, y: reduce ? 0 : 12 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, scale: reduce ? 1 : 0.95 }}
+                transition={{
+                  duration: reduce ? 0 : 0.3,
+                  ease,
+                  delay: reduce ? 0 : Math.min(index, 8) * 0.03
+                }}
+                className="h-full"
+              >
+                <ProductCard product={product} />
+              </motion.div>
+            ))}
+          </AnimatePresence>
         </div>
       ) : (
         <div className="mt-8 rounded-lg bg-white p-12 text-center shadow-soft">
