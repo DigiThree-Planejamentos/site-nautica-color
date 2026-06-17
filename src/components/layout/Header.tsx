@@ -23,7 +23,7 @@ export function Header({ phone }: { phone?: string }) {
   return (
     <>
       <div className="bg-navy text-white">
-        <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-2 text-xs sm:px-6 lg:px-8">
+        <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-1 text-xs sm:px-6 lg:px-8">
           <span>Marina Verolme, Angra dos Reis - RJ</span>
           <span className="hidden items-center gap-2 sm:flex">
             <Phone size={14} aria-hidden="true" /> {phone || "(24) 2404-4606"}
@@ -31,9 +31,9 @@ export function Header({ phone }: { phone?: string }) {
         </div>
       </div>
       <header className="sticky top-0 z-40 border-b border-navy/10 bg-white/95 backdrop-blur">
-        <div className="relative mx-auto flex h-20 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
+        <div className="relative mx-auto flex h-14 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
           <Link href="/" className="flex items-center gap-3" aria-label="Náutica Color">
-            <img src="/brand/nautica-color-logo.svg" alt="Náutica Color" className="h-12 w-auto" />
+            <img src="/brand/nautica-color-logo.svg" alt="Náutica Color" className="h-9 w-auto" />
           </Link>
           <nav className="absolute left-1/2 hidden -translate-x-1/2 items-center gap-6 md:flex" aria-label="Menu principal">
             {nav.map((item) => (
