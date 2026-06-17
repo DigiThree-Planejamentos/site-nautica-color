@@ -2,6 +2,7 @@ import { Anchor, ArrowRight, Brush, CheckCircle2, MapPin, MessageCircle, Package
 import Link from "next/link";
 import { ProductCard } from "@/components/products/ProductCard";
 import { LinkButton } from "@/components/ui/Button";
+import { Parallax } from "@/components/ui/Parallax";
 import { Reveal } from "@/components/ui/Reveal";
 import { getCatalog } from "@/lib/catalog/get-catalog";
 import { buildSupportMessage, resolveWhatsappNumber, whatsappUrl } from "@/lib/whatsapp";
@@ -28,20 +29,22 @@ export default async function HomePage() {
               </a>
             </div>
           </div>
-          <div className="relative mx-auto aspect-[4/3] w-full max-w-xl animate-fade-up [animation-delay:320ms]">
-            <div className="absolute inset-0 rounded-[42px] bg-white/10" />
-            <div className="absolute left-8 top-10 h-60 w-40 rounded-t-[90px] rounded-b-2xl bg-white p-5 shadow-2xl">
-              <div className="h-24 rounded-t-[70px] bg-red" />
-              <div className="mt-5 h-5 rounded bg-navy" />
-              <div className="mt-3 h-3 w-24 rounded bg-navy/25" />
+          <Parallax>
+            <div className="relative mx-auto aspect-[4/3] w-full max-w-xl animate-fade-up [animation-delay:320ms]">
+              <div className="absolute inset-0 rounded-[42px] bg-white/10" />
+              <div className="absolute left-8 top-10 h-60 w-40 rounded-t-[90px] rounded-b-2xl bg-white p-5 shadow-2xl">
+                <div className="h-24 rounded-t-[70px] bg-red" />
+                <div className="mt-5 h-5 rounded bg-navy" />
+                <div className="mt-3 h-3 w-24 rounded bg-navy/25" />
+              </div>
+              <div className="absolute bottom-10 right-5 h-72 w-52 rounded-t-[110px] rounded-b-2xl bg-white p-6 shadow-2xl">
+                <div className="h-32 rounded-t-[90px] bg-navy-light" />
+                <div className="mt-6 h-5 rounded bg-red" />
+                <div className="mt-3 h-3 w-28 rounded bg-navy/25" />
+              </div>
+              <div className="absolute bottom-20 left-0 right-0 h-24 rounded-[100%] border-b-[18px] border-red" />
             </div>
-            <div className="absolute bottom-10 right-5 h-72 w-52 rounded-t-[110px] rounded-b-2xl bg-white p-6 shadow-2xl">
-              <div className="h-32 rounded-t-[90px] bg-navy-light" />
-              <div className="mt-6 h-5 rounded bg-red" />
-              <div className="mt-3 h-3 w-28 rounded bg-navy/25" />
-            </div>
-            <div className="absolute bottom-20 left-0 right-0 h-24 rounded-[100%] border-b-[18px] border-red" />
-          </div>
+          </Parallax>
         </div>
       </section>
 
