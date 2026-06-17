@@ -4,14 +4,15 @@
 
 import Link from "next/link";
 import { AnimatePresence, motion, useReducedMotion } from "motion/react";
-import { Menu, Phone, ShoppingBasket, X } from "lucide-react";
+import { Menu, MessageCircle, Phone, ShoppingBasket, X } from "lucide-react";
 import { useState } from "react";
 import { useCart } from "@/hooks/useCart";
 
 const nav = [
-  { href: "/", label: "Início" },
   { href: "/produtos", label: "Produtos" },
+  { href: "/#categorias", label: "Categorias" },
   { href: "/#marcas", label: "Marcas" },
+  { href: "/#como-comprar", label: "Como comprar" },
   { href: "/#contato", label: "Contato" }
 ];
 
@@ -35,14 +36,21 @@ export function Header({ phone }: { phone?: string }) {
           <Link href="/" className="flex items-center gap-3" aria-label="Náutica Color">
             <img src="/brand/nautica-color-logo.svg" alt="Náutica Color" className="h-9 w-auto" />
           </Link>
-          <nav className="absolute left-1/2 hidden -translate-x-1/2 items-center gap-6 md:flex" aria-label="Menu principal">
+          <nav className="absolute left-1/2 hidden -translate-x-1/2 items-center gap-5 lg:flex" aria-label="Menu principal">
             {nav.map((item) => (
-              <Link key={item.href} href={item.href} className="text-xs font-semibold text-navy hover:text-red">
+              <Link key={item.href} href={item.href} className="whitespace-nowrap text-xs font-semibold text-navy hover:text-red">
                 {item.label}
               </Link>
             ))}
           </nav>
           <div className="flex items-center gap-2">
+            <Link
+              href="/#como-comprar"
+              className="hidden min-h-10 items-center justify-center gap-2 rounded-full bg-off-white px-4 text-xs font-semibold text-navy hover:bg-navy hover:text-white md:inline-flex"
+            >
+              <MessageCircle size={16} aria-hidden="true" />
+              Orçamento
+            </Link>
             <button
               type="button"
               onClick={openCart}
@@ -85,6 +93,9 @@ export function Header({ phone }: { phone?: string }) {
               aria-label="Menu mobile"
             >
               <div className="px-4 py-4">
+                <Link href="/" onClick={() => setOpen(false)} className="mb-2 block rounded-lg bg-off-white px-3 py-3 text-center text-xs font-semibold text-navy hover:bg-navy hover:text-white">
+                  Início
+                </Link>
                 {nav.map((item, index) => (
                   <motion.div
                     key={item.href}

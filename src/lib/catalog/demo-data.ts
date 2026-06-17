@@ -58,11 +58,11 @@ const imageFor = (sku: string) => {
 
 const rawProducts = [
   ["JOT-SFA-36", "Jotun SeaForce Active 3,6 L", "jotun", "antifouling", 95000, "Galão 3,6 L", true, "Revestimento anti-incrustante para proteção do casco."],
-  ["NOR-T277", "Folha de Lixa dÁgua T277", "norton", "lixas-e-abrasivos", 290, "Unidade", true, "Lixa para trabalhos úmidos em superfícies, primers e compostos."],
+  ["NOR-T277", "Folha de Lixa d'Água T277", "norton", "lixas-e-abrasivos", 290, "Unidade", true, "Lixa para trabalhos úmidos em superfícies, primers e compostos."],
   ["NOR-A275-127", "Disco de Lixa A275 127 mm", "norton", "lixas-e-abrasivos", 161, "Unidade", false, "Disco abrasivo para preparação e acabamento de superfícies."],
   ["NOR-LIQUID-ICE-1", "Massa de Polir Liquid Ice Ultra 1 kg", "norton", "limpeza-protecao-e-polimento", 7307, "Embalagem 1 kg", true, "Massa para corte e remoção de pequenas imperfeições."],
   ["NOR-BOINA-8", "Boina de Espuma Dupla Face 8 polegadas", "norton", "limpeza-protecao-e-polimento", 11418, "Unidade", false, "Boina de espuma para acabamento e polimento."],
-  ["NOR-MASSA-BASE-AGUA", "Massa de Polir Base dÁgua 1 kg", "norton", "limpeza-protecao-e-polimento", 3417, "Embalagem 1 kg", false, "Massa de polir à base dágua para acabamento de superfícies."],
+  ["NOR-MASSA-BASE-AGUA", "Massa de Polir Base d'Água 1 kg", "norton", "limpeza-protecao-e-polimento", 3417, "Embalagem 1 kg", false, "Massa de polir à base d'água para acabamento de superfícies."],
   ["NOR-SPRAY-946", "Spray de Acabamento Liquid Ice 946 ml", "norton", "limpeza-protecao-e-polimento", 12000, "Frasco 946 ml", false, "Spray para limpeza e acabamento após o polimento."],
   ["SIK-AUTOCLEAR-1", "Autoclear Plus HS 1 L", "sikkens", "vernizes-e-acabamentos", 10700, "Lata 1 L", true, "Verniz de alta performance para acabamento e brilho."],
   ["SIK-REDUCER-1", "Plus Reducer Medium 1 L", "sikkens", "vernizes-e-acabamentos", 6600, "Lata 1 L", false, "Diluente universal para diferentes aplicações."],

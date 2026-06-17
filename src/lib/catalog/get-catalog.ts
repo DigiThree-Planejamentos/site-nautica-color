@@ -5,33 +5,53 @@ import { hasSupabaseEnv, supabase } from "@/lib/supabase/public-client";
 import type { CatalogData } from "@/types/catalog";
 
 const siteSlug = process.env.NEXT_PUBLIC_SITE_SLUG || "nautica-color";
+const catalogQueryTimeoutMs = 4000;
+
+function withTimeout<T>(promise: PromiseLike<T>, timeoutMs: number, message: string): Promise<T> {
+  return Promise.race([
+    Promise.resolve(promise),
+    new Promise<T>((_, reject) => {
+      setTimeout(() => reject(new Error(message)), timeoutMs);
+    })
+  ]);
+}
 
 async function fetchCatalog(): Promise<CatalogData> {
   if (!hasSupabaseEnv) return demoCatalog;
 
   try {
-    const { data: siteRow, error: siteError } = await supabase
-      .from("store_sites")
-      .select("*")
-      .eq("slug", siteSlug)
-      .eq("active", true)
-      .single();
+    const { data: siteRow, error: siteError } = await withTimeout(
+      supabase
+        .from("store_sites")
+        .select("*")
+        .eq("slug", siteSlug)
+        .eq("active", true)
+        .single(),
+      catalogQueryTimeoutMs,
+      "Catalog site query timed out."
+    );
 
     if (siteError || !siteRow) throw siteError;
     const site = mapSite(siteRow);
 
-    const [brandsResult, categoriesResult, productsResult, settingsResult] = await Promise.all([
-      supabase.from("store_brands").select("*").eq("site_id", site.id).eq("active", true).order("sort_order"),
-      supabase.from("store_categories").select("*").eq("site_id", site.id).eq("active", true).order("sort_order"),
-      supabase
-        .from("store_products")
-        .select("*, store_brands(*), store_categories(*)")
-        .eq("site_id", site.id)
-        .eq("active", true)
-        .order("featured", { ascending: false })
-        .order("name"),
-      supabase.from("store_settings").select("*").eq("site_id", site.id).eq("is_public", true)
-    ]);
+    const [brandsResult, categoriesResult, productsResult, settingsResult] = await withTimeout(
+      Promise.all([
+        Promise.resolve(supabase.from("store_brands").select("*").eq("site_id", site.id).eq("active", true).order("sort_order")),
+        Promise.resolve(supabase.from("store_categories").select("*").eq("site_id", site.id).eq("active", true).order("sort_order")),
+        Promise.resolve(
+          supabase
+            .from("store_products")
+            .select("*, store_brands(*), store_categories(*)")
+            .eq("site_id", site.id)
+            .eq("active", true)
+            .order("featured", { ascending: false })
+            .order("name")
+        ),
+        Promise.resolve(supabase.from("store_settings").select("*").eq("site_id", site.id).eq("is_public", true))
+      ]),
+      catalogQueryTimeoutMs,
+      "Catalog detail queries timed out."
+    );
 
     if (brandsResult.error) throw brandsResult.error;
     if (categoriesResult.error) throw categoriesResult.error;

@@ -3,8 +3,8 @@
  * entra com um fade + slide-up sutil via CSS (classe .page-enter).
  *
  * Usamos CSS em vez de motion de propósito: a animação CSS roda já no
- * primeiro paint, sem esperar a hidratação — evitando o flash de página
- * invisível que aconteceria com `initial opacity:0` renderizado no SSR.
+ * primeiro paint, sem esperar a hidratação. A opacidade inicial permanece
+ * visível para evitar um frame de página vazia em carregamentos lentos.
  * Por ser CSS puro, pode ser um server component. O prefers-reduced-motion
  * já é neutralizado no globals.css.
  *

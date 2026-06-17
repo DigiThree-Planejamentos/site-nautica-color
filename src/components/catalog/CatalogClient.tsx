@@ -2,7 +2,7 @@
 
 import { useMemo, useState, useTransition } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
-import { Search, SlidersHorizontal, X } from "lucide-react";
+import { ArrowRight, Search, SlidersHorizontal, X } from "lucide-react";
 import { AnimatePresence, motion, useReducedMotion } from "motion/react";
 import { ProductCard } from "@/components/products/ProductCard";
 import type { Brand, Category, Product } from "@/types/catalog";
@@ -19,6 +19,7 @@ export function CatalogClient({ products, brands, categories }: { products: Prod
   const [sort, setSort] = useState<Sort>((searchParams.get("ordem") as Sort) || "featured");
   const reduce = useReducedMotion();
   const ease = [0.16, 1, 0.3, 1] as const;
+  const activeFilters = [query.trim(), brand, category].filter(Boolean).length;
 
   function updateUrl(next: { q?: string; marca?: string; categoria?: string; ordem?: string }) {
     const params = new URLSearchParams(searchParams.toString());
@@ -34,7 +35,7 @@ export function CatalogClient({ products, brands, categories }: { products: Prod
     return products
       .filter((product) => {
         const matchesQuery = normalized
-          ? `${product.name} ${product.sku} ${product.shortDescription}`.toLowerCase().includes(normalized)
+          ? `${product.name} ${product.sku} ${product.shortDescription} ${product.brand?.name ?? ""} ${product.category?.name ?? ""} ${product.tags.join(" ")}`.toLowerCase().includes(normalized)
           : true;
         return matchesQuery && (!brand || product.brand?.slug === brand) && (!category || product.category?.slug === category);
       })
@@ -56,7 +57,49 @@ export function CatalogClient({ products, brands, categories }: { products: Prod
 
   return (
     <section className="mx-auto max-w-7xl px-4 py-10 sm:px-6 lg:px-8">
+      <div className="mb-8 rounded-lg bg-white p-5 shadow-sm">
+        <div className="flex flex-col justify-between gap-4 lg:flex-row lg:items-end">
+          <div>
+            <p className="font-bold uppercase tracking-[0.2em] text-red">Comprar por categoria</p>
+            <h2 className="mt-2 font-heading text-3xl font-extrabold text-navy">Comece pela etapa do serviço.</h2>
+          </div>
+          <p className="max-w-xl text-sm leading-6 text-ink/65">
+            Use os atalhos para filtrar rapidamente e depois refine por marca, termo ou ordenação.
+          </p>
+        </div>
+        <div className="mt-5 flex flex-wrap gap-2">
+          {categories.map((item) => {
+            const selected = category === item.slug;
+            return (
+              <button
+                key={item.id}
+                type="button"
+                onClick={() => {
+                  const next = selected ? "" : item.slug;
+                  setCategory(next);
+                  updateUrl({ categoria: next });
+                }}
+                className={`rounded-full px-4 py-2 text-sm font-semibold transition ${
+                  selected ? "bg-navy text-white" : "bg-sky text-navy hover:bg-navy hover:text-white"
+                }`}
+              >
+                {item.name}
+              </button>
+            );
+          })}
+        </div>
+      </div>
+
       <div className="rounded-lg bg-white p-4 shadow-soft">
+        <div className="mb-4 flex flex-col justify-between gap-2 sm:flex-row sm:items-center">
+          <div>
+            <p className="text-xs font-bold uppercase tracking-[0.2em] text-red">Filtros</p>
+            <h2 className="font-heading text-2xl font-bold text-navy">Refine sua busca</h2>
+          </div>
+          <p className="text-sm font-semibold text-ink/60">
+            {activeFilters > 0 ? `${activeFilters} filtro(s) ativo(s)` : "Nenhum filtro ativo"}
+          </p>
+        </div>
         <div className="grid gap-4 lg:grid-cols-[1.4fr_1fr_1fr_1fr_auto]">
           <label className="relative block">
             <span className="sr-only">Buscar produto</span>
@@ -67,7 +110,7 @@ export function CatalogClient({ products, brands, categories }: { products: Prod
                 setQuery(event.target.value);
                 updateUrl({ q: event.target.value });
               }}
-              placeholder="Buscar por nome, SKU ou aplicação"
+              placeholder="Buscar por nome, SKU, marca ou aplicação"
               className="h-12 w-full rounded-full border border-navy/15 pl-11 pr-4 text-sm"
             />
           </label>
@@ -122,8 +165,11 @@ export function CatalogClient({ products, brands, categories }: { products: Prod
         </div>
       </div>
 
-      <div className="mt-8 flex items-center justify-between gap-4">
-        <p className="font-semibold text-navy">{filtered.length} produto(s) encontrado(s)</p>
+      <div className="mt-8 flex flex-col justify-between gap-4 sm:flex-row sm:items-center">
+        <div>
+          <p className="font-semibold text-navy">{filtered.length} produto(s) encontrado(s)</p>
+          <p className="mt-1 text-sm text-ink/60">Preços demonstrativos. Disponibilidade e aplicação são confirmadas pela equipe.</p>
+        </div>
         {isPending ? <p className="text-sm text-ink/60">Atualizando filtros...</p> : <SlidersHorizontal className="text-red" size={22} aria-hidden="true" />}
       </div>
 
@@ -153,6 +199,9 @@ export function CatalogClient({ products, brands, categories }: { products: Prod
         <div className="mt-8 rounded-lg bg-white p-12 text-center shadow-soft">
           <h2 className="font-heading text-2xl font-bold text-navy">Nenhum produto encontrado.</h2>
           <p className="mt-2 text-ink/70">Tente ajustar os filtros ou fale com a equipe para uma indicação personalizada.</p>
+          <button type="button" onClick={clearFilters} className="mt-6 inline-flex min-h-11 items-center justify-center gap-2 rounded-full bg-red px-5 py-2.5 text-sm font-semibold text-white hover:bg-red-bright">
+            Limpar filtros <ArrowRight size={16} aria-hidden="true" />
+          </button>
         </div>
       )}
     </section>
