@@ -28,7 +28,7 @@ export default async function HomePage() {
         <div aria-hidden="true" className="absolute inset-0 -z-10 bg-gradient-to-b from-navy/85 via-navy/55 to-navy/90" />
 
         <div className="mx-auto flex min-h-[680px] max-w-5xl flex-col items-center px-4 pb-20 pt-24 text-center sm:px-6 lg:px-8">
-          <p className="mb-5 inline-flex animate-fade-up rounded-full bg-white/10 px-4 py-2 text-xs font-semibold text-white">Tudo que seu barco precisa, você encontra aqui.</p>
+          <p className="mb-5 animate-fade-up text-xs font-semibold text-white">Tudo que seu barco precisa, você encontra aqui.</p>
           <h1 className="mx-auto max-w-2xl animate-fade-up font-heading text-3xl font-extrabold leading-[1.1] [animation-delay:80ms] sm:text-4xl lg:text-5xl">Proteção e performance<br />para sua embarcação.</h1>
           <p className="mx-auto mt-5 max-w-lg animate-fade-up text-sm leading-6 text-white/80 [animation-delay:160ms]">
             Tintas, acabamentos, abrasivos e soluções de alta performance para preservar o valor, a estética e o prestígio do seu barco.
