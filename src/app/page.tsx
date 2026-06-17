@@ -15,19 +15,19 @@ export default async function HomePage() {
       <section className="wave-panel bg-navy text-white">
         <div className="relative z-10 mx-auto grid min-h-[680px] max-w-7xl items-center gap-10 px-4 py-16 sm:px-6 lg:grid-cols-[1fr_0.9fr] lg:px-8">
           <div>
-            <p className="mb-5 inline-flex rounded-full bg-white/10 px-4 py-2 text-sm font-semibold text-white">Tudo que seu barco precisa, você encontra aqui.</p>
-            <h1 className="max-w-4xl font-heading text-5xl font-extrabold leading-[1.02] sm:text-6xl lg:text-7xl">Proteção e performance para sua embarcação.</h1>
-            <p className="mt-7 max-w-2xl text-lg leading-8 text-white/78">
+            <p className="mb-5 inline-flex animate-fade-up rounded-full bg-white/10 px-4 py-2 text-sm font-semibold text-white">Tudo que seu barco precisa, você encontra aqui.</p>
+            <h1 className="max-w-4xl animate-fade-up font-heading text-5xl font-extrabold leading-[1.02] [animation-delay:80ms] sm:text-6xl lg:text-7xl">Proteção e performance para sua embarcação.</h1>
+            <p className="mt-7 max-w-2xl animate-fade-up text-lg leading-8 text-white/78 [animation-delay:160ms]">
               Tintas, acabamentos, abrasivos e soluções de alta performance para preservar o valor, a estética e o prestígio do seu barco.
             </p>
-            <div className="mt-9 flex flex-col gap-3 sm:flex-row">
+            <div className="mt-9 flex animate-fade-up flex-col gap-3 [animation-delay:240ms] sm:flex-row">
               <LinkButton href="/produtos">Explorar produtos <ArrowRight size={18} aria-hidden="true" /></LinkButton>
               <a href={supportUrl} target="_blank" rel="noopener noreferrer" className="inline-flex min-h-11 items-center justify-center gap-2 rounded-full bg-white px-5 py-2.5 text-sm font-semibold text-navy hover:bg-off-white">
                 <MessageCircle size={18} aria-hidden="true" /> Falar com um especialista
               </a>
             </div>
           </div>
-          <div className="relative mx-auto aspect-[4/3] w-full max-w-xl">
+          <div className="relative mx-auto aspect-[4/3] w-full max-w-xl animate-fade-up [animation-delay:320ms]">
             <div className="absolute inset-0 rounded-[42px] bg-white/10" />
             <div className="absolute left-8 top-10 h-60 w-40 rounded-t-[90px] rounded-b-2xl bg-white p-5 shadow-2xl">
               <div className="h-24 rounded-t-[70px] bg-red" />
