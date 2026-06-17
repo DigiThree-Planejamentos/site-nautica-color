@@ -54,6 +54,11 @@ select {
   animation: page-enter 0.5s cubic-bezier(0.16, 1, 0.3, 1) both;
 }
 
+/* Âncoras param abaixo do header sticky (~80px) ao navegar para #id */
+section[id] {
+  scroll-margin-top: 6rem;
+}
+
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,
