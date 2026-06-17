@@ -18,6 +18,19 @@ const config: Config = {
         heading: ["var(--font-poppins)", "sans-serif"],
         body: ["var(--font-inter)", "sans-serif"]
       },
+      fontSize: {
+        xs: ["0.75rem", { lineHeight: "1rem" }],
+        sm: ["0.8125rem", { lineHeight: "1.25rem" }],
+        base: ["0.9375rem", { lineHeight: "1.5rem" }],
+        lg: ["1.0625rem", { lineHeight: "1.6rem" }],
+        xl: ["1.1875rem", { lineHeight: "1.7rem" }],
+        "2xl": ["1.375rem", { lineHeight: "1.9rem" }],
+        "3xl": ["1.625rem", { lineHeight: "2.05rem" }],
+        "4xl": ["1.9375rem", { lineHeight: "2.25rem" }],
+        "5xl": ["2.5rem", { lineHeight: "1.05" }],
+        "6xl": ["3.125rem", { lineHeight: "1.05" }],
+        "7xl": ["3.625rem", { lineHeight: "1.02" }]
+      },
       boxShadow: {
         soft: "0 18px 60px rgba(0, 38, 89, 0.12)"
       },

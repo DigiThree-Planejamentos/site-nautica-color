@@ -1,6 +1,7 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+/* escala tipografica reduzida definida em tailwind.config.ts */
 
 :root {
   --navy: #002659;
