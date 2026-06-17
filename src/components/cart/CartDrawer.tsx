@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { AnimatePresence, motion, useReducedMotion } from "motion/react";
 import { MessageCircle, ShoppingBasket, Trash2, X } from "lucide-react";
 import { QuantityPicker } from "@/components/cart/QuantityPicker";
 import { Button } from "@/components/ui/Button";
@@ -12,13 +13,35 @@ import { buildQuoteMessage, resolveWhatsappNumber, whatsappUrl } from "@/lib/wha
 export function CartDrawer({ settings }: { settings: Record<string, string> }) {
   const { items, isOpen, count, totalCents, updateQuantity, removeItem, clearCart, closeCart, openCart } = useCart();
   const quoteHref = whatsappUrl(buildQuoteMessage(items), resolveWhatsappNumber(settings));
+  const reduce = useReducedMotion();
+  const ease = [0.16, 1, 0.3, 1] as const;
 
   return (
     <>
-      {isOpen ? (
-        <div className="fixed inset-0 z-50" role="dialog" aria-modal="true" aria-label="Carrinho de compras">
-          <button className="absolute inset-0 bg-ink/55" aria-label="Fechar carrinho" onClick={closeCart} />
-          <aside className="absolute right-0 top-0 flex h-full w-full max-w-md flex-col bg-white shadow-2xl">
+      <AnimatePresence>
+        {isOpen ? (
+          <motion.div
+            className="fixed inset-0 z-50"
+            role="dialog"
+            aria-modal="true"
+            aria-label="Carrinho de compras"
+          >
+            <motion.button
+              className="absolute inset-0 bg-ink/55"
+              aria-label="Fechar carrinho"
+              onClick={closeCart}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: reduce ? 0 : 0.25 }}
+            />
+            <motion.aside
+              className="absolute right-0 top-0 flex h-full w-full max-w-md flex-col bg-white shadow-2xl"
+              initial={reduce ? { opacity: 0 } : { x: "100%" }}
+              animate={reduce ? { opacity: 1 } : { x: 0 }}
+              exit={reduce ? { opacity: 0 } : { x: "100%" }}
+              transition={{ type: "tween", duration: reduce ? 0 : 0.3, ease }}
+            >
             <header className="flex items-center justify-between border-b border-navy/10 p-5">
               <div>
                 <p className="text-sm font-semibold uppercase tracking-[0.2em] text-red">Carrinho de compras</p>
@@ -96,20 +119,27 @@ export function CartDrawer({ settings }: { settings: Record<string, string> }) {
                 ) : null}
               </div>
             </footer>
-          </aside>
-        </div>
-      ) : null}
+          </motion.aside>
+        </motion.div>
+        ) : null}
+      </AnimatePresence>
 
-      {count > 0 ? (
-        <button
-          type="button"
-          onClick={openCart}
-          className="fixed bottom-4 left-4 right-4 z-40 inline-flex min-h-12 items-center justify-center gap-2 rounded-full bg-red px-5 py-3 text-sm font-bold text-white shadow-soft sm:hidden"
-        >
-          <ShoppingBasket size={18} aria-hidden="true" />
-          Carrinho • {formatCurrency(totalCents)}
-        </button>
-      ) : null}
+      <AnimatePresence>
+        {count > 0 ? (
+          <motion.button
+            type="button"
+            onClick={openCart}
+            className="fixed bottom-4 left-4 right-4 z-40 inline-flex min-h-12 items-center justify-center gap-2 rounded-full bg-red px-5 py-3 text-sm font-bold text-white shadow-soft sm:hidden"
+            initial={reduce ? { opacity: 0 } : { y: 80, opacity: 0 }}
+            animate={reduce ? { opacity: 1 } : { y: 0, opacity: 1 }}
+            exit={reduce ? { opacity: 0 } : { y: 80, opacity: 0 }}
+            transition={{ type: "tween", duration: reduce ? 0 : 0.3, ease }}
+          >
+            <ShoppingBasket size={18} aria-hidden="true" />
+            Carrinho • {formatCurrency(totalCents)}
+          </motion.button>
+        ) : null}
+      </AnimatePresence>
     </>
   );
 }
