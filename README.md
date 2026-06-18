@@ -84,6 +84,8 @@ As imagens atuais são placeholders SVG locais em `public/products/placeholders`
 
 Veja `docs/DEPLOY_VERCEL.md`. O projeto está preparado para deploy automático na Vercel após push para a branch principal.
 
+Checklist de validação: `docs/PRODUCTION_CHECKLIST.md`.
+
 ## Futuro painel administrativo
 
 Veja `docs/ADMIN_ROADMAP.md`. O painel deverá usar Supabase Auth, RLS e nunca expor chaves administrativas no navegador.
