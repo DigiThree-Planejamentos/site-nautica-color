@@ -32,7 +32,13 @@ NEXT_PUBLIC_SITE_URL=https://seu-dominio
 
 ## 5. Primeiro deploy
 
-Clique em **Deploy**. O build esperado é `npm run build`.
+Antes de publicar, rode localmente:
+
+```bash
+npm run verify
+```
+
+Clique em **Deploy**. O build esperado na Vercel é `npm run build`, também fixado em `vercel.json`.
 
 ## 6. Domínio
 
