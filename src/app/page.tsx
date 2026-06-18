@@ -18,16 +18,13 @@ import { FeaturedCarousel } from "@/components/products/FeaturedCarousel";
 import { Eyebrow } from "@/components/ui/Eyebrow";
 import { Reveal } from "@/components/ui/Reveal";
 import { getCatalog } from "@/lib/catalog/get-catalog";
+import { productPhotos } from "@/lib/catalog/product-photos";
 import { buildSupportMessage, resolveWhatsappNumber, whatsappUrl } from "@/lib/whatsapp";
 
 export default async function HomePage() {
   const { brands, categories, products, settings } = await getCatalog();
-  // Foto real por produto (tem prioridade). O resto recebe fotos APENAS
-  // DEMONSTRATIVAS distribuídas por índice. Aplicado aqui na home para funcionar
-  // tanto com o Supabase quanto com o demo.
-  const productPhotos: Record<string, string> = {
-    "folha-de-lixa-dagua-t277": "/products/examples/lixa-norton.png"
-  };
+  // Produtos com foto real (vinda do catálogo, via productPhotos) ficam como
+  // estão. Os demais recebem fotos APENAS DEMONSTRATIVAS distribuídas por índice.
   const examplePhotos = [
     "/products/examples/weg-tinta-galao.png",
     "/products/examples/3m-finesse-it-polish.png",
