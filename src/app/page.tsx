@@ -14,7 +14,7 @@ import {
 import type { LucideIcon } from "lucide-react";
 import Link from "next/link";
 import { HeroSearch } from "@/components/home/HeroSearch";
-import { ProductCard } from "@/components/products/ProductCard";
+import { FeaturedCarousel } from "@/components/products/FeaturedCarousel";
 import { Eyebrow } from "@/components/ui/Eyebrow";
 import { Reveal } from "@/components/ui/Reveal";
 import { getCatalog } from "@/lib/catalog/get-catalog";
@@ -142,12 +142,8 @@ export default async function HomePage() {
               Ver todos os produtos <ArrowRight size={16} aria-hidden="true" />
             </Link>
           </div>
-          <div className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
-            {featured.map((product, index) => (
-              <Reveal key={product.id} delay={(index % 4) * 180} className="h-full">
-                <ProductCard product={product} />
-              </Reveal>
-            ))}
+          <div className="mt-10">
+            <FeaturedCarousel products={featured} />
           </div>
         </div>
       </section>

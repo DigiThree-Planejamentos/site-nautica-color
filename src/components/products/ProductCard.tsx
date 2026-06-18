@@ -5,7 +5,7 @@ import { ProductImage } from "@/components/ui/ProductImage";
 import { formatCurrency } from "@/lib/currency";
 import type { Product } from "@/types/catalog";
 
-export function ProductCard({ product }: { product: Product }) {
+export function ProductCard({ product, compact = false }: { product: Product; compact?: boolean }) {
   const stockLabel = product.stockStatus === "available" ? "Disponível" : product.stockStatus === "unavailable" ? "Indisponível" : "Sob consulta";
   const stockBadge = product.stockStatus === "unavailable" ? "bg-red text-white" : "bg-white text-navy shadow-sm";
 
@@ -13,7 +13,7 @@ export function ProductCard({ product }: { product: Product }) {
     <article className="group flex h-full flex-col rounded-[28px] border border-navy/10 bg-white p-3 shadow-sm transition hover:-translate-y-1 hover:border-red/20 hover:shadow-soft">
       <Link
         href={`/produtos/${product.slug}`}
-        className="relative block overflow-hidden rounded-3xl bg-sky p-6 transition group-hover:bg-mist"
+        className={`relative block overflow-hidden rounded-3xl bg-sky transition group-hover:bg-mist ${compact ? "p-4" : "p-6"}`}
       >
         <span className={`absolute right-3 top-3 rounded-full px-2.5 py-1 text-[11px] font-semibold ${stockBadge}`}>
           {stockLabel}
@@ -21,7 +21,7 @@ export function ProductCard({ product }: { product: Product }) {
         <ProductImage
           src={product.imageUrl}
           alt={product.name}
-          className="mx-auto h-44 w-full object-contain transition-transform duration-300 ease-nautica group-hover:scale-105"
+          className={`mx-auto w-full object-contain transition-transform duration-300 ease-nautica group-hover:scale-105 ${compact ? "h-28" : "h-44"}`}
         />
       </Link>
       <div className="mt-4 flex flex-1 flex-col px-2">
@@ -31,14 +31,14 @@ export function ProductCard({ product }: { product: Product }) {
             <span className="text-xs font-semibold text-ink/45">· {product.category.name}</span>
           ) : null}
         </div>
-        <h2 className="mt-1.5 font-heading text-lg font-bold leading-tight text-navy">
+        <h2 className={`mt-1.5 font-heading font-bold leading-tight text-navy ${compact ? "text-base" : "text-lg"}`}>
           <Link href={`/produtos/${product.slug}`} className="hover:text-red">{product.name}</Link>
         </h2>
-        <p className="mt-2 flex-1 text-sm leading-6 text-ink/70">{product.shortDescription}</p>
+        <p className={`mt-2 flex-1 text-sm leading-6 text-ink/70 ${compact ? "line-clamp-2" : ""}`}>{product.shortDescription}</p>
         <div className="mt-4 flex items-end justify-between gap-2 border-t border-navy/10 pt-4">
           <div>
             <p className="text-[11px] font-semibold uppercase tracking-wide text-ink/45">Preço de referência</p>
-            <p className="mt-0.5 font-heading text-2xl font-bold text-ink">{formatCurrency(product.priceCents)}</p>
+            <p className={`mt-0.5 font-heading font-bold text-ink ${compact ? "text-xl" : "text-2xl"}`}>{formatCurrency(product.priceCents)}</p>
           </div>
           <span className="pb-1 text-xs font-semibold text-ink/55">{product.unit}</span>
         </div>
