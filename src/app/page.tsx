@@ -22,13 +22,13 @@ import { buildSupportMessage, resolveWhatsappNumber, whatsappUrl } from "@/lib/w
 
 export default async function HomePage() {
   const { brands, categories, products, settings } = await getCatalog();
-  // Imagens de exemplo (artes de feed) em alguns destaques, só para demonstração.
-  // Aplicado por slug aqui na home para funcionar com Supabase e com o demo.
-  // TODO: trocar por fotos de produto isoladas (fundo transparente) quando houver.
+  // Fotos de produto de exemplo em alguns destaques, aplicadas por slug aqui na
+  // home para funcionar tanto com o Supabase quanto com o demo.
   const exampleImages: Record<string, string> = {
-    "jotun-seaforce-active-3-6-l": "/products/examples/exemplo-antifouling.png",
-    "autoclear-plus-hs-1-l": "/products/examples/exemplo-linha-produtos.png",
-    "primer-pu-5100-com-catalisador": "/products/examples/exemplo-atendimento.png"
+    "massa-de-polir-liquid-ice-ultra-1-kg": "/products/examples/3m-finesse-it-polish.png",
+    "jotun-seaforce-active-3-6-l": "/products/examples/weg-tinta-galao.png",
+    "autoclear-plus-hs-1-l": "/products/examples/weg-diluente.png",
+    "primer-pu-5100-com-catalisador": "/products/examples/sikaflex-295-uv.png"
   };
   const featured = products
     .filter((product) => product.featured)
