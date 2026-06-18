@@ -250,7 +250,7 @@ export function CatalogClient({
                 }}
                 className="h-full"
               >
-                <ProductCard product={product} />
+                <ProductCard product={product} compact />
               </motion.div>
             ))}
           </AnimatePresence>

@@ -61,7 +61,7 @@ export function FeaturedCarousel({ products }: { products: Product[] }) {
       >
         {products.map((product) => (
           <div key={product.id} className="w-[70%] shrink-0 snap-start sm:w-56 lg:w-52">
-            <ProductCard product={product} compact />
+            <ProductCard product={product} compact showDetailsButton />
           </div>
         ))}
       </div>

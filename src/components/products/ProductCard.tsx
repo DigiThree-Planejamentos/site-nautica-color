@@ -5,7 +5,15 @@ import { ProductImage } from "@/components/ui/ProductImage";
 import { formatCurrency } from "@/lib/currency";
 import type { Product } from "@/types/catalog";
 
-export function ProductCard({ product, compact = false }: { product: Product; compact?: boolean }) {
+export function ProductCard({
+  product,
+  compact = false,
+  showDetailsButton = false
+}: {
+  product: Product;
+  compact?: boolean;
+  showDetailsButton?: boolean;
+}) {
   const stockLabel = product.stockStatus === "available" ? "Disponível" : product.stockStatus === "unavailable" ? "Indisponível" : "Sob consulta";
   const stockBadge = product.stockStatus === "unavailable" ? "bg-red text-white" : "bg-white text-navy shadow-sm";
 
@@ -30,12 +38,14 @@ export function ProductCard({ product, compact = false }: { product: Product; co
           <h2 className="line-clamp-2 font-heading text-sm font-bold leading-tight text-navy">
             <Link href={`/produtos/${product.slug}`} className="hover:text-red">{product.name}</Link>
           </h2>
-          <Link
-            href={`/produtos/${product.slug}`}
-            className="mt-3 inline-flex min-h-10 items-center justify-center gap-2 rounded-full bg-navy px-4 text-sm font-semibold text-white transition hover:bg-red"
-          >
-            Ver detalhes <ArrowRight size={16} aria-hidden="true" />
-          </Link>
+          {showDetailsButton ? (
+            <Link
+              href={`/produtos/${product.slug}`}
+              className="mt-3 inline-flex min-h-10 items-center justify-center gap-2 rounded-full bg-navy px-4 text-sm font-semibold text-white transition hover:bg-red"
+            >
+              Ver detalhes <ArrowRight size={16} aria-hidden="true" />
+            </Link>
+          ) : null}
         </div>
       ) : (
         <div className="mt-4 flex flex-1 flex-col px-2">
