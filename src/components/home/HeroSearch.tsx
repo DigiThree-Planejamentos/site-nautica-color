@@ -53,7 +53,7 @@ export function HeroSearch({ categories }: { categories: Category[] }) {
           <Link
             key={category.id}
             href={`/produtos?categoria=${category.slug}`}
-            className="rounded-full border border-white/25 bg-white/10 px-3.5 py-1.5 text-xs font-semibold text-white backdrop-blur transition hover:bg-white hover:text-navy"
+            className="rounded-full border border-white/25 bg-white/10 px-3 py-1 text-[11px] font-semibold text-white backdrop-blur transition hover:bg-white hover:text-navy"
           >
             {category.name}
           </Link>

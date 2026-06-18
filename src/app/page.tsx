@@ -97,7 +97,7 @@ export default async function HomePage() {
 
         <div className="mx-auto flex min-h-[600px] max-w-7xl flex-col items-center justify-center gap-8 px-4 pb-28 pt-24 text-center sm:px-6 lg:px-8">
           <div className="mx-auto max-w-3xl">
-            <p className="mb-5 inline-flex animate-fade-up items-center gap-2 rounded-full border border-white/15 bg-white/5 px-3 py-1 text-xs font-semibold uppercase tracking-[0.2em] text-white/80">
+            <p className="mb-5 inline-flex animate-fade-up items-center gap-2 text-xs font-semibold uppercase tracking-[0.2em] text-red">
               <Anchor size={14} aria-hidden="true" /> Náutica Color
             </p>
             <h1 className="animate-fade-up font-heading text-3xl font-extrabold leading-[1.1] [animation-delay:80ms] sm:text-4xl lg:text-5xl">
