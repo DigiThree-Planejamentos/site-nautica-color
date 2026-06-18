@@ -42,12 +42,12 @@ export default async function HomePage() {
           Foto de fundo do hero (full-bleed).
           TODO(admin): a imagem será gerenciada pelo futuro painel administrativo,
           via a configuração `hero_image_url` (store_settings). Enquanto o admin não
-          existir, cai no arquivo local /hero/hero.jpg e, na falta dele, no fundo navy.
+          existir, cai na foto local da fachada e, na falta dela, no fundo navy.
         */}
         <div
           aria-hidden="true"
           className="absolute inset-0 -z-20 bg-navy bg-cover bg-center"
-          style={{ backgroundImage: `url('${settings.hero_image_url || "/hero/hero.jpg"}')` }}
+          style={{ backgroundImage: `url('${settings.hero_image_url || "/hero/fachada-nautica.png"}')` }}
         />
         {/* Overlay para legibilidade do texto sobre a foto */}
         <div aria-hidden="true" className="absolute inset-0 -z-10 bg-gradient-to-br from-navy/95 via-navy/70 to-navy-light/55" />
