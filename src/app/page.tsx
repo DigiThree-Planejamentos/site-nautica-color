@@ -22,9 +22,12 @@ import { buildSupportMessage, resolveWhatsappNumber, whatsappUrl } from "@/lib/w
 
 export default async function HomePage() {
   const { brands, categories, products, settings } = await getCatalog();
-  // Fotos APENAS DEMONSTRATIVAS, distribuídas em todos os cards de destaque.
-  // Aplicadas aqui na home (por índice) para funcionar com o Supabase e o demo.
-  // TODO: substituir pela foto real de cada produto quando houver.
+  // Foto real por produto (tem prioridade). O resto recebe fotos APENAS
+  // DEMONSTRATIVAS distribuídas por índice. Aplicado aqui na home para funcionar
+  // tanto com o Supabase quanto com o demo.
+  const productPhotos: Record<string, string> = {
+    "folha-de-lixa-dagua-t277": "/products/examples/lixa-norton.png"
+  };
   const examplePhotos = [
     "/products/examples/weg-tinta-galao.png",
     "/products/examples/3m-finesse-it-polish.png",
@@ -34,7 +37,10 @@ export default async function HomePage() {
   const featured = products
     .filter((product) => product.featured)
     .slice(0, 8)
-    .map((product, index) => ({ ...product, imageUrl: examplePhotos[index % examplePhotos.length] }));
+    .map((product, index) => ({
+      ...product,
+      imageUrl: productPhotos[product.slug] ?? examplePhotos[index % examplePhotos.length]
+    }));
   const supportUrl = whatsappUrl(buildSupportMessage(), resolveWhatsappNumber(settings));
   // Identidade visual por categoria (ícone + descrição), com fallback seguro
   // para slugs que não estiverem mapeados.
