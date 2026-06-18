@@ -46,16 +46,7 @@ export const demoCategories: Category[] = [
   sortOrder: index + 1
 }));
 
-// Imagens de exemplo (artes de feed) em alguns destaques, só para demonstração.
-// TODO: substituir por fotos de produto isoladas (fundo transparente) quando houver.
-const exampleImages: Record<string, string> = {
-  "JOT-SFA-36": "/products/examples/exemplo-antifouling.png",
-  "SIK-AUTOCLEAR-1": "/products/examples/exemplo-linha-produtos.png",
-  "WAN-PRIMER-5100": "/products/examples/exemplo-atendimento.png"
-};
-
 const imageFor = (sku: string) => {
-  if (exampleImages[sku]) return exampleImages[sku];
   if (sku.includes("T277")) return "/products/placeholders/folha-lixa.svg";
   if (sku.includes("A275")) return "/products/placeholders/disco-lixa.svg";
   if (sku.includes("BOINA")) return "/products/placeholders/boina.svg";

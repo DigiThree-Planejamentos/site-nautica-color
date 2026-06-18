@@ -22,7 +22,18 @@ import { buildSupportMessage, resolveWhatsappNumber, whatsappUrl } from "@/lib/w
 
 export default async function HomePage() {
   const { brands, categories, products, settings } = await getCatalog();
-  const featured = products.filter((product) => product.featured).slice(0, 8);
+  // Imagens de exemplo (artes de feed) em alguns destaques, só para demonstração.
+  // Aplicado por slug aqui na home para funcionar com Supabase e com o demo.
+  // TODO: trocar por fotos de produto isoladas (fundo transparente) quando houver.
+  const exampleImages: Record<string, string> = {
+    "jotun-seaforce-active-3-6-l": "/products/examples/exemplo-antifouling.png",
+    "autoclear-plus-hs-1-l": "/products/examples/exemplo-linha-produtos.png",
+    "primer-pu-5100-com-catalisador": "/products/examples/exemplo-atendimento.png"
+  };
+  const featured = products
+    .filter((product) => product.featured)
+    .slice(0, 8)
+    .map((product) => (exampleImages[product.slug] ? { ...product, imageUrl: exampleImages[product.slug] } : product));
   const supportUrl = whatsappUrl(buildSupportMessage(), resolveWhatsappNumber(settings));
   // Identidade visual por categoria (ícone + descrição), com fallback seguro
   // para slugs que não estiverem mapeados.
