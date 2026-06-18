@@ -84,10 +84,10 @@ export default async function HomePage() {
           </div>
         </div>
 
-        {/* Divisor de onda náutico para o conteúdo branco abaixo */}
-        <div aria-hidden="true" className="pointer-events-none absolute inset-x-0 bottom-0 z-0">
-          <svg viewBox="0 0 1440 120" preserveAspectRatio="none" className="h-10 w-full sm:h-16">
-            <path fill="#ffffff" d="M0,72 C240,120 480,24 720,48 C960,72 1200,128 1440,80 L1440,120 L0,120 Z" />
+        {/* Onda náutica viajando para a esquerda (loop tileável) */}
+        <div aria-hidden="true" className="pointer-events-none absolute inset-x-0 bottom-0 z-0 overflow-hidden">
+          <svg viewBox="0 0 2880 120" preserveAspectRatio="none" className="h-10 w-[200%] animate-wave sm:h-16">
+            <path fill="#ffffff" d="M0,50 C360,100 1080,0 1440,50 C1800,100 2520,0 2880,50 L2880,120 L0,120 Z" />
           </svg>
         </div>
       </section>

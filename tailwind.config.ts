@@ -41,10 +41,16 @@ const config: Config = {
         "fade-up": {
           "0%": { opacity: "0", transform: "translateY(18px)" },
           "100%": { opacity: "1", transform: "translateY(0)" }
+        },
+        "wave-scroll": {
+          from: { transform: "translateX(0)" },
+          to: { transform: "translateX(-50%)" }
         }
       },
       animation: {
-        "fade-up": "fade-up 0.6s cubic-bezier(0.16, 1, 0.3, 1) both"
+        "fade-up": "fade-up 0.6s cubic-bezier(0.16, 1, 0.3, 1) both",
+        wave: "wave-scroll 16s linear infinite",
+        "wave-slow": "wave-scroll 24s linear infinite"
       }
     }
   },

@@ -112,10 +112,10 @@ export function Header({ phone }: { phone?: string }) {
             </motion.nav>
           ) : null}
         </AnimatePresence>
-        {/* Onda na base do header, mesmo motivo do hero da home */}
-        <div aria-hidden="true" className="pointer-events-none absolute inset-x-0 bottom-0 translate-y-full">
-          <svg viewBox="0 0 1440 120" preserveAspectRatio="none" className="h-3 w-full rotate-180 sm:h-4">
-            <path fill="#ffffff" d="M0,72 C240,120 480,24 720,48 C960,72 1200,128 1440,80 L1440,120 L0,120 Z" />
+        {/* Onda na base do header viajando para a esquerda (loop tileável) */}
+        <div aria-hidden="true" className="pointer-events-none absolute inset-x-0 bottom-0 translate-y-full overflow-hidden">
+          <svg viewBox="0 0 2880 120" preserveAspectRatio="none" className="h-3 w-[200%] animate-wave-slow sm:h-4">
+            <path fill="#ffffff" d="M0,70 C360,20 1080,120 1440,70 C1800,20 2520,120 2880,70 L2880,0 L0,0 Z" />
           </svg>
         </div>
       </header>
