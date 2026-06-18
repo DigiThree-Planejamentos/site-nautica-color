@@ -7,6 +7,7 @@ Use este checklist antes de publicar ou apresentar a versao final da Nautica Col
 - Rodar `npm run lint`.
 - Rodar `npm run typecheck`.
 - Rodar `npm run build`.
+- Ou rodar `npm run verify` para executar lint, typecheck e build em sequencia.
 - Abrir a home e conferir header, hero, categorias, destaques, marcas, contato e footer.
 - Abrir `/produtos` e testar busca, filtro por categoria, filtro por marca, ordenacao e limpar filtros.
 - Abrir ao menos uma pagina de produto e conferir imagem, preco de referencia, especificacoes, CTA de carrinho e CTA de WhatsApp.
