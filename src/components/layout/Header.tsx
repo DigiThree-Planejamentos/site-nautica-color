@@ -31,7 +31,7 @@ export function Header({ phone }: { phone?: string }) {
           </span>
         </div>
       </div>
-      <header className="sticky top-0 z-40 border-b border-navy/10 bg-white/95 backdrop-blur">
+      <header className="sticky top-0 z-40 bg-white/95 backdrop-blur">
         <div className="relative mx-auto flex h-14 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
           <Link href="/" className="flex items-center gap-3" aria-label="Náutica Color">
             <img src="/brand/nautica-color-logo.svg" alt="Náutica Color" className="h-9 w-auto" />
@@ -112,6 +112,12 @@ export function Header({ phone }: { phone?: string }) {
             </motion.nav>
           ) : null}
         </AnimatePresence>
+        {/* Onda na base do header, mesmo motivo do hero da home */}
+        <div aria-hidden="true" className="pointer-events-none absolute inset-x-0 bottom-0 translate-y-full">
+          <svg viewBox="0 0 1440 120" preserveAspectRatio="none" className="h-3 w-full rotate-180 sm:h-4">
+            <path fill="#ffffff" d="M0,72 C240,120 480,24 720,48 C960,72 1200,128 1440,80 L1440,120 L0,120 Z" />
+          </svg>
+        </div>
       </header>
     </>
   );
