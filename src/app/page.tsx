@@ -102,22 +102,22 @@ export default async function HomePage() {
               Ver catálogo completo <ArrowRight size={16} aria-hidden="true" />
             </Link>
           </div>
-          <div className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+          <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
             {categories.map((category, index) => {
               const meta = categoryMeta[category.slug];
               const Icon = meta?.icon ?? Anchor;
               return (
                 <Reveal key={category.id} delay={(index % 3) * 200} className="h-full">
-                  <Link href={`/produtos?categoria=${category.slug}`} className="group relative flex h-full flex-col overflow-hidden rounded-lg bg-white p-7 shadow-sm ring-1 ring-navy/5 transition-all hover:-translate-y-1 hover:shadow-soft hover:ring-red/20">
+                  <Link href={`/produtos?categoria=${category.slug}`} className="group relative flex h-full flex-col overflow-hidden rounded-lg bg-white p-5 shadow-sm ring-1 ring-navy/5 transition-all hover:-translate-y-1 hover:shadow-soft hover:ring-red/20">
                     <span aria-hidden="true" className="absolute inset-x-0 top-0 h-1 origin-left scale-x-0 bg-red transition-transform duration-300 ease-nautica group-hover:scale-x-100" />
-                    <span className="grid h-14 w-14 place-items-center rounded-2xl bg-sky text-navy transition-colors group-hover:bg-navy group-hover:text-white">
-                      <Icon size={26} aria-hidden="true" />
+                    <span className="grid h-11 w-11 place-items-center rounded-xl bg-sky text-navy transition-colors group-hover:bg-navy group-hover:text-white">
+                      <Icon size={22} aria-hidden="true" />
                     </span>
-                    <h3 className="mt-5 font-heading text-2xl font-bold text-navy group-hover:text-red">{category.name}</h3>
-                    <p className="mt-3 flex-1 text-sm leading-6 text-ink/65">
+                    <h3 className="mt-4 font-heading text-lg font-bold text-navy group-hover:text-red">{category.name}</h3>
+                    <p className="mt-2 flex-1 text-sm leading-6 text-ink/65">
                       {meta?.blurb ?? "Ver produtos, marcas e opções disponíveis para essa linha."}
                     </p>
-                    <span className="mt-6 inline-flex items-center gap-2 text-sm font-semibold text-red">
+                    <span className="mt-4 inline-flex items-center gap-2 text-sm font-semibold text-red">
                       Explorar <ArrowRight size={16} className="transition-transform group-hover:translate-x-1" aria-hidden="true" />
                     </span>
                   </Link>
