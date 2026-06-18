@@ -34,7 +34,7 @@ export function Header({ phone }: { phone?: string }) {
       <header className="sticky top-0 z-40 bg-white/95 backdrop-blur">
         <div className="relative mx-auto flex h-14 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
           <Link href="/" className="flex items-center gap-3" aria-label="Náutica Color">
-            <img src="/brand/nautica-color-logo.svg" alt="Náutica Color" className="h-9 w-auto" />
+            <img src="/brand/nautica-color-logo.png" alt="Náutica Color" className="h-10 w-auto" />
           </Link>
           <nav className="absolute left-1/2 hidden -translate-x-1/2 items-center gap-5 lg:flex" aria-label="Menu principal">
             {nav.map((item) => (

@@ -23,7 +23,13 @@ export const metadata: Metadata = {
     locale: "pt_BR",
     type: "website"
   },
-  icons: { icon: "/favicon.svg" }
+  icons: {
+    icon: [
+      { url: "/favicon.ico", sizes: "any" },
+      { url: "/favicon.png", type: "image/png" }
+    ],
+    apple: "/favicon.png"
+  }
 };
 
 export default async function RootLayout({ children }: { children: React.ReactNode }) {

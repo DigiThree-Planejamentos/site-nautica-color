@@ -21,7 +21,7 @@ export function Footer({ settings }: { settings: Record<string, string> }) {
     <footer className="bg-navy text-white">
       <div className="mx-auto grid max-w-7xl gap-8 px-4 py-12 sm:px-6 md:grid-cols-2 lg:grid-cols-[1.4fr_0.9fr_1fr_1fr] lg:px-8">
         <div>
-          <img src="/brand/nautica-color-logo-light.svg" alt="Náutica Color" className="h-14 w-auto" />
+          <img src="/brand/nautica-color-logo-light.png" alt="Náutica Color" className="h-14 w-auto" />
           <p className="mt-5 max-w-md text-sm leading-6 text-white/75">
             {settings.positioning || "Mais do que pintura, é sobre preservar valor, estética e prestígio."}
           </p>
