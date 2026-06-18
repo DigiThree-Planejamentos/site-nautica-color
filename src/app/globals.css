@@ -3,6 +3,15 @@
 @tailwind utilities;
 /* escala tipografica reduzida definida em tailwind.config.ts */
 
+@layer base {
+  /* Tracking levemente negativo nos titulos (Space Grotesk) para um ar
+     tecnico/compacto. Mira a classe font-heading, padrao real de titulos
+     do projeto. */
+  .font-heading {
+    letter-spacing: -0.02em;
+  }
+}
+
 :root {
   --navy: #002659;
   --navy-light: #172c65;

@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Inter, Poppins } from "next/font/google";
+import { Inter, Space_Grotesk } from "next/font/google";
 import Script from "next/script";
 import { AppShell } from "@/components/layout/AppShell";
 import { Footer } from "@/components/layout/Footer";
@@ -8,7 +8,7 @@ import { getSettings } from "@/lib/catalog/get-settings";
 import "./globals.css";
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-inter", display: "swap" });
-const poppins = Poppins({ subsets: ["latin"], variable: "--font-poppins", weight: ["600", "700", "800"], display: "swap" });
+const spaceGrotesk = Space_Grotesk({ subsets: ["latin"], variable: "--font-space-grotesk", weight: ["400", "500", "600", "700"], display: "swap" });
 
 export const metadata: Metadata = {
   metadataBase: new URL(storeConfig.siteUrl),
@@ -44,8 +44,8 @@ export default async function RootLayout({ children }: { children: React.ReactNo
   };
 
   return (
-    <html lang="pt-BR" className={`${inter.variable} ${poppins.variable}`}>
-      <body>
+    <html lang="pt-BR" className={`${inter.variable} ${spaceGrotesk.variable}`}>
+      <body className="antialiased">
         <AppShell settings={settings}>
           {children}
           <Footer settings={settings} />

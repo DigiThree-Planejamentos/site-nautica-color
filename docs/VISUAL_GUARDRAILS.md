@@ -7,7 +7,9 @@ work inspired by TotalBoat.
 
 - Colors: use the existing Tailwind tokens `navy`, `navy-light`, `red`,
   `red-bright`, `off-white`, `ink`, `sky`, and `mist`.
-- Typography: keep `Poppins` for headings and `Inter` for body text.
+- Typography: keep `Space Grotesk` for headings (applied via the `font-heading`
+  utility, with a slight negative tracking for a technical look) and `Inter` for
+  body text.
 - Motion: keep the current `fade-up`, `Reveal`, `motion/react`, and
   `ease-nautica` transition language.
 - Buttons and chips: keep `rounded-full`.

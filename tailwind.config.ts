@@ -15,8 +15,8 @@ const config: Config = {
         mist: "#D7E5F4"
       },
       fontFamily: {
-        heading: ["var(--font-poppins)", "sans-serif"],
-        body: ["var(--font-inter)", "sans-serif"]
+        heading: ["var(--font-space-grotesk)", "system-ui", "sans-serif"],
+        body: ["var(--font-inter)", "system-ui", "sans-serif"]
       },
       fontSize: {
         xs: ["0.75rem", { lineHeight: "1rem" }],
