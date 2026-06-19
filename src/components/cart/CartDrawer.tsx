@@ -108,7 +108,7 @@ export function CartDrawer({ settings }: { settings: Record<string, string> }) {
                 <Link
                   href="/produtos"
                   onClick={closeCart}
-                  className="inline-flex min-h-11 items-center justify-center rounded-full bg-navy px-5 py-2.5 text-sm font-semibold text-white hover:bg-navy-light"
+                  className="inline-flex h-11 items-center justify-center gap-2 rounded-full bg-navy px-5 text-sm font-semibold text-white transition hover:bg-navy-light"
                 >
                   Continuar comprando
                 </Link>
@@ -117,7 +117,7 @@ export function CartDrawer({ settings }: { settings: Record<string, string> }) {
                   target="_blank"
                   rel="noopener noreferrer"
                   aria-disabled={items.length === 0}
-                  className={`inline-flex min-h-11 items-center justify-center gap-2 rounded-full px-5 py-2.5 text-sm font-semibold ${items.length > 0 ? "bg-red text-white hover:bg-red-bright" : "pointer-events-none bg-ink/20 text-ink/50"}`}
+                  className={`inline-flex h-11 items-center justify-center gap-2 rounded-full px-5 text-sm font-semibold transition ${items.length > 0 ? "bg-red text-white hover:bg-red-bright" : "pointer-events-none bg-ink/20 text-ink/50"}`}
                 >
                   <MessageCircle size={18} aria-hidden="true" />
                   Enviar pelo WhatsApp
@@ -139,7 +139,7 @@ export function CartDrawer({ settings }: { settings: Record<string, string> }) {
           <motion.button
             type="button"
             onClick={openCart}
-            className="fixed bottom-4 left-4 right-4 z-40 inline-flex min-h-12 items-center justify-center gap-2 rounded-full bg-red px-5 py-3 text-sm font-bold text-white shadow-soft sm:hidden"
+            className="fixed bottom-4 left-4 right-4 z-40 inline-flex h-11 items-center justify-center gap-2 rounded-full bg-red px-5 text-sm font-semibold text-white shadow-soft transition sm:hidden"
             initial={reduce ? { opacity: 0 } : { y: 80, opacity: 0 }}
             animate={reduce ? { opacity: 1 } : { y: 0, opacity: 1 }}
             exit={reduce ? { opacity: 0 } : { y: 80, opacity: 0 }}

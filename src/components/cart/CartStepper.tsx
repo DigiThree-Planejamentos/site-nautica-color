@@ -19,7 +19,7 @@ export function CartStepper({ product, className = "" }: { product: Product; cla
   const offset = reduce ? 0 : 8;
 
   const shell =
-    "flex min-h-11 w-full items-center justify-center rounded-full bg-red text-sm font-semibold text-white";
+    "flex h-11 w-full items-center justify-center rounded-full bg-red text-sm font-semibold text-white";
 
   return (
     <div className={`relative ${className}`}>

@@ -41,7 +41,7 @@ export function ProductCard({
           {showDetailsButton ? (
             <Link
               href={`/produtos/${product.slug}`}
-              className="mt-3 inline-flex min-h-10 items-center justify-center gap-2 rounded-full bg-navy px-4 text-sm font-semibold text-white transition hover:bg-red"
+              className="mt-3 inline-flex h-11 items-center justify-center gap-2 rounded-full bg-navy px-5 text-sm font-semibold text-white transition hover:bg-red"
             >
               Ver detalhes <ArrowRight size={16} aria-hidden="true" />
             </Link>

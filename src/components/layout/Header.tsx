@@ -46,7 +46,7 @@ export function Header({ phone }: { phone?: string }) {
           <div className="flex items-center gap-2">
             <Link
               href="/#atendimento"
-              className="hidden min-h-10 items-center justify-center gap-2 rounded-full bg-off-white px-4 text-xs font-semibold text-navy hover:bg-navy hover:text-white md:inline-flex"
+              className="hidden h-11 items-center justify-center gap-2 rounded-full bg-off-white px-5 text-sm font-semibold text-navy transition hover:bg-navy hover:text-white md:inline-flex"
             >
               <MessageCircle size={16} aria-hidden="true" />
               Orçamento

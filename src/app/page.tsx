@@ -190,7 +190,7 @@ export default async function HomePage() {
             <p className="mt-4 text-ink/70">{settings.location}</p>
             <p className="mt-2 text-ink/70">Telefone: {settings.phone}</p>
             <p className="mt-2 text-ink/70">WhatsApp: {settings.whatsapp_visible}</p>
-            <a href={supportUrl} target="_blank" rel="noopener noreferrer" className="mt-6 inline-flex min-h-11 items-center justify-center gap-2 rounded-full bg-red px-5 py-2.5 text-sm font-semibold text-white hover:bg-red-bright">
+            <a href={supportUrl} target="_blank" rel="noopener noreferrer" className="mt-6 inline-flex h-11 items-center justify-center gap-2 rounded-full bg-red px-5 text-sm font-semibold text-white transition hover:bg-red-bright">
               <MessageCircle size={18} aria-hidden="true" /> Chamar no WhatsApp
             </a>
           </div>

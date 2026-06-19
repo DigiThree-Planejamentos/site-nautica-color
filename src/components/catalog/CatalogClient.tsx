@@ -110,7 +110,7 @@ export function CatalogClient({
                   setCategory(next);
                   updateUrl({ categoria: next });
                 }}
-                className={`rounded-full px-4 py-2 text-sm font-semibold transition ${
+                className={`inline-flex h-11 items-center justify-center rounded-full px-5 text-sm font-semibold transition ${
                   selected ? "bg-navy text-white" : "bg-sky text-navy hover:bg-navy hover:text-white"
                 }`}
               >
@@ -190,7 +190,7 @@ export function CatalogClient({
               <option value="alpha">Ordem alfabética</option>
             </select>
           </label>
-          <button type="button" onClick={clearFilters} className="inline-flex h-12 items-center justify-center gap-2 rounded-full bg-off-white px-4 text-sm font-semibold text-navy hover:bg-navy hover:text-white">
+          <button type="button" onClick={clearFilters} className="inline-flex h-12 items-center justify-center gap-2 rounded-full bg-off-white px-5 text-sm font-semibold text-navy transition hover:bg-navy hover:text-white">
             <X size={16} aria-hidden="true" /> Limpar
           </button>
         </div>
@@ -259,7 +259,7 @@ export function CatalogClient({
         <div className="mt-8 rounded-lg bg-white p-12 text-center shadow-soft">
           <h2 className="font-heading text-2xl font-bold text-navy">Nenhum produto encontrado.</h2>
           <p className="mt-2 text-ink/70">Tente ajustar os filtros ou fale com a equipe para uma indicação personalizada.</p>
-          <button type="button" onClick={clearFilters} className="mt-6 inline-flex min-h-11 items-center justify-center gap-2 rounded-full bg-red px-5 py-2.5 text-sm font-semibold text-white hover:bg-red-bright">
+          <button type="button" onClick={clearFilters} className="mt-6 inline-flex h-11 items-center justify-center gap-2 rounded-full bg-red px-5 text-sm font-semibold text-white transition hover:bg-red-bright">
             Limpar filtros <ArrowRight size={16} aria-hidden="true" />
           </button>
         </div>
