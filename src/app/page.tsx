@@ -2,7 +2,6 @@ import {
   Anchor,
   ArrowRight,
   Brush,
-  ClipboardCheck,
   Droplets,
   Layers,
   MapPin,
@@ -163,34 +162,56 @@ export default async function HomePage() {
         </div>
       </section>
 
-      <section id="como-comprar" className="py-20">
-        <div className="mx-auto grid max-w-7xl gap-6 px-4 sm:px-6 lg:grid-cols-[0.9fr_1.1fr] lg:px-8">
-          <Reveal className="h-full">
-            <div className="h-full rounded-lg bg-white p-8 shadow-soft">
-              <ClipboardCheck className="mb-5 text-red" size={34} aria-hidden="true" />
-              <Eyebrow>Como comprar</Eyebrow>
-              <h2 className="mt-3 font-heading text-3xl font-extrabold leading-tight text-navy sm:text-4xl">O site ajuda a montar a lista. A equipe confirma o produto certo.</h2>
+      <section id="atendimento" className="bg-mist py-20">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <div className="flex flex-col justify-between gap-4 sm:flex-row sm:items-end">
+            <div className="max-w-2xl">
+              <Eyebrow>Atendimento</Eyebrow>
+              <h2 className="mt-3 font-heading text-3xl font-extrabold leading-tight text-navy sm:text-4xl">Prontos para te atender.</h2>
               <p className="mt-4 text-ink/70">
-                Produtos náuticos dependem de superfície, aplicação, rendimento, preparação e disponibilidade. Por isso o carrinho vira uma solicitação de orçamento pelo WhatsApp.
+                Nossa loja na Marina Verolme tem estoque completo e equipe especializada para indicar o produto certo para o seu casco. Passe na loja ou chame a gente pelo WhatsApp.
               </p>
-              <a href={supportUrl} target="_blank" rel="noopener noreferrer" className="mt-6 inline-flex min-h-11 items-center justify-center gap-2 rounded-full bg-red px-5 py-2.5 text-sm font-semibold text-white hover:bg-red-bright">
-                <MessageCircle size={18} aria-hidden="true" /> Pedir indicação
-              </a>
             </div>
-          </Reveal>
-          <div className="grid gap-4 sm:grid-cols-2">
+            <a href={supportUrl} target="_blank" rel="noopener noreferrer" className="inline-flex min-h-11 items-center justify-center gap-2 rounded-full bg-red px-5 py-2.5 text-sm font-semibold text-white hover:bg-red-bright">
+              <MessageCircle size={18} aria-hidden="true" /> Falar com um especialista
+            </a>
+          </div>
+          <div className="mt-10 grid gap-4 sm:grid-cols-3">
             {[
-              ["Escolha por etapa", "Comece por casco, acabamento, reparo, preparo ou polimento."],
-              ["Monte o carrinho", "Adicione os itens de interesse sem compromisso de checkout."],
-              ["Envie pelo WhatsApp", "A lista chega pronta para a equipe revisar com você."],
-              ["Confirme aplicação", "Preço, estoque, rendimento e compatibilidade são validados antes da compra."]
-            ].map(([title, text], index) => (
-              <Reveal key={title} delay={(index % 2) * 160} className="h-full">
-                <div className="h-full rounded-lg border border-navy/10 bg-white p-6 transition-shadow hover:shadow-soft">
-                  <span className="grid h-9 w-9 place-items-center rounded-full bg-sky font-heading text-sm font-bold text-navy">{index + 1}</span>
-                  <h3 className="mt-4 font-heading text-xl font-bold text-navy">{title}</h3>
-                  <p className="mt-2 text-sm leading-6 text-ink/70">{text}</p>
-                </div>
+              {
+                src: "/atendimento/atendimento-1.jpg",
+                title: "Estoque completo",
+                text: "Tintas, antifouling e abrasivos prontos para retirada.",
+                alt: "Corredor da loja Náutica Color com prateleiras de tintas e produtos náuticos"
+              },
+              {
+                src: "/atendimento/atendimento-2.jpg",
+                title: "Atendimento na loja",
+                text: "Equipe especializada para tirar suas dúvidas técnicas.",
+                alt: "Balcão de atendimento da Náutica Color com display Marine Shop"
+              },
+              {
+                src: "/atendimento/atendimento-3.jpg",
+                title: "As melhores marcas",
+                text: "Linhas profissionais reunidas em um só lugar.",
+                alt: "Prateleiras da Náutica Color com diversas marcas de produtos náuticos"
+              }
+            ].map((item, index) => (
+              <Reveal key={item.src} delay={(index % 3) * 160} className="h-full">
+                <figure className="group relative h-full overflow-hidden rounded-lg shadow-soft ring-1 ring-navy/5">
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img
+                    src={item.src}
+                    alt={item.alt}
+                    loading="lazy"
+                    className="aspect-[4/5] w-full object-cover transition-transform duration-500 ease-nautica group-hover:scale-105"
+                  />
+                  <div aria-hidden="true" className="absolute inset-0 bg-gradient-to-t from-navy/90 via-navy/25 to-transparent" />
+                  <figcaption className="absolute inset-x-0 bottom-0 p-5 text-white">
+                    <h3 className="font-heading text-lg font-bold">{item.title}</h3>
+                    <p className="mt-1 text-sm leading-5 text-white/80">{item.text}</p>
+                  </figcaption>
+                </figure>
               </Reveal>
             ))}
           </div>

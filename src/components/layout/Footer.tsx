@@ -7,7 +7,7 @@ export function Footer({ settings }: { settings: Record<string, string> }) {
     ["Produtos", "/produtos"],
     ["Categorias", "/#categorias"],
     ["Marcas parceiras", "/#marcas"],
-    ["Como comprar", "/#como-comprar"]
+    ["Atendimento", "/#atendimento"]
   ];
   const categoryLinks = [
     ["Antifouling", "/produtos?categoria=antifouling"],
