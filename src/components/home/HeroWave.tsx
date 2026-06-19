@@ -52,20 +52,23 @@ export function HeroWave() {
     >
       <div ref={bobRef} className="will-change-transform">
         <svg
-          viewBox="0 24 100 28"
+          viewBox="0 4 120 48"
           preserveAspectRatio="none"
           className="block h-12 w-full sm:h-16"
         >
           <defs>
+            {/* Onda senoidal contínua: cristas (y=8) e cavas (y=40) alternadas
+                em torno da linha média (y=24) — cada onda emenda na próxima
+                pela curva descendente, sem trecho reto. Período = 120. */}
             <path
               id="gentle-wave"
-              d="M-160 44c30 0 58-18 88-18s58 18 88 18 58-18 88-18 58 18 88 18 v44h-352z"
+              d="M-240 24 c15 0 30 -16 60 -16 s30 32 60 32 s30 -32 60 -32 s30 32 60 32 s30 -32 60 -32 s30 32 60 32 s30 -32 60 -32 s30 32 60 32 v44 h-480 z"
             />
           </defs>
           <g className="hero-waves">
-            <use href="#gentle-wave" x="80" y="0" fill="#E8F0FA" fillOpacity="0.2" />
-            <use href="#gentle-wave" x="40" y="3" fill="#D7E5F4" fillOpacity="0.5" />
-            <use href="#gentle-wave" x="40" y="6" fill="#EDECEC" />
+            <use href="#gentle-wave" x="0" y="0" fill="#E8F0FA" fillOpacity="0.2" />
+            <use href="#gentle-wave" x="45" y="3" fill="#D7E5F4" fillOpacity="0.5" />
+            <use href="#gentle-wave" x="25" y="6" fill="#EDECEC" />
           </g>
         </svg>
       </div>
