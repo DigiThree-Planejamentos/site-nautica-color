@@ -13,26 +13,24 @@ type RevealProps = {
  * Revela o conteúdo com fade + slide-up quando ele entra na viewport (cascata).
  * CSS puro + IntersectionObserver, sem dependências.
  *
- * Anti-bloco-vazio: o conteúdo nasce VISÍVEL no SSR e em ambientes sem JS ou
- * sem IntersectionObserver (screenshots, carregamentos lentos). Só quando o JS
- * "arma" a animação (`armed`) o card recua para o estado escondido e então
- * anima ao entrar na tela. Como o primeiro render no cliente também começa
- * visível, não há divergência de hidratação.
+ * O conteúdo nasce escondido (opacity-0) e aparece ao entrar na tela — é essa
+ * mudança de estado que dispara a transição. Rede de segurança: se não houver
+ * IntersectionObserver, ou se ele não disparar em 3s, o conteúdo é revelado
+ * mesmo assim (nunca fica preso invisível).
  *
- * Respeita prefers-reduced-motion via globals.css (zera a duração).
+ * Respeita prefers-reduced-motion via globals.css (zera a duração da transição).
  */
 export function Reveal({ children, delay = 0, className = "" }: RevealProps) {
   const ref = useRef<HTMLDivElement>(null);
-  const [armed, setArmed] = useState(false);
   const [shown, setShown] = useState(false);
 
   useEffect(() => {
-    // Sem IntersectionObserver: mantém visível (nunca arma).
-    if (typeof IntersectionObserver === "undefined") return;
     const el = ref.current;
-    if (!el) return;
-
-    setArmed(true);
+    // Sem IntersectionObserver: revela imediatamente.
+    if (!el || typeof IntersectionObserver === "undefined") {
+      setShown(true);
+      return;
+    }
 
     const io = new IntersectionObserver(
       ([entry]) => {
@@ -41,21 +39,25 @@ export function Reveal({ children, delay = 0, className = "" }: RevealProps) {
           io.disconnect();
         }
       },
-      { threshold: 0.15, rootMargin: "0px 0px -80px 0px" }
+      { threshold: 0.12, rootMargin: "0px 0px -10% 0px" }
     );
-
     io.observe(el);
-    return () => io.disconnect();
-  }, []);
 
-  const hidden = armed && !shown;
+    // Rede de segurança: nunca deixa o conteúdo escondido para sempre.
+    const failSafe = setTimeout(() => setShown(true), 3000);
+
+    return () => {
+      io.disconnect();
+      clearTimeout(failSafe);
+    };
+  }, []);
 
   return (
     <div
       ref={ref}
       style={{ transitionDelay: `${delay}ms` }}
-      className={`${className} transition-all duration-[1000ms] ease-nautica ${
-        hidden ? "translate-y-4 opacity-0" : "translate-y-0 opacity-100"
+      className={`${className} transition-all duration-700 ease-nautica ${
+        shown ? "translate-y-0 opacity-100" : "translate-y-6 opacity-0"
       }`}
     >
       {children}
