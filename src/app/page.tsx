@@ -13,6 +13,7 @@ import {
 import type { LucideIcon } from "lucide-react";
 import Link from "next/link";
 import { HeroSearch } from "@/components/home/HeroSearch";
+import { HeroWave } from "@/components/home/HeroWave";
 import { FeaturedCarousel } from "@/components/products/FeaturedCarousel";
 import { Eyebrow } from "@/components/ui/Eyebrow";
 import { Reveal } from "@/components/ui/Reveal";
@@ -98,15 +99,8 @@ export default async function HomePage() {
           </div>
         </div>
 
-        {/* Onda náutica viajando para a esquerda (loop tileável) */}
-        <div aria-hidden="true" className="pointer-events-none absolute inset-x-0 bottom-0 z-0 overflow-hidden">
-          <div className="wave-bob">
-            <svg viewBox="0 0 2880 120" preserveAspectRatio="none" className="block h-24 w-[200%] animate-wave sm:h-32">
-              <path fill="#ffffff" d="M0,50 C360,100 1080,0 1440,50 C1800,100 2520,0 2880,50 L2880,120 L0,120 Z" />
-            </svg>
-          </div>
-          <div className="absolute inset-x-0 bottom-0 h-7 bg-white" />
-        </div>
+        {/* Onda náutica: desliza para a esquerda (loop) e sobe/desce com o scroll */}
+        <HeroWave />
       </section>
 
       <section className="py-20" id="categorias">
