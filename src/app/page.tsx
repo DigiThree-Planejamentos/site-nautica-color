@@ -104,7 +104,7 @@ export default async function HomePage() {
         <HeroWave />
       </section>
 
-      <section className="py-20" id="categorias">
+      <section className="bg-white py-20" id="categorias">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="flex flex-col justify-between gap-4 sm:flex-row sm:items-end">
             <div className="max-w-2xl">
@@ -162,7 +162,7 @@ export default async function HomePage() {
 
       <StoreExperience supportUrl={supportUrl} />
 
-      <section id="marcas" className="py-20">
+      <section id="marcas" className="bg-white py-20">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <Eyebrow>Marcas parceiras</Eyebrow>
           <h2 className="mt-3 font-heading text-3xl font-extrabold text-navy sm:text-4xl">Linhas profissionais em um catálogo único.</h2>
@@ -178,7 +178,7 @@ export default async function HomePage() {
         </div>
       </section>
 
-      <section id="contato" className="py-20">
+      <section id="contato" className="bg-white py-20">
         <div className="mx-auto grid max-w-7xl gap-8 px-4 sm:px-6 lg:grid-cols-2 lg:px-8">
           <div className="rounded-lg bg-white p-8 shadow-soft">
             <MapPin className="mb-5 text-red" size={34} aria-hidden="true" />
