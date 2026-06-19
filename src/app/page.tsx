@@ -14,6 +14,7 @@ import type { LucideIcon } from "lucide-react";
 import Link from "next/link";
 import { HeroSearch } from "@/components/home/HeroSearch";
 import { HeroWave } from "@/components/home/HeroWave";
+import { StoreExperience } from "@/components/home/StoreExperience";
 import { FeaturedCarousel } from "@/components/products/FeaturedCarousel";
 import { Eyebrow } from "@/components/ui/Eyebrow";
 import { Reveal } from "@/components/ui/Reveal";
@@ -159,61 +160,7 @@ export default async function HomePage() {
         </div>
       </section>
 
-      <section id="atendimento" className="bg-mist py-20">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <div className="flex flex-col justify-between gap-4 sm:flex-row sm:items-end">
-            <div className="max-w-2xl">
-              <Eyebrow>Atendimento</Eyebrow>
-              <h2 className="mt-3 font-heading text-3xl font-extrabold leading-tight text-navy sm:text-4xl">Prontos para te atender.</h2>
-              <p className="mt-4 text-ink/70">
-                Nossa loja na Marina Verolme tem estoque completo e equipe especializada para indicar o produto certo para o seu casco. Passe na loja ou chame a gente pelo WhatsApp.
-              </p>
-            </div>
-            <a href={supportUrl} target="_blank" rel="noopener noreferrer" className="inline-flex min-h-11 items-center justify-center gap-2 rounded-full bg-red px-5 py-2.5 text-sm font-semibold text-white hover:bg-red-bright">
-              <MessageCircle size={18} aria-hidden="true" /> Falar com um especialista
-            </a>
-          </div>
-          <div className="mt-10 grid gap-4 sm:grid-cols-3">
-            {[
-              {
-                src: "/atendimento/atendimento-1.jpg",
-                title: "Estoque completo",
-                text: "Tintas, antifouling e abrasivos prontos para retirada.",
-                alt: "Corredor da loja Náutica Color com prateleiras de tintas e produtos náuticos"
-              },
-              {
-                src: "/atendimento/atendimento-2.jpg",
-                title: "Atendimento na loja",
-                text: "Equipe especializada para tirar suas dúvidas técnicas.",
-                alt: "Balcão de atendimento da Náutica Color com display Marine Shop"
-              },
-              {
-                src: "/atendimento/atendimento-3.jpg",
-                title: "As melhores marcas",
-                text: "Linhas profissionais reunidas em um só lugar.",
-                alt: "Prateleiras da Náutica Color com diversas marcas de produtos náuticos"
-              }
-            ].map((item, index) => (
-              <Reveal key={item.src} delay={(index % 3) * 160} className="h-full">
-                <figure className="group relative h-full overflow-hidden rounded-lg shadow-soft ring-1 ring-navy/5">
-                  {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img
-                    src={item.src}
-                    alt={item.alt}
-                    loading="lazy"
-                    className="aspect-[4/5] w-full object-cover transition-transform duration-500 ease-nautica group-hover:scale-105"
-                  />
-                  <div aria-hidden="true" className="absolute inset-0 bg-gradient-to-t from-navy/90 via-navy/25 to-transparent" />
-                  <figcaption className="absolute inset-x-0 bottom-0 p-5 text-white">
-                    <h3 className="font-heading text-lg font-bold">{item.title}</h3>
-                    <p className="mt-1 text-sm leading-5 text-white/80">{item.text}</p>
-                  </figcaption>
-                </figure>
-              </Reveal>
-            ))}
-          </div>
-        </div>
-      </section>
+      <StoreExperience supportUrl={supportUrl} />
 
       <section id="marcas" className="py-20">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
@@ -240,7 +187,7 @@ export default async function HomePage() {
             <p className="mt-4 text-ink/70">{settings.location}</p>
             <p className="mt-2 text-ink/70">Telefone: {settings.phone}</p>
             <p className="mt-2 text-ink/70">WhatsApp: {settings.whatsapp_visible}</p>
-            <a href={supportUrl} target="_blank" rel="noopener noreferrer" className="mt-6 inline-flex min-h-11 items-center justify-center gap-2 rounded-full bg-red px-5 py-2.5 text-sm font-semibold text-white hover:bg-red-bright">
+            <a href={supportUrl} target="_blank" rel="noopener noreferrer" className="mt-6 inline-flex h-11 items-center justify-center gap-2 rounded-full bg-red px-5 text-sm font-semibold text-white transition hover:bg-red-bright">
               <MessageCircle size={18} aria-hidden="true" /> Chamar no WhatsApp
             </a>
           </div>

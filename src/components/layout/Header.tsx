@@ -45,8 +45,8 @@ export function Header({ phone }: { phone?: string }) {
           </nav>
           <div className="flex items-center gap-2">
             <Link
-              href="/#contato"
-              className="hidden min-h-10 items-center justify-center gap-2 rounded-full bg-off-white px-4 text-xs font-semibold text-navy hover:bg-navy hover:text-white md:inline-flex"
+              href="/#atendimento"
+              className="hidden h-11 items-center justify-center gap-2 rounded-full bg-off-white px-5 text-sm font-semibold text-navy transition hover:bg-navy hover:text-white md:inline-flex"
             >
               <MessageCircle size={16} aria-hidden="true" />
               Orçamento

@@ -34,7 +34,7 @@ export function ProductActionPanel({ product, settings }: { product: Product; se
         href={whatsappUrl(buildQuoteMessage([directItem]), resolveWhatsappNumber(settings))}
         target="_blank"
         rel="noopener noreferrer"
-        className="inline-flex min-h-11 items-center justify-center gap-2 rounded-full bg-navy px-5 py-2.5 text-sm font-semibold text-white transition hover:bg-navy-light focus-visible:outline focus-visible:outline-2"
+        className="inline-flex h-11 items-center justify-center gap-2 rounded-full bg-navy px-5 text-sm font-semibold text-white transition hover:bg-navy-light focus-visible:outline focus-visible:outline-2"
       >
         <MessageCircle size={18} aria-hidden="true" />
         Enviar pelo WhatsApp
