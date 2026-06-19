@@ -52,9 +52,9 @@ export function HeroWave() {
     >
       <div ref={bobRef} className="will-change-transform">
         <svg
-          viewBox="0 24 150 28"
+          viewBox="0 24 100 28"
           preserveAspectRatio="none"
-          className="block h-16 w-full sm:h-20"
+          className="block h-10 w-full sm:h-14"
         >
           <defs>
             <path
@@ -69,7 +69,7 @@ export function HeroWave() {
           </g>
         </svg>
       </div>
-      <div className="absolute inset-x-0 bottom-0 h-7 bg-off-white" />
+      <div className="absolute inset-x-0 bottom-0 h-5 bg-off-white" />
     </div>
   );
 }
