@@ -54,7 +54,7 @@ export function HeroWave() {
         <svg
           viewBox="0 24 100 28"
           preserveAspectRatio="none"
-          className="block h-10 w-full sm:h-14"
+          className="block h-12 w-full sm:h-16"
         >
           <defs>
             <path
