@@ -84,6 +84,21 @@ section[id] {
   overflow: hidden;
 }
 
+@keyframes wave-bob {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-22px);
+  }
+}
+
+.wave-bob {
+  animation: wave-bob 4s ease-in-out infinite;
+  will-change: transform;
+}
+
 .wave-panel::after {
   background: radial-gradient(circle at 15% 30%, rgba(255, 255, 255, 0.16), transparent 24%),
     linear-gradient(135deg, rgba(255, 255, 255, 0.08), transparent);
