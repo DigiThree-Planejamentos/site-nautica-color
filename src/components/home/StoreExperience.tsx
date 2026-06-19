@@ -32,15 +32,15 @@ export function StoreExperience({ supportUrl }: { supportUrl: string }) {
           </p>
         </div>
 
-        <div className="mt-8 grid gap-4 sm:grid-cols-3">
+        <div className="mx-auto mt-6 grid max-w-3xl gap-2.5 sm:grid-cols-3">
           {reasons.map(({ icon: Icon, title, text }) => (
-            <div key={title} className="flex items-center gap-2.5 rounded-lg border border-navy/10 bg-white p-3 transition-shadow hover:shadow-soft">
-              <span className="grid h-8 w-8 shrink-0 place-items-center rounded-lg bg-sky text-navy">
-                <Icon size={16} aria-hidden="true" />
+            <div key={title} className="flex items-center gap-2 rounded-lg border border-navy/10 bg-white p-2.5 transition-shadow hover:shadow-soft">
+              <span className="grid h-7 w-7 shrink-0 place-items-center rounded-lg bg-sky text-navy">
+                <Icon size={14} aria-hidden="true" />
               </span>
               <div>
-                <h3 className="font-heading text-sm font-bold leading-tight text-navy">{title}</h3>
-                <p className="mt-0.5 text-xs leading-4 text-ink/65">{text}</p>
+                <h3 className="font-heading text-xs font-bold leading-tight text-navy">{title}</h3>
+                <p className="mt-0.5 text-[11px] leading-4 text-ink/65">{text}</p>
               </div>
             </div>
           ))}

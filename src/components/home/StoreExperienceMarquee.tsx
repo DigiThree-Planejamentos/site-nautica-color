@@ -33,7 +33,7 @@ export function StoreExperienceMarquee() {
     target: ref,
     offset: ["start end", "end start"]
   });
-  const xRaw = useTransform(scrollYProgress, [0, 1], ["2%", "-52%"]);
+  const xRaw = useTransform(scrollYProgress, [0, 1], ["2%", "-30%"]);
   const x = useSpring(xRaw, { stiffness: 90, damping: 30, mass: 0.4 });
 
   return (
