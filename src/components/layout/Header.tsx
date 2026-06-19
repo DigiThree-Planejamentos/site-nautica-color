@@ -12,7 +12,7 @@ const nav = [
   { href: "/produtos", label: "Produtos" },
   { href: "/#categorias", label: "Categorias" },
   { href: "/#marcas", label: "Marcas" },
-  { href: "/#como-comprar", label: "Como comprar" },
+  { href: "/#atendimento", label: "Atendimento" },
   { href: "/#contato", label: "Contato" }
 ];
 
@@ -45,7 +45,7 @@ export function Header({ phone }: { phone?: string }) {
           </nav>
           <div className="flex items-center gap-2">
             <Link
-              href="/#como-comprar"
+              href="/#atendimento"
               className="hidden min-h-10 items-center justify-center gap-2 rounded-full bg-off-white px-4 text-xs font-semibold text-navy hover:bg-navy hover:text-white md:inline-flex"
             >
               <MessageCircle size={16} aria-hidden="true" />
