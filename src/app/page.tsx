@@ -236,33 +236,37 @@ export default async function HomePage() {
 
       <section id="contato" className="py-20">
         <div className="mx-auto grid max-w-7xl gap-8 px-4 sm:px-6 lg:grid-cols-2 lg:px-8">
-          <div className="rounded-lg bg-white p-8 shadow-soft">
-            <MapPin className="mb-5 text-red" size={34} aria-hidden="true" />
-            <Eyebrow>Contato</Eyebrow>
-            <h2 className="mt-3 font-heading text-3xl font-extrabold text-navy sm:text-4xl">Atendimento na Marina Verolme.</h2>
-            <p className="mt-4 text-ink/70">{settings.location}</p>
-            <p className="mt-2 text-ink/70">Telefone: {settings.phone}</p>
-            <p className="mt-2 text-ink/70">WhatsApp: {settings.whatsapp_visible}</p>
-            <a href={supportUrl} target="_blank" rel="noopener noreferrer" className="mt-6 inline-flex min-h-11 items-center justify-center gap-2 rounded-full bg-red px-5 py-2.5 text-sm font-semibold text-white hover:bg-red-bright">
-              <MessageCircle size={18} aria-hidden="true" /> Chamar no WhatsApp
-            </a>
-          </div>
-          <div className="rounded-lg bg-navy p-8 text-white shadow-soft">
-            <Anchor className="mb-5 text-white" size={34} aria-hidden="true" />
-            <h2 className="font-heading text-3xl font-extrabold">Perguntas frequentes</h2>
-            <div className="mt-6 space-y-5">
-              {[
-                ["Os preços são finais?", "Não. São valores demonstrativos e devem ser confirmados com a loja."],
-                ["O site vende online?", "O carrinho reúne os produtos e envia a lista para atendimento via WhatsApp."],
-                ["A equipe indica o produto correto?", "Sim. Confirme aplicação, disponibilidade e condições diretamente com a equipe."]
-              ].map(([question, answer]) => (
-                <div key={question}>
-                  <h3 className="font-semibold">{question}</h3>
-                  <p className="mt-1 text-sm leading-6 text-white/70">{answer}</p>
-                </div>
-              ))}
+          <Reveal delay={0} className="h-full">
+            <div className="h-full rounded-lg bg-white p-8 shadow-soft">
+              <MapPin className="mb-5 text-red" size={34} aria-hidden="true" />
+              <Eyebrow>Contato</Eyebrow>
+              <h2 className="mt-3 font-heading text-3xl font-extrabold text-navy sm:text-4xl">Atendimento na Marina Verolme.</h2>
+              <p className="mt-4 text-ink/70">{settings.location}</p>
+              <p className="mt-2 text-ink/70">Telefone: {settings.phone}</p>
+              <p className="mt-2 text-ink/70">WhatsApp: {settings.whatsapp_visible}</p>
+              <a href={supportUrl} target="_blank" rel="noopener noreferrer" className="mt-6 inline-flex min-h-11 items-center justify-center gap-2 rounded-full bg-red px-5 py-2.5 text-sm font-semibold text-white hover:bg-red-bright">
+                <MessageCircle size={18} aria-hidden="true" /> Chamar no WhatsApp
+              </a>
             </div>
-          </div>
+          </Reveal>
+          <Reveal delay={160} className="h-full">
+            <div className="h-full rounded-lg bg-navy p-8 text-white shadow-soft">
+              <Anchor className="mb-5 text-white" size={34} aria-hidden="true" />
+              <h2 className="font-heading text-3xl font-extrabold">Perguntas frequentes</h2>
+              <div className="mt-6 space-y-5">
+                {[
+                  ["Os preços são finais?", "Não. São valores demonstrativos e devem ser confirmados com a loja."],
+                  ["O site vende online?", "O carrinho reúne os produtos e envia a lista para atendimento via WhatsApp."],
+                  ["A equipe indica o produto correto?", "Sim. Confirme aplicação, disponibilidade e condições diretamente com a equipe."]
+                ].map(([question, answer]) => (
+                  <div key={question}>
+                    <h3 className="font-semibold">{question}</h3>
+                    <p className="mt-1 text-sm leading-6 text-white/70">{answer}</p>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </Reveal>
         </div>
       </section>
 

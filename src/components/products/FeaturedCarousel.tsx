@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { ProductCard } from "@/components/products/ProductCard";
+import { Reveal } from "@/components/ui/Reveal";
 import type { Product } from "@/types/catalog";
 
 /**
@@ -59,10 +60,14 @@ export function FeaturedCarousel({ products }: { products: Product[] }) {
         onScroll={update}
         className="flex snap-x snap-mandatory gap-4 overflow-x-auto scroll-smooth py-3 [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
       >
-        {products.map((product) => (
-          <div key={product.id} className="w-[70%] shrink-0 snap-start sm:w-56 lg:w-52">
+        {products.map((product, index) => (
+          <Reveal
+            key={product.id}
+            delay={(index % 4) * 120}
+            className="w-[70%] shrink-0 snap-start sm:w-56 lg:w-52"
+          >
             <ProductCard product={product} compact showDetailsButton />
-          </div>
+          </Reveal>
         ))}
       </div>
     </div>
