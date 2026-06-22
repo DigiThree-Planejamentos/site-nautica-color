@@ -23,10 +23,10 @@ export function HeroWave() {
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
 
     // Amplitude do balanço (px) e "passo" do scroll (px) por ciclo da onda.
-    // Mantida pequena de propósito: o balanço vertical move a onda dentro da
-    // faixa; se for grande, ao subir expõe o pé da faixa (linha azul) e ao
-    // descer faz a base branca "vazar" acima das cavas. Com AMPLITUDE 2 +
-    // jitter 1 do keyframe (=3px) a base fixa (117px) cobre os dois casos.
+    // A base branca balança JUNTO com a onda (estão no mesmo div bobRef), então
+    // o topo da base acompanha a cava em qualquer posição do scroll — sem linha
+    // azul ao subir nem degrau branco ao descer. Por isso a amplitude não
+    // precisa mais ser minúscula; mantida discreta só por estética.
     const AMPLITUDE = 2;
     const STEP = 140;
 
@@ -54,18 +54,20 @@ export function HeroWave() {
       aria-hidden="true"
       className="pointer-events-none absolute inset-x-0 bottom-0 z-0"
     >
-      {/* Base branca do "mar": cobre o pé do hero (do fim da seção até a linha
-          da onda) para que TODA a onda possa ser elevada sem revelar o azul do
-          hero por baixo dela. A base (117px) sobe ~5px ACIMA do pé da faixa da
-          onda (bottom-28 = 112px) e fica ABAIXO da cava mais baixa (~123px):
-          assim ela cobre o pé exposto quando o balanço sobe, mas continua
-          escondida atrás do branco da onda quando o balanço desce — sem linha
-          azul nem "degrau" branco ao rolar. Para mover toda a onda, ajuste
-          bottom-28 da faixa e mantenha a base ~5px maior. */}
-      <div className="absolute inset-x-0 bottom-0 h-[117px] bg-white" />
-      {/* Faixa da onda, elevada para subir todas as ondas no hero. */}
-      <div className="absolute inset-x-0 bottom-28 overflow-hidden">
-        <div ref={bobRef} className="will-change-transform">
+      {/* Onda + base branca balançam JUNTAS (mesmo div bobRef): a base acompanha
+          a cava mais baixa no scroll, então a emenda nunca abre — nem linha azul
+          (a base sobe junto) nem degrau branco (a base desce junto). */}
+      <div
+        ref={bobRef}
+        className="absolute inset-x-0 bottom-0 will-change-transform"
+      >
+        {/* Base branca do "mar": o topo (~120px) encosta na cava da onda e a
+            base desce bem abaixo do pé do hero (-200px, recortado pelo
+            overflow-hidden da seção). Como balança junto com a onda, cobre todo
+            o fundo navy sob a curva em qualquer posição do balanço. */}
+        <div className="absolute inset-x-0 bottom-[-200px] h-[320px] bg-white" />
+        {/* Faixa da onda, elevada para subir todas as ondas no hero. */}
+        <div className="absolute inset-x-0 bottom-28 overflow-hidden">
           <svg
             viewBox="0 0 120 48"
             preserveAspectRatio="none"
