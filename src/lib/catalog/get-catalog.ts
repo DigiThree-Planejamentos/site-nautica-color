@@ -19,6 +19,34 @@ function withProductPhotos(catalog: CatalogData): CatalogData {
   };
 }
 
+// O catálogo embute brand+category em cada produto, o que duplica ~340 objetos
+// por 1.936 produtos e estoura o limite de 2 MB do unstable_cache. Então
+// removemos as relações antes de cachear e reanexamos depois (barato, por id).
+function stripRelations(catalog: CatalogData): CatalogData {
+  return {
+    ...catalog,
+    products: catalog.products.map((product) => {
+      const slim = { ...product };
+      delete slim.brand;
+      delete slim.category;
+      return slim;
+    })
+  };
+}
+
+function attachRelations(catalog: CatalogData): CatalogData {
+  const brandById = new Map(catalog.brands.map((brand) => [brand.id, brand]));
+  const categoryById = new Map(catalog.categories.map((category) => [category.id, category]));
+  return {
+    ...catalog,
+    products: catalog.products.map((product) => ({
+      ...product,
+      brand: product.brand ?? brandById.get(product.brandId),
+      category: product.category ?? categoryById.get(product.categoryId)
+    }))
+  };
+}
+
 function withTimeout<T>(promise: PromiseLike<T>, timeoutMs: number, message: string): Promise<T> {
   return Promise.race([
     Promise.resolve(promise),
@@ -29,7 +57,7 @@ function withTimeout<T>(promise: PromiseLike<T>, timeoutMs: number, message: str
 }
 
 async function fetchCatalog(): Promise<CatalogData> {
-  if (!hasSupabaseEnv) return withProductPhotos(demoCatalog);
+  if (!hasSupabaseEnv) return stripRelations(withProductPhotos(demoCatalog));
 
   try {
     const { data: siteRow, error: siteError } = await withTimeout(
@@ -83,14 +111,19 @@ async function fetchCatalog(): Promise<CatalogData> {
       category: product.category ?? categories.find((category) => category.id === product.categoryId)
     }));
 
-    return withProductPhotos({ site, brands, categories, products, settings });
+    return stripRelations(withProductPhotos({ site, brands, categories, products, settings }));
   } catch (error) {
     console.error("Catalog query failed. Rendering demo fallback.", error);
-    return withProductPhotos(demoCatalog);
+    return stripRelations(withProductPhotos(demoCatalog));
   }
 }
 
-export const getCatalog = unstable_cache(fetchCatalog, ["catalog", siteSlug], {
+const getCachedCatalog = unstable_cache(fetchCatalog, ["catalog", siteSlug], {
   revalidate: 60,
   tags: ["catalog"]
 });
+
+// Lê o catálogo (cacheado e enxuto) e reanexa brand/category a cada produto.
+export async function getCatalog(): Promise<CatalogData> {
+  return attachRelations(await getCachedCatalog());
+}
