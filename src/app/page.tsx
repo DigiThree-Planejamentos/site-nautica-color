@@ -1,17 +1,6 @@
-import {
-  Anchor,
-  ArrowRight,
-  Brush,
-  Droplets,
-  Layers,
-  MapPin,
-  MessageCircle,
-  PaintBucket,
-  ShieldCheck,
-  Wrench
-} from "lucide-react";
-import type { LucideIcon } from "lucide-react";
+import { Anchor, ArrowRight, MapPin, MessageCircle, ShieldCheck } from "lucide-react";
 import Link from "next/link";
+import { CategoryTable } from "@/components/home/CategoryTable";
 import { HeroSearch } from "@/components/home/HeroSearch";
 import { HeroWave } from "@/components/home/HeroWave";
 import { StoreExperience } from "@/components/home/StoreExperience";
@@ -40,16 +29,12 @@ export default async function HomePage() {
       imageUrl: productPhotos[product.slug] ?? examplePhotos[index % examplePhotos.length]
     }));
   const supportUrl = whatsappUrl(buildSupportMessage(), resolveWhatsappNumber(settings));
-  // Identidade visual por categoria (ícone + descrição), com fallback seguro
-  // para slugs que não estiverem mapeados.
-  const categoryMeta: Record<string, { icon: LucideIcon; blurb: string }> = {
-    "tintas-de-fundo-e-primers": { icon: PaintBucket, blurb: "Primers e tintas de fundo para aderência e proteção da base." },
-    antifouling: { icon: ShieldCheck, blurb: "Revestimentos anti-incrustantes para a obra viva do casco." },
-    "vernizes-e-acabamentos": { icon: Brush, blurb: "Vernizes e tintas de acabamento para brilho e proteção externa." },
-    "lixas-e-abrasivos": { icon: Wrench, blurb: "Lixas, discos e abrasivos para preparar a superfície." },
-    "fiberglass-e-compositos": { icon: Layers, blurb: "Gelcoat, resinas e tecidos para reparos em fibra." },
-    "limpeza-protecao-e-polimento": { icon: Droplets, blurb: "Massas, boinas e produtos para corte, brilho e proteção." }
-  };
+  // Quantidade de produtos por categoria, exibida na tabela de categorias.
+  const categoryCounts = products.reduce<Record<string, number>>((acc, product) => {
+    const slug = product.category?.slug;
+    if (slug) acc[slug] = (acc[slug] ?? 0) + 1;
+    return acc;
+  }, {});
 
   return (
     <main>
@@ -114,29 +99,7 @@ export default async function HomePage() {
               Ver catálogo completo <ArrowRight size={16} aria-hidden="true" />
             </Link>
           </div>
-          <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-            {categories.map((category, index) => {
-              const meta = categoryMeta[category.slug];
-              const Icon = meta?.icon ?? Anchor;
-              return (
-                <Reveal key={category.id} delay={(index % 3) * 200} className="h-full">
-                  <Link href={`/produtos?categoria=${category.slug}`} className="group relative flex h-full flex-col overflow-hidden rounded-lg bg-white p-4 shadow-sm ring-1 ring-navy/5 transition-all hover:-translate-y-1 hover:shadow-soft hover:ring-red/20">
-                    <span aria-hidden="true" className="absolute inset-x-0 top-0 h-1 origin-left scale-x-0 bg-red transition-transform duration-300 ease-nautica group-hover:scale-x-100" />
-                    <span className="grid h-9 w-9 place-items-center rounded-lg bg-sky text-navy transition-colors group-hover:bg-navy group-hover:text-white">
-                      <Icon size={18} aria-hidden="true" />
-                    </span>
-                    <h3 className="mt-3 font-heading text-base font-bold text-navy group-hover:text-red">{category.name}</h3>
-                    <p className="mt-1.5 flex-1 text-xs leading-5 text-ink/65">
-                      {meta?.blurb ?? "Ver produtos, marcas e opções disponíveis para essa linha."}
-                    </p>
-                    <span className="mt-3 inline-flex items-center gap-2 text-xs font-semibold text-red">
-                      Explorar <ArrowRight size={14} className="transition-transform group-hover:translate-x-1" aria-hidden="true" />
-                    </span>
-                  </Link>
-                </Reveal>
-              );
-            })}
-          </div>
+          <CategoryTable categories={categories} counts={categoryCounts} />
         </div>
       </section>
 
