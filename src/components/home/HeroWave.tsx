@@ -61,11 +61,14 @@ export function HeroWave() {
         ref={bobRef}
         className="absolute inset-x-0 bottom-0 will-change-transform"
       >
-        {/* Base branca do "mar": o topo (~120px) encosta na cava da onda e a
-            base desce bem abaixo do pé do hero (-200px, recortado pelo
-            overflow-hidden da seção). Como balança junto com a onda, cobre todo
-            o fundo navy sob a curva em qualquer posição do balanço. */}
-        <div className="absolute inset-x-0 bottom-[-200px] h-[320px] bg-white" />
+        {/* Base branca do "mar": o topo fica em ~114px — DENTRO da faixa branca
+            da onda (entre o pé da faixa em bottom-28=112px e a cava mais baixa
+            em ~117px), nunca ACIMA da cava. Assim a borda reta do topo da base
+            fica escondida atrás do branco da própria onda (sem linha reta
+            cortando as cavas) e a base ainda cobre todo o navy abaixo da faixa,
+            descendo bem além do pé do hero (-200px, recortado pelo overflow da
+            seção). Como balança junto com a onda, isso vale em qualquer scroll. */}
+        <div className="absolute inset-x-0 bottom-[-200px] h-[314px] bg-white" />
         {/* Faixa da onda, elevada para subir todas as ondas no hero. */}
         <div className="absolute inset-x-0 bottom-28 overflow-hidden">
           <svg

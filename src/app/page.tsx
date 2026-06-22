@@ -89,7 +89,10 @@ export default async function HomePage() {
         <HeroWave />
       </section>
 
-      <section className="relative overflow-hidden bg-white pb-20 pt-28" id="categorias">
+      {/* -mt-px: a seção branca sobrepõe 1px o pé do hero para fechar a fresta
+          de sub-pixel (hairline cinza do fundo do body #edecec) que o navegador
+          deixa vazar na emenda das seções em zoom/DPI fracionário. */}
+      <section className="relative -mt-px overflow-hidden bg-white pb-20 pt-28" id="categorias">
         <div className="relative z-10 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="flex flex-col justify-between gap-4 sm:flex-row sm:items-end">
             <div className="max-w-2xl">
