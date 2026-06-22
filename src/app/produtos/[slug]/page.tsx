@@ -5,7 +5,7 @@ import { ProductActionPanel } from "@/components/cart/ProductActionPanel";
 import { ProductCard } from "@/components/products/ProductCard";
 import { ProductImage } from "@/components/ui/ProductImage";
 import { Reveal } from "@/components/ui/Reveal";
-import { formatCurrency } from "@/lib/currency";
+import { formatPriceLabel, isOnRequestPrice } from "@/lib/currency";
 import { getCatalog } from "@/lib/catalog/get-catalog";
 import { getProductBySlug } from "@/lib/catalog/get-product-by-slug";
 
@@ -80,15 +80,27 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
             <ProductImage src={product.imageUrl} alt={product.name} loading="eager" className="mx-auto h-[420px] w-full object-contain" />
           </div>
           <div>
-            <p className="font-bold uppercase tracking-[0.2em] text-red">{product.brand?.name}</p>
+            <div className="flex items-center gap-3">
+              {product.brand?.logoUrl ? (
+                /* eslint-disable-next-line @next/next/no-img-element */
+                <img src={product.brand.logoUrl} alt={product.brand.name} className="h-7 w-auto max-w-[120px] object-contain" />
+              ) : null}
+              <p className="font-bold uppercase tracking-[0.2em] text-red">{product.brand?.name}</p>
+            </div>
             <h1 className="mt-3 font-heading text-5xl font-extrabold leading-tight text-navy">{product.name}</h1>
             <div className="mt-5 flex flex-wrap gap-2">
               <span className="rounded-full bg-white px-4 py-2 text-sm font-semibold text-navy">{product.category?.name}</span>
               <span className="rounded-full bg-white px-4 py-2 text-sm font-semibold text-navy">{product.unit}</span>
-              <span className="rounded-full bg-red/10 px-4 py-2 text-sm font-semibold text-red">Preço de referência</span>
+              <span className="rounded-full bg-red/10 px-4 py-2 text-sm font-semibold text-red">
+                {isOnRequestPrice(product.priceCents) ? "Preço sob consulta" : "Preço de referência"}
+              </span>
             </div>
-            <p className="mt-7 font-heading text-4xl font-extrabold text-ink">{formatCurrency(product.priceCents)}</p>
-            <p className="mt-3 text-sm font-semibold text-red">Valores demonstrativos sujeitos à confirmação de preço e disponibilidade.</p>
+            <p className="mt-7 font-heading text-4xl font-extrabold text-ink">{formatPriceLabel(product.priceCents)}</p>
+            <p className="mt-3 text-sm font-semibold text-red">
+              {isOnRequestPrice(product.priceCents)
+                ? "Fale com a equipe para confirmar preço e disponibilidade deste item."
+                : "Valores de referência sujeitos à confirmação de preço e disponibilidade."}
+            </p>
             <p className="mt-6 text-lg leading-8 text-ink/75">{product.description || product.shortDescription}</p>
             <p className="mt-4 rounded-lg bg-white p-4 text-sm font-semibold text-navy shadow-sm">
               Confirme disponibilidade, especificações e aplicação correta com nossa equipe.

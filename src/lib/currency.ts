@@ -8,3 +8,12 @@ export function formatCurrency(cents: number) {
     currency: "BRL"
   }).format(centsToReais(cents));
 }
+
+// priceCents <= 0 sinaliza produto sem preço de referência ("sob consulta").
+export function isOnRequestPrice(cents: number) {
+  return !cents || cents <= 0;
+}
+
+export function formatPriceLabel(cents: number) {
+  return isOnRequestPrice(cents) ? "Sob consulta" : formatCurrency(cents);
+}

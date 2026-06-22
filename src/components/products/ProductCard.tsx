@@ -2,7 +2,7 @@ import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import { CartStepper } from "@/components/cart/CartStepper";
 import { ProductImage } from "@/components/ui/ProductImage";
-import { formatCurrency } from "@/lib/currency";
+import { formatPriceLabel, isOnRequestPrice } from "@/lib/currency";
 import type { Product } from "@/types/catalog";
 
 export function ProductCard({
@@ -50,6 +50,10 @@ export function ProductCard({
       ) : (
         <div className="mt-4 flex flex-1 flex-col px-2">
           <div className="flex flex-wrap items-center gap-x-2 gap-y-1">
+            {product.brand?.logoUrl ? (
+              /* eslint-disable-next-line @next/next/no-img-element */
+              <img src={product.brand.logoUrl} alt={product.brand.name} className="h-4 w-auto max-w-[72px] object-contain" loading="lazy" />
+            ) : null}
             <span className="text-xs font-bold uppercase tracking-[0.18em] text-red">{product.brand?.name}</span>
             {product.category?.name ? (
               <span className="text-xs font-semibold text-ink/45">· {product.category.name}</span>
@@ -61,8 +65,10 @@ export function ProductCard({
           <p className="mt-2 flex-1 text-sm leading-6 text-ink/70">{product.shortDescription}</p>
           <div className="mt-4 flex items-end justify-between gap-2 border-t border-navy/10 pt-4">
             <div>
-              <p className="text-[11px] font-semibold uppercase tracking-wide text-ink/45">Preço de referência</p>
-              <p className="mt-0.5 font-heading text-2xl font-bold text-ink">{formatCurrency(product.priceCents)}</p>
+              <p className="text-[11px] font-semibold uppercase tracking-wide text-ink/45">
+                {isOnRequestPrice(product.priceCents) ? "Preço" : "Preço de referência"}
+              </p>
+              <p className="mt-0.5 font-heading text-2xl font-bold text-ink">{formatPriceLabel(product.priceCents)}</p>
             </div>
             <span className="pb-1 text-xs font-semibold text-ink/55">{product.unit}</span>
           </div>
