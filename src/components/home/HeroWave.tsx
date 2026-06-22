@@ -23,7 +23,11 @@ export function HeroWave() {
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
 
     // Amplitude do balanço (px) e "passo" do scroll (px) por ciclo da onda.
-    const AMPLITUDE = 6;
+    // Mantida pequena de propósito: o balanço vertical move a onda dentro da
+    // faixa; se for grande, ao subir expõe o pé da faixa (linha azul) e ao
+    // descer faz a base branca "vazar" acima das cavas. Com AMPLITUDE 2 +
+    // jitter 1 do keyframe (=3px) a base fixa (117px) cobre os dois casos.
+    const AMPLITUDE = 2;
     const STEP = 140;
 
     let frame = 0;
@@ -51,10 +55,14 @@ export function HeroWave() {
       className="pointer-events-none absolute inset-x-0 bottom-0 z-0"
     >
       {/* Base branca do "mar": cobre o pé do hero (do fim da seção até a linha
-          da onda) para que TODA a onda possa ser elevada (bottom-16) sem
-          revelar o azul do hero por baixo dela. Subir/baixar esse h-16 + o
-          bottom-16 da faixa abaixo (mantendo-os iguais) move toda a onda. */}
-      <div className="absolute inset-x-0 bottom-0 h-28 bg-white" />
+          da onda) para que TODA a onda possa ser elevada sem revelar o azul do
+          hero por baixo dela. A base (117px) sobe ~5px ACIMA do pé da faixa da
+          onda (bottom-28 = 112px) e fica ABAIXO da cava mais baixa (~123px):
+          assim ela cobre o pé exposto quando o balanço sobe, mas continua
+          escondida atrás do branco da onda quando o balanço desce — sem linha
+          azul nem "degrau" branco ao rolar. Para mover toda a onda, ajuste
+          bottom-28 da faixa e mantenha a base ~5px maior. */}
+      <div className="absolute inset-x-0 bottom-0 h-[117px] bg-white" />
       {/* Faixa da onda, elevada para subir todas as ondas no hero. */}
       <div className="absolute inset-x-0 bottom-28 overflow-hidden">
         <div ref={bobRef} className="will-change-transform">
@@ -75,7 +83,10 @@ export function HeroWave() {
                   y=37) para a curvatura não achatar. A animação desliza
                   exatamente -160px por ciclo (= período), então o loop é
                   imperceptível. O caminho cobre de x=-120 a x=+360 (bem além
-                  das bordas) para nunca mostrar fresta da seção. */}
+                  das bordas) para nunca mostrar fresta da seção. O balanço
+                  vertical no scroll é pequeno (AMPLITUDE 2 + jitter 1 = 3px) e a
+                  base branca (117px) sobrepõe o pé da faixa, então rolar não
+                  expõe linha azul nem deixa a base "vazar" acima das cavas. */}
               <path
                 id="gentle-wave"
                 d="M-120 19 c24 -18 56 -18 80 0 s56 18 80 0 c24 -18 56 -18 80 0 s56 18 80 0 c24 -18 56 -18 80 0 s56 18 80 0 v49 h-480 z"
