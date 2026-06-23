@@ -87,7 +87,7 @@ function Intro({ supportUrl }: { supportUrl: string }) {
 
       <div className="mt-6 grid gap-2.5 text-left sm:grid-cols-3">
         {reasons.map(({ icon: Icon, title, text }) => (
-          <div key={title} className="flex items-center gap-2 rounded-lg border border-navy/10 bg-white p-2 transition-shadow hover:shadow-soft">
+          <div key={title} className="flex items-center gap-2 rounded-lg bg-white p-2 transition-shadow hover:shadow-soft">
             <span className="grid h-7 w-7 shrink-0 place-items-center rounded-md bg-sky text-navy">
               <Icon size={15} aria-hidden="true" />
             </span>
