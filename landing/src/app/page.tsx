@@ -39,7 +39,7 @@ export default function LandingPage() {
                 <Anchor size={14} aria-hidden="true" /> Náutica Color
               </p>
               <h1 className="animate-fade-up font-heading text-2xl font-extrabold leading-[1.1] [animation-delay:80ms] sm:text-3xl lg:text-4xl">
-                Tudo para a manutenção da sua embarcação.
+                Tudo para a sua embarcação.
               </h1>
               <p className="mx-auto mt-5 max-w-xl animate-fade-up text-sm leading-7 text-white/80 [animation-delay:160ms]">
                 Tintas, antifouling, acabamentos e abrasivos de alta performance. Escolha o produto e fale direto com a equipe pelo WhatsApp.
