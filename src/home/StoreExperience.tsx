@@ -1,12 +1,14 @@
 import { MapPin, MessageCircle, PackageCheck, Users } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
-import { Eyebrow } from "@/components/ui/Eyebrow";
-import { StoreExperienceMarquee } from "@/components/home/StoreExperienceMarquee";
+import { Eyebrow } from "@/home/Eyebrow";
+import { StoreExperienceMarquee } from "@/home/StoreExperienceMarquee";
 
 /**
  * Seção "Prontos para te atender": mostra a estrutura física e o atendimento
  * da loja. O carrossel de fotos (StoreExperienceMarquee) é dirigido pelo scroll
  * — a faixa desliza na horizontal acompanhando a rolagem do mouse.
+ *
+ * Cópia exclusiva da HOME (rota /). Editar aqui não afeta a landing (/lp).
  */
 
 const reasons: { icon: LucideIcon; title: string; text: string }[] = [

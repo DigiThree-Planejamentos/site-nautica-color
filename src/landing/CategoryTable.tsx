@@ -1,13 +1,11 @@
 "use client";
 
-import { useState } from "react";
 import Link from "next/link";
 import {
   Anchor,
   ArrowRight,
   Brush,
   Car,
-  ChevronDown,
   Cog,
   Combine,
   Disc3,
@@ -16,7 +14,6 @@ import {
   Fuel,
   HardHat,
   Layers,
-  LayoutGrid,
   LifeBuoy,
   Magnet,
   Package,
@@ -73,10 +70,8 @@ export function CategoryTable({
 }) {
   const reduce = useReducedMotion();
   const ease = [0.16, 1, 0.3, 1] as const;
-  // A tabela começa fechada; o botão a abre disparando a cascata.
-  const [open, setOpen] = useState(false);
 
-  // O container revela as linhas em cascata (de cima para baixo) ao abrir.
+  // O container revela as linhas em cascata (de cima para baixo) ao entrar na tela.
   const tableVariants: Variants = {
     hidden: {},
     show: { transition: { staggerChildren: reduce ? 0 : 0.06 } }
@@ -97,49 +92,23 @@ export function CategoryTable({
   };
 
   return (
-    <div className="mt-8">
-      {/* Botão que abre/fecha a tabela */}
-      <button
-        type="button"
-        onClick={() => setOpen((value) => !value)}
-        aria-expanded={open}
-        aria-controls="tabela-categorias"
-        className="group inline-flex items-center gap-3 rounded-full bg-navy px-6 py-3 text-sm font-semibold text-white shadow-sm transition hover:bg-red"
-      >
-        <LayoutGrid size={18} aria-hidden="true" />
-        Categorias
-        <span className="font-bold text-white/65 group-hover:text-white/80">{categories.length}</span>
-        <ChevronDown
-          size={18}
-          className={`transition-transform duration-300 ease-nautica ${open ? "rotate-180" : ""}`}
-          aria-hidden="true"
-        />
-      </button>
+    <div className="mt-8 overflow-hidden rounded-2xl border border-navy/10 shadow-sm">
+      {/* Cabeçalho da tabela */}
+      <div className="flex items-center gap-4 bg-navy px-4 py-3 text-[11px] font-bold uppercase tracking-[0.18em] text-white/70 sm:px-5">
+        <span className="w-9 shrink-0" aria-hidden="true" />
+        <span className="flex-1">Categoria</span>
+        <span className="w-20 text-right sm:w-24">Itens</span>
+        <span className="w-6 shrink-0" aria-hidden="true" />
+      </div>
 
-      {/* Painel colapsável: abre a altura e dispara a cascata das linhas */}
       <motion.div
-        id="tabela-categorias"
-        initial={{ height: 0, opacity: 0 }}
-        animate={{ height: open ? "auto" : 0, opacity: open ? 1 : 0 }}
-        transition={{ duration: reduce ? 0 : 0.4, ease }}
-        className="overflow-hidden"
+        className="divide-y divide-navy/10 bg-white"
+        variants={tableVariants}
+        initial="hidden"
+        whileInView="show"
+        viewport={{ once: true, amount: 0.12 }}
       >
-        <div className="mt-4 overflow-hidden rounded-2xl border border-navy/10 shadow-sm">
-          {/* Cabeçalho da tabela */}
-          <div className="flex items-center gap-4 bg-navy px-4 py-3 text-[11px] font-bold uppercase tracking-[0.18em] text-white/70 sm:px-5">
-            <span className="w-9 shrink-0" aria-hidden="true" />
-            <span className="flex-1">Categoria</span>
-            <span className="w-20 text-right sm:w-24">Itens</span>
-            <span className="w-6 shrink-0" aria-hidden="true" />
-          </div>
-
-          <motion.div
-            className="divide-y divide-navy/10 bg-white"
-            variants={tableVariants}
-            initial="hidden"
-            animate={open ? "show" : "hidden"}
-          >
-            {categories.map((category) => {
+        {categories.map((category) => {
           const meta = META[category.slug];
           const Icon = meta?.icon ?? Anchor;
           const count = counts[category.slug] ?? 0;
@@ -179,10 +148,8 @@ export function CategoryTable({
                 <ArrowRight size={18} className="transition-transform group-hover:translate-x-1" aria-hidden="true" />
               </motion.span>
             </motion.div>
-              );
-            })}
-          </motion.div>
-        </div>
+          );
+        })}
       </motion.div>
     </div>
   );
