@@ -95,9 +95,13 @@ export default function LandingPage() {
           </div>
         </section>
 
-        <StoreExperience supportUrl={supportUrl} />
+        {/* Estágio fixo (atendimento) + marcas no mesmo pai relativo: a seção
+            de marcas (opaca, z-10) sobe POR CIMA das fotos fixadas, sem margem
+            negativa — então o fluxo de baixo não quebra. */}
+        <div className="relative">
+          <StoreExperience supportUrl={supportUrl} />
 
-        <section id="marcas" className="bg-white py-20">
+          <section id="marcas" className="relative z-10 bg-white py-20">
           <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
             <Eyebrow>Marcas parceiras</Eyebrow>
             <h2 className="mt-3 font-heading text-3xl font-extrabold text-navy sm:text-4xl">Linhas profissionais em um catálogo único.</h2>
@@ -111,7 +115,8 @@ export default function LandingPage() {
               ))}
             </div>
           </div>
-        </section>
+          </section>
+        </div>
 
         <section id="contato" className="bg-white py-20">
           <div className="mx-auto grid max-w-7xl gap-8 px-4 sm:px-6 lg:grid-cols-2 lg:px-8">

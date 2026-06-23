@@ -3,7 +3,7 @@
 /* eslint-disable @next/next/no-img-element */
 
 import { useRef } from "react";
-import { motion, useReducedMotion, useScroll, useTransform, type MotionValue } from "motion/react";
+import { motion, useReducedMotion, useScroll, useSpring, useTransform, type MotionValue } from "motion/react";
 import { MapPin, MessageCircle, PackageCheck, Users } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
 import { Eyebrow } from "@/components/Eyebrow";
@@ -44,7 +44,7 @@ function StackCard({ photo, index, progress }: { photo: Photo; index: number; pr
   // no seu trecho do scroll e FICA parada; a próxima entra por cima (z-index por
   // índice), terminando com a fachada na frente. A montagem acaba em FILL_END e
   // o resto do scroll é pausa com a pilha completa. Janelas dentro de [0,1].
-  const FILL_END = 0.55;
+  const FILL_END = 0.8;
   const seg = FILL_END / total;
   const start = index * seg;
   const end = (index + 1) * seg;
@@ -60,7 +60,7 @@ function StackCard({ photo, index, progress }: { photo: Photo; index: number; pr
     <motion.figure
       initial={false}
       style={{ x, y, scale, rotate, opacity, zIndex: index }}
-      className="absolute inset-0 overflow-hidden rounded-2xl shadow-soft ring-1 ring-navy/10"
+      className="absolute inset-0 overflow-hidden rounded-2xl ring-1 ring-navy/10"
     >
       <img src={photo.src} alt={photo.alt} loading={index < 2 ? "eager" : "lazy"} className="h-full w-full object-cover" />
       <span className="absolute left-4 top-4 rounded-full bg-navy px-3 py-1 font-heading text-xs font-bold tabular-nums tracking-wide text-white">
@@ -114,7 +114,12 @@ function Intro({ supportUrl }: { supportUrl: string }) {
 export function StoreExperience({ supportUrl }: { supportUrl: string }) {
   const reduce = useReducedMotion();
   const ref = useRef<HTMLDivElement>(null);
-  const { scrollYProgress } = useScroll({ target: ref, offset: ["start start", "end end"] });
+  // ref fica na trilha de scroll (abaixo do estágio fixo); o progresso vai de 0
+  // (quando a trilha entra, logo após o estágio pinar) a 1 (fim da trilha).
+  const { scrollYProgress } = useScroll({ target: ref, offset: ["start end", "end end"] });
+  // Suavização: a animação "persegue" o scroll com mola (stiffness baixa = mais
+  // lenta e amanteigada) em vez de seguir o scroll 1:1.
+  const progress = useSpring(scrollYProgress, { stiffness: 40, damping: 24, mass: 0.6 });
 
   // Fallback sem animação: texto + cards e um grid estático de fotos ao lado.
   if (reduce) {
@@ -135,22 +140,28 @@ export function StoreExperience({ supportUrl }: { supportUrl: string }) {
   }
 
   return (
-    <section id="atendimento" className="bg-white">
-      {/* A seção é a trilha de scroll; o conteúdo fica fixo enquanto rola. */}
-      <div ref={ref} style={{ height: `${total * 48}vh` }} className="relative">
-        <div className="sticky top-0 flex min-h-screen items-center overflow-hidden py-12">
-          <div className="mx-auto flex w-full max-w-3xl flex-col items-center gap-8 px-4 sm:px-6 lg:px-8">
-            <Intro supportUrl={supportUrl} />
+    <>
+      {/* Estágio fixo (sticky top-0): fica pinado enquanto a trilha de scroll
+          abaixo rola e PERMANECE fixo enquanto a próxima seção sobe por cima
+          (as duas estão no mesmo container relativo em page.tsx). */}
+      <section id="atendimento" className="sticky top-0 flex h-screen items-center overflow-hidden bg-white py-12">
+        <div className="mx-auto flex w-full max-w-3xl flex-col items-center gap-8 px-4 sm:px-6 lg:px-8">
+          <Intro supportUrl={supportUrl} />
 
-            {/* Pilha de fotos dirigida pelo scroll, abaixo do texto. */}
-            <div className="relative aspect-[3/2] w-full max-w-xl">
-              {photos.map((photo, index) => (
-                <StackCard key={photo.src} photo={photo} index={index} progress={scrollYProgress} />
-              ))}
-            </div>
+          {/* Pilha de fotos dirigida pelo scroll, abaixo do texto. Sombra só
+              aqui no container (uma só), pra as 9 fotos empilhadas não somarem
+              sombras e criarem um halo embaçado. */}
+          <div className="relative aspect-[3/2] w-full max-w-xl rounded-2xl shadow-soft">
+            {photos.map((photo, index) => (
+              <StackCard key={photo.src} photo={photo} index={index} progress={progress} />
+            ))}
           </div>
         </div>
-      </div>
-    </section>
+      </section>
+
+      {/* Trilha de scroll (vazia) que dirige a montagem da pilha. Sua altura
+          define quanto scroll a animação ocupa antes da próxima seção cobrir. */}
+      <div ref={ref} aria-hidden style={{ height: `${total * 25}vh` }} />
+    </>
   );
 }
