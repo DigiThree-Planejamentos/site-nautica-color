@@ -10,16 +10,7 @@ import type { Product } from "@/types/catalog";
  * quando o produto já está no carrinho — inspirado no stepper do Gromuse,
  * adaptado à paleta Náutica (vermelho). Não abre o drawer ao ajustar inline.
  */
-export function CartStepper({
-  product,
-  className = "",
-  variant = "red"
-}: {
-  product: Product;
-  className?: string;
-  /** "red" = ação primária (padrão). "navy" = ação secundária (ex.: vitrine, onde o WhatsApp é o destaque). */
-  variant?: "red" | "navy";
-}) {
+export function CartStepper({ product, className = "" }: { product: Product; className?: string }) {
   const { items, addProduct, updateQuantity, removeItem } = useCart();
   const reduce = useReducedMotion();
   const quantity = items.find((item) => item.productId === product.id)?.quantity ?? 0;
@@ -27,9 +18,8 @@ export function CartStepper({
   const dur = reduce ? 0 : 0.22;
   const offset = reduce ? 0 : 8;
 
-  const bg = variant === "navy" ? "bg-navy" : "bg-red";
   const shell =
-    `flex h-11 w-full items-center justify-center rounded-full ${bg} text-sm font-semibold text-white`;
+    "flex h-11 w-full items-center justify-center rounded-full bg-red text-sm font-semibold text-white";
 
   return (
     <div className={`relative ${className}`}>
@@ -43,7 +33,7 @@ export function CartStepper({
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: dur, ease: [0.16, 1, 0.3, 1] }}
-            className={`${shell} gap-2 px-5 transition-colors ${variant === "navy" ? "hover:bg-navy-light" : "hover:bg-red-bright"} focus-visible:outline focus-visible:outline-2`}
+            className={`${shell} gap-2 px-5 transition-colors hover:bg-red-bright focus-visible:outline focus-visible:outline-2`}
           >
             <ShoppingBasket size={18} aria-hidden="true" />
             Adicionar
