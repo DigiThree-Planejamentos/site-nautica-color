@@ -87,13 +87,13 @@ function Intro({ supportUrl }: { supportUrl: string }) {
 
       <div className="mt-6 grid gap-2.5 text-left sm:grid-cols-3">
         {reasons.map(({ icon: Icon, title, text }) => (
-          <div key={title} className="flex items-center gap-3 rounded-lg border border-navy/10 bg-white p-3 transition-shadow hover:shadow-soft">
-            <span className="grid h-9 w-9 shrink-0 place-items-center rounded-lg bg-sky text-navy">
-              <Icon size={18} aria-hidden="true" />
+          <div key={title} className="flex items-center gap-2 rounded-lg border border-navy/10 bg-white p-2 transition-shadow hover:shadow-soft">
+            <span className="grid h-7 w-7 shrink-0 place-items-center rounded-md bg-sky text-navy">
+              <Icon size={15} aria-hidden="true" />
             </span>
             <div>
-              <h3 className="font-heading text-sm font-bold leading-tight text-navy">{title}</h3>
-              <p className="mt-0.5 text-xs leading-5 text-ink/65">{text}</p>
+              <h3 className="font-heading text-xs font-bold leading-tight text-navy">{title}</h3>
+              <p className="mt-0.5 text-[11px] leading-4 text-ink/65">{text}</p>
             </div>
           </div>
         ))}
