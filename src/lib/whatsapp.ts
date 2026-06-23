@@ -1,6 +1,5 @@
 import type { CartItem } from "@/types/cart";
-import type { Product } from "@/types/catalog";
-import { formatCurrency, formatPriceLabel } from "@/lib/currency";
+import { formatCurrency } from "@/lib/currency";
 
 const fallbackNumber = "5524998447844";
 
@@ -36,19 +35,6 @@ Aguardo a confirmação de disponibilidade, valores e condições pelo WhatsApp.
 
 export function buildSupportMessage() {
   return "Olá, equipe Náutica Color! Acessei o site e gostaria de receber ajuda para escolher os produtos adequados para minha embarcação.";
-}
-
-// Mensagem para o botão "Falar no WhatsApp" de um produto específico da vitrine.
-// Já chega no atendimento com o nome, código e preço de referência preenchidos.
-export function buildProductMessage(product: Product) {
-  const brand = product.brand?.name ? ` (${product.brand.name})` : "";
-  return `Olá, equipe Náutica Color! Tenho interesse neste produto e gostaria de confirmar disponibilidade, valor e indicação de uso:
-
-• ${product.name}${brand}
-Código: ${product.sku}
-Preço de referência: ${formatPriceLabel(product.priceCents)}
-
-Os valores do site são apenas referência. Aguardo a confirmação pelo WhatsApp. Obrigado!`;
 }
 
 export function whatsappUrl(message: string, number = fallbackNumber) {
