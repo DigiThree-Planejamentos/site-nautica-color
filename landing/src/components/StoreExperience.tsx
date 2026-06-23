@@ -1,12 +1,37 @@
+"use client";
+
+/* eslint-disable @next/next/no-img-element */
+
+import { useRef } from "react";
+import { motion, useReducedMotion, useScroll, useTransform, type MotionValue } from "motion/react";
 import { MapPin, MessageCircle, PackageCheck, Users } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
 import { Eyebrow } from "@/components/Eyebrow";
-import { StoreExperienceMarquee } from "@/components/StoreExperienceMarquee";
 
 /**
- * Seção "Prontos para te atender": estrutura física e atendimento da loja, com
- * carrossel de fotos dirigido pelo scroll e CTA de WhatsApp.
+ * Seção "Prontos para te atender": texto + motivos + CTA de um lado e, do outro,
+ * a pilha de fotos da loja dirigida pelo scroll. A seção inteira é a "trilha" de
+ * scroll: enquanto ela atravessa a viewport, o conteúdo fica fixo (sticky) e as
+ * fotos entram na diagonal e se empilham (a última, a fachada, fica na frente).
+ * Com `prefers-reduced-motion` tudo vira um layout estático.
  */
+
+type Photo = { src: string; alt: string };
+
+const photos: Photo[] = [
+  { src: "/experiencia/loja-01.webp", alt: "Interior da loja Náutica Color com prateleiras de produtos náuticos" },
+  { src: "/experiencia/loja-02.webp", alt: "Corredor da Náutica Color com tintas, antifouling e abrasivos" },
+  { src: "/experiencia/loja-03.webp", alt: "Exposição de produtos para manutenção de embarcações na Náutica Color" },
+  { src: "/experiencia/loja-04.webp", alt: "Prateleiras de acabamentos e acessórios na Náutica Color" },
+  { src: "/experiencia/loja-05.webp", alt: "Estoque variado de produtos náuticos na loja Náutica Color" },
+  { src: "/experiencia/loja-06.webp", alt: "Balcão de atendimento da Náutica Color com selantes e acessórios" },
+  { src: "/experiencia/loja-07.webp", alt: "Ambiente interno da Náutica Color com linha profissional de produtos" },
+  { src: "/experiencia/marine-shop.webp", alt: "Expositor Sika Marine Shop com selantes e produtos náuticos" },
+  // Última = fica na frente.
+  { src: "/experiencia/fachada-site.webp", alt: "Fachada da loja Náutica Color na Marina Verolme" }
+];
+
+const total = photos.length;
 
 const reasons: { icon: LucideIcon; title: string; text: string }[] = [
   { icon: PackageCheck, title: "Estoque completo", text: "Tintas, antifouling, abrasivos, fiberglass e acabamentos na prateleira." },
@@ -14,50 +39,117 @@ const reasons: { icon: LucideIcon; title: string; text: string }[] = [
   { icon: MapPin, title: "Pertinho da sua embarcação", text: "Atendimento presencial na Marina Verolme, em Angra dos Reis." }
 ];
 
-export function StoreExperience({ supportUrl }: { supportUrl: string }) {
-  return (
-    <section id="atendimento" className="overflow-hidden bg-white py-20">
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <div className="mx-auto max-w-2xl text-center">
-          <div className="flex justify-center">
-            <Eyebrow>Atendimento</Eyebrow>
-          </div>
-          <h2 className="mt-3 font-heading text-3xl font-extrabold leading-tight text-navy sm:text-4xl">
-            Prontos para te atender.
-          </h2>
-          <p className="mt-4 text-ink/70">
-            Uma loja física de verdade, com a prateleira cheia e gente que conhece o produto. Passe na Marina Verolme ou
-            chame pelo WhatsApp: a gente encontra a solução certa para a sua embarcação.
-          </p>
-        </div>
+function StackCard({ photo, index, progress }: { photo: Photo; index: number; progress: MotionValue<number> }) {
+  // Empilhamento: cada foto entra na diagonal (canto inferior direito → repouso)
+  // no seu trecho do scroll e FICA parada; a próxima entra por cima (z-index por
+  // índice), terminando com a fachada na frente. A montagem acaba em FILL_END e
+  // o resto do scroll é pausa com a pilha completa. Janelas dentro de [0,1].
+  const FILL_END = 0.55;
+  const seg = FILL_END / total;
+  const start = index * seg;
+  const end = (index + 1) * seg;
+  const fade = seg * 0.5;
 
-        <div className="mx-auto mt-6 grid max-w-3xl gap-2.5 sm:grid-cols-3">
-          {reasons.map(({ icon: Icon, title, text }) => (
-            <div key={title} className="flex items-center gap-2 rounded-lg border border-navy/10 bg-white p-2.5 transition-shadow hover:shadow-soft">
-              <span className="grid h-7 w-7 shrink-0 place-items-center rounded-lg bg-sky text-navy">
-                <Icon size={14} aria-hidden="true" />
-              </span>
-              <div>
-                <h3 className="font-heading text-xs font-bold leading-tight text-navy">{title}</h3>
-                <p className="mt-0.5 text-[11px] leading-4 text-ink/65">{text}</p>
-              </div>
+  const x = useTransform(progress, [start, end], ["90%", "0%"]);
+  const y = useTransform(progress, [start, end], ["90%", "0%"]);
+  const scale = useTransform(progress, [start, end], [1.06, 1]);
+  const rotate = useTransform(progress, [start, end], [6, 0]);
+  const opacity = useTransform(progress, [start, start + fade], [0, 1]);
+
+  return (
+    <motion.figure
+      initial={false}
+      style={{ x, y, scale, rotate, opacity, zIndex: index }}
+      className="absolute inset-0 overflow-hidden rounded-2xl shadow-soft ring-1 ring-navy/10"
+    >
+      <img src={photo.src} alt={photo.alt} loading={index < 2 ? "eager" : "lazy"} className="h-full w-full object-cover" />
+      <span className="absolute left-4 top-4 rounded-full bg-navy px-3 py-1 font-heading text-xs font-bold tabular-nums tracking-wide text-white">
+        {String(index + 1).padStart(2, "0")} / {String(total).padStart(2, "0")}
+      </span>
+    </motion.figure>
+  );
+}
+
+function Intro({ supportUrl }: { supportUrl: string }) {
+  return (
+    <div className="mx-auto max-w-2xl text-center">
+      <div className="flex justify-center">
+        <Eyebrow>Atendimento</Eyebrow>
+      </div>
+      <h2 className="mt-3 font-heading text-3xl font-extrabold leading-tight text-navy sm:text-4xl">
+        Tudo para sua embarcação, em um só lugar.
+      </h2>
+      <p className="mt-4 text-ink/70">
+        Da preparação ao acabamento, do casco ao convés: estoque completo, marcas profissionais e uma equipe que conhece
+        cada produto. Passe na Marina Verolme ou chame pelo WhatsApp: a gente encontra a solução certa para a sua
+        embarcação.
+      </p>
+
+      <div className="mt-6 grid gap-2.5 text-left sm:grid-cols-3">
+        {reasons.map(({ icon: Icon, title, text }) => (
+          <div key={title} className="flex items-center gap-3 rounded-lg border border-navy/10 bg-white p-3 transition-shadow hover:shadow-soft">
+            <span className="grid h-9 w-9 shrink-0 place-items-center rounded-lg bg-sky text-navy">
+              <Icon size={18} aria-hidden="true" />
+            </span>
+            <div>
+              <h3 className="font-heading text-sm font-bold leading-tight text-navy">{title}</h3>
+              <p className="mt-0.5 text-xs leading-5 text-ink/65">{text}</p>
             </div>
-          ))}
-        </div>
+          </div>
+        ))}
       </div>
 
-      {/* Carrossel de fotos da loja dirigido pelo scroll (full-bleed). */}
-      <StoreExperienceMarquee />
+      <a
+        href={supportUrl}
+        target="_blank"
+        rel="noopener noreferrer"
+        className="mt-7 inline-flex h-11 items-center justify-center gap-2 rounded-full bg-red px-5 text-sm font-semibold text-white transition hover:bg-red-bright"
+      >
+        <MessageCircle size={18} aria-hidden="true" /> Falar com a equipe
+      </a>
+    </div>
+  );
+}
 
-      <div className="mx-auto mt-10 flex max-w-7xl justify-center px-4 sm:px-6 lg:px-8">
-        <a
-          href={supportUrl}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="inline-flex h-11 items-center justify-center gap-2 rounded-full bg-red px-5 text-sm font-semibold text-white transition hover:bg-red-bright"
-        >
-          <MessageCircle size={18} aria-hidden="true" /> Falar com a equipe
-        </a>
+export function StoreExperience({ supportUrl }: { supportUrl: string }) {
+  const reduce = useReducedMotion();
+  const ref = useRef<HTMLDivElement>(null);
+  const { scrollYProgress } = useScroll({ target: ref, offset: ["start start", "end end"] });
+
+  // Fallback sem animação: texto + cards e um grid estático de fotos ao lado.
+  if (reduce) {
+    return (
+      <section id="atendimento" className="bg-white py-20">
+        <div className="mx-auto flex max-w-5xl flex-col items-center gap-10 px-4 sm:px-6 lg:px-8">
+          <Intro supportUrl={supportUrl} />
+          <div className="grid w-full grid-cols-2 gap-3 sm:grid-cols-3">
+            {photos.map((photo) => (
+              <figure key={photo.src} className="aspect-[3/2] overflow-hidden rounded-xl shadow-soft ring-1 ring-navy/10">
+                <img src={photo.src} alt={photo.alt} loading="lazy" className="h-full w-full object-cover" />
+              </figure>
+            ))}
+          </div>
+        </div>
+      </section>
+    );
+  }
+
+  return (
+    <section id="atendimento" className="bg-white">
+      {/* A seção é a trilha de scroll; o conteúdo fica fixo enquanto rola. */}
+      <div ref={ref} style={{ height: `${total * 48}vh` }} className="relative">
+        <div className="sticky top-0 flex min-h-screen items-center overflow-hidden py-12">
+          <div className="mx-auto flex w-full max-w-3xl flex-col items-center gap-8 px-4 sm:px-6 lg:px-8">
+            <Intro supportUrl={supportUrl} />
+
+            {/* Pilha de fotos dirigida pelo scroll, abaixo do texto. */}
+            <div className="relative aspect-[3/2] w-full max-w-xl">
+              {photos.map((photo, index) => (
+                <StackCard key={photo.src} photo={photo} index={index} progress={scrollYProgress} />
+              ))}
+            </div>
+          </div>
+        </div>
       </div>
     </section>
   );

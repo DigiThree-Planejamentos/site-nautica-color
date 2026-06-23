@@ -31,7 +31,9 @@ html {
 
 body {
   margin: 0;
-  overflow-x: hidden;
+  /* `clip` evita scroll horizontal SEM criar um contexto de rolagem — assim não
+     quebra `position: sticky` (o que `overflow-x: hidden` faria). */
+  overflow-x: clip;
   background: var(--off-white);
   color: var(--ink);
   font-family: var(--font-inter), sans-serif;
