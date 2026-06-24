@@ -61,7 +61,7 @@ function RowCard({ photo, index, progress }: { photo: Photo; index: number; prog
     <motion.figure
       initial={false}
       style={{ x, scale, opacity, zIndex: index }}
-      className="relative h-full min-w-0 flex-1 overflow-hidden rounded-lg shadow-sm ring-1 ring-navy/10"
+      className="group relative h-full min-w-0 flex-1 cursor-pointer overflow-hidden rounded-lg shadow-sm ring-1 ring-navy/10 transition-[flex-grow] duration-500 ease-nautica hover:flex-[8] hover:shadow-soft hover:ring-navy/25"
     >
       <img src={photo.src} alt={photo.alt} loading={index < 2 ? "eager" : "lazy"} className="h-full w-full object-cover" />
       <span className="absolute left-1.5 top-1.5 rounded-full bg-navy px-1.5 py-0.5 font-heading text-[9px] font-bold tabular-nums tracking-wide text-white">
