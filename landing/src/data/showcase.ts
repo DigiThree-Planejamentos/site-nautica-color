@@ -139,6 +139,7 @@ export const store = {
   location: "Marina Verolme, Angra dos Reis - RJ",
   phone: "(24) 2404-4606",
   whatsappVisible: "(24) 99844-7844",
+  whatsappVisible2: "(24) 99303-7332",
   instagram: "@nauticacolor",
   heroImage: "/hero/fachada-nautica.png"
 };

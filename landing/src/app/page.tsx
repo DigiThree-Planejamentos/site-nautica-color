@@ -142,6 +142,12 @@ export default function LandingPage() {
                   {store.whatsappVisible}
                 </a>
               </p>
+              <p className="mt-2 text-ink/70">
+                WhatsApp:{" "}
+                <a href={whatsappUrl(buildSupportMessage(), "5524993037332")} target="_blank" rel="noopener noreferrer" className="font-medium text-navy underline-offset-2 hover:text-red hover:underline">
+                  {store.whatsappVisible2}
+                </a>
+              </p>
               <a href={supportUrl} target="_blank" rel="noopener noreferrer" className="mt-6 inline-flex h-11 items-center justify-center gap-2 rounded-full bg-red px-5 text-sm font-semibold text-white transition hover:bg-red-bright">
                 <WhatsappIcon className="h-[18px] w-[18px]" /> Chamar no WhatsApp
               </a>
