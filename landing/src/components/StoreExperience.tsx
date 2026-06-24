@@ -2,7 +2,7 @@
 
 /* eslint-disable @next/next/no-img-element */
 
-import { useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { motion, useReducedMotion, useScroll, useSpring, useTransform, type MotionValue } from "motion/react";
 import { MapPin, PackageCheck, Users } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
@@ -128,8 +128,21 @@ export function StoreExperience({ supportUrl }: { supportUrl: string }) {
   // lenta e amanteigada) em vez de seguir o scroll 1:1.
   const progress = useSpring(scrollYProgress, { stiffness: 40, damping: 24, mass: 0.6 });
 
-  // Fallback sem animação: texto + cards e um grid estático de fotos ao lado.
-  if (reduce) {
+  // A animação de scroll (sticky + fileira que entra) roda só no desktop. No
+  // mobile (< 768px) as fotos ficam FIXAS num grid estático. Começa assumindo
+  // desktop no SSR e ajusta no cliente — sem mismatch de hidratação.
+  const [isDesktop, setIsDesktop] = useState(true);
+  useEffect(() => {
+    const mq = window.matchMedia("(min-width: 768px)");
+    const apply = () => setIsDesktop(mq.matches);
+    apply();
+    mq.addEventListener("change", apply);
+    return () => mq.removeEventListener("change", apply);
+  }, []);
+
+  // Layout estático (mobile ou prefers-reduced-motion): texto + cards e um grid
+  // fixo de fotos, sem animação de scroll.
+  if (reduce || !isDesktop) {
     return (
       <section id="atendimento" className="bg-white py-20">
         <div className="mx-auto flex max-w-5xl flex-col items-center gap-10 px-4 sm:px-6 lg:px-8">
