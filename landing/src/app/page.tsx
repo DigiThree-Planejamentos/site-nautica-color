@@ -124,25 +124,27 @@ export default function LandingPage() {
         </div>
 
         <section id="contato" className="bg-white py-20">
-          <div className="mx-auto grid max-w-7xl gap-8 px-4 sm:px-6 lg:grid-cols-2 lg:px-8">
-            <div className="rounded-lg bg-white p-8 shadow-soft">
-              <MapPin className="mb-5 text-red" size={34} aria-hidden="true" />
-              <Eyebrow>Contato</Eyebrow>
-              <h2 className="mt-3 font-heading text-3xl font-extrabold text-navy sm:text-4xl">Atendimento na Marina Verolme.</h2>
-              <p className="mt-4 text-ink/70">{store.location}</p>
-              <p className="mt-2 text-ink/70">
+          <div className="mx-auto max-w-xl px-4 sm:px-6 lg:px-8">
+            <div className="rounded-lg bg-white p-8 text-center shadow-soft">
+              <MapPin className="mx-auto mb-5 text-red" size={34} aria-hidden="true" />
+              <div className="flex justify-center">
+                <Eyebrow>Contato</Eyebrow>
+              </div>
+              <h2 className="mt-3 font-heading text-3xl font-extrabold leading-tight text-navy sm:text-4xl">Atendimento na Marina Verolme.</h2>
+              <p className="mt-4 text-sm leading-6 text-ink/70">{store.location}</p>
+              <p className="mt-2 text-sm leading-6 text-ink/70">
                 Telefone:{" "}
                 <a href={`tel:+55${store.phone.replace(/\D/g, "")}`} className="font-medium text-navy underline-offset-2 hover:text-red hover:underline">
                   {store.phone}
                 </a>
               </p>
-              <p className="mt-2 text-ink/70">
+              <p className="mt-2 text-sm leading-6 text-ink/70">
                 WhatsApp:{" "}
                 <a href={supportUrl} target="_blank" rel="noopener noreferrer" className="font-medium text-navy underline-offset-2 hover:text-red hover:underline">
                   {store.whatsappVisible}
                 </a>
               </p>
-              <p className="mt-2 text-ink/70">
+              <p className="mt-2 text-sm leading-6 text-ink/70">
                 WhatsApp:{" "}
                 <a href={whatsappUrl(buildSupportMessage(), "5524993037332")} target="_blank" rel="noopener noreferrer" className="font-medium text-navy underline-offset-2 hover:text-red hover:underline">
                   {store.whatsappVisible2}
@@ -151,22 +153,6 @@ export default function LandingPage() {
               <a href={supportUrl} target="_blank" rel="noopener noreferrer" className="mt-6 inline-flex h-11 items-center justify-center gap-2 rounded-full bg-red px-5 text-sm font-semibold text-white transition hover:bg-red-bright">
                 <WhatsappIcon className="h-[18px] w-[18px]" /> Chamar no WhatsApp
               </a>
-            </div>
-            <div className="rounded-lg bg-navy p-8 text-white shadow-soft">
-              <Anchor className="mb-5 text-white" size={34} aria-hidden="true" />
-              <h2 className="font-heading text-3xl font-extrabold">Perguntas frequentes</h2>
-              <div className="mt-6 space-y-5">
-                {[
-                  ["Os preços são finais?", "Não. São valores demonstrativos e devem ser confirmados com a loja."],
-                  ["Como faço o pedido?", "Clique em 'Falar no WhatsApp' no produto e a equipe confirma disponibilidade, valor e condições."],
-                  ["A equipe indica o produto correto?", "Sim. Confirme aplicação, disponibilidade e condições diretamente com a equipe."]
-                ].map(([question, answer]) => (
-                  <div key={question}>
-                    <h3 className="font-semibold">{question}</h3>
-                    <p className="mt-1 text-sm leading-6 text-white/70">{answer}</p>
-                  </div>
-                ))}
-              </div>
             </div>
           </div>
         </section>
