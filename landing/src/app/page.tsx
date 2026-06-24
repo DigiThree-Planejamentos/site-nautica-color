@@ -130,8 +130,18 @@ export default function LandingPage() {
               <Eyebrow>Contato</Eyebrow>
               <h2 className="mt-3 font-heading text-3xl font-extrabold text-navy sm:text-4xl">Atendimento na Marina Verolme.</h2>
               <p className="mt-4 text-ink/70">{store.location}</p>
-              <p className="mt-2 text-ink/70">Telefone: {store.phone}</p>
-              <p className="mt-2 text-ink/70">WhatsApp: {store.whatsappVisible}</p>
+              <p className="mt-2 text-ink/70">
+                Telefone:{" "}
+                <a href={`tel:+55${store.phone.replace(/\D/g, "")}`} className="font-medium text-navy underline-offset-2 hover:text-red hover:underline">
+                  {store.phone}
+                </a>
+              </p>
+              <p className="mt-2 text-ink/70">
+                WhatsApp:{" "}
+                <a href={supportUrl} target="_blank" rel="noopener noreferrer" className="font-medium text-navy underline-offset-2 hover:text-red hover:underline">
+                  {store.whatsappVisible}
+                </a>
+              </p>
               <a href={supportUrl} target="_blank" rel="noopener noreferrer" className="mt-6 inline-flex h-11 items-center justify-center gap-2 rounded-full bg-red px-5 text-sm font-semibold text-white transition hover:bg-red-bright">
                 <WhatsappIcon className="h-[18px] w-[18px]" /> Chamar no WhatsApp
               </a>
