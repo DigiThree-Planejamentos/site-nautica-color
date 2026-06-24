@@ -6,6 +6,7 @@ import { ProductShowcase } from "@/components/ProductShowcase";
 import { Eyebrow } from "@/components/Eyebrow";
 import { Reveal } from "@/components/Reveal";
 import { ScrollReveal } from "@/components/ScrollReveal";
+import { WhatsappIcon } from "@/components/WhatsappIcon";
 import { buildSupportMessage, resolveWhatsappNumber, whatsappUrl } from "@/lib/whatsapp";
 import { partnerBrands, store } from "@/data/showcase";
 
@@ -54,7 +55,7 @@ export default function LandingPage() {
                 rel="noopener noreferrer"
                 className="inline-flex h-12 items-center justify-center gap-2 rounded-full bg-red px-7 text-sm font-semibold text-white shadow-soft transition hover:bg-red-bright"
               >
-                <MessageCircle size={18} aria-hidden="true" /> Falar com o atendimento
+                <WhatsappIcon className="h-[18px] w-[18px]" /> Falar com o atendimento
               </a>
               <a
                 href="#produtos"
@@ -108,11 +109,11 @@ export default function LandingPage() {
           <section id="marcas" className="relative z-10 bg-white py-20">
           <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
             <Eyebrow>Marcas parceiras</Eyebrow>
-            <h2 className="mt-3 font-heading text-3xl font-extrabold text-navy sm:text-4xl">Linhas profissionais em um catálogo único.</h2>
+            <h2 className="mt-3 font-heading text-3xl font-extrabold leading-tight text-navy sm:text-4xl">Linhas profissionais em um catálogo único.</h2>
             <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-6">
               {partnerBrands.map((brand, index) => (
                 <Reveal key={brand} delay={(index % 6) * 120} className="h-full">
-                  <div className="grid h-full place-items-center rounded-lg bg-white p-6 text-center font-heading text-xl font-bold text-navy shadow-sm ring-1 ring-navy/5 transition-all hover:-translate-y-1 hover:text-red hover:shadow-soft">
+                  <div className="grid h-full place-items-center rounded-lg bg-white p-6 text-center font-heading text-base font-semibold text-navy shadow-sm ring-1 ring-navy/5 transition-all hover:-translate-y-1 hover:text-red hover:shadow-soft">
                     {brand}
                   </div>
                 </Reveal>
@@ -132,7 +133,7 @@ export default function LandingPage() {
               <p className="mt-2 text-ink/70">Telefone: {store.phone}</p>
               <p className="mt-2 text-ink/70">WhatsApp: {store.whatsappVisible}</p>
               <a href={supportUrl} target="_blank" rel="noopener noreferrer" className="mt-6 inline-flex h-11 items-center justify-center gap-2 rounded-full bg-red px-5 text-sm font-semibold text-white transition hover:bg-red-bright">
-                <MessageCircle size={18} aria-hidden="true" /> Chamar no WhatsApp
+                <WhatsappIcon className="h-[18px] w-[18px]" /> Chamar no WhatsApp
               </a>
             </div>
             <div className="rounded-lg bg-navy p-8 text-white shadow-soft">
@@ -158,8 +159,8 @@ export default function LandingPage() {
           <p>© Náutica Color · {store.location}</p>
         </footer>
 
-        <a href={supportUrl} target="_blank" rel="noopener noreferrer" aria-label="Falar com a Náutica Color pelo WhatsApp" className="fixed bottom-4 right-4 z-30 grid h-14 w-14 place-items-center rounded-full bg-red text-white shadow-soft hover:bg-red-bright sm:bottom-6">
-          <MessageCircle aria-hidden="true" />
+        <a href={supportUrl} target="_blank" rel="noopener noreferrer" aria-label="Falar com a Náutica Color pelo WhatsApp" className="fixed bottom-4 right-4 z-30 grid h-14 w-14 place-items-center text-red drop-shadow-lg transition hover:scale-110 hover:text-red-bright sm:bottom-6">
+          <WhatsappIcon className="h-14 w-14" />
         </a>
       </main>
     </>

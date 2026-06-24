@@ -1,7 +1,7 @@
 /* eslint-disable @next/next/no-img-element */
-import { MessageCircle } from "lucide-react";
 import { formatPriceLabel, isOnRequestPrice } from "@/lib/currency";
 import type { ShowcaseProduct } from "@/data/showcase";
+import { WhatsappIcon } from "@/components/WhatsappIcon";
 
 /**
  * Cartão de produto da landing. Diferente do e-commerce, NÃO tem carrinho nem
@@ -57,7 +57,7 @@ export function ProductCard({
           aria-label={`Falar no WhatsApp sobre ${product.name}`}
           className="mt-3 flex h-10 w-full items-center justify-center gap-2 rounded-full bg-red text-sm font-semibold text-white transition hover:bg-red-bright"
         >
-          <MessageCircle size={18} aria-hidden="true" /> Falar no WhatsApp
+          <WhatsappIcon className="h-[18px] w-[18px]" /> Falar no WhatsApp
         </a>
       </div>
     </article>

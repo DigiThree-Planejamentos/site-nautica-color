@@ -4,9 +4,10 @@
 
 import { useRef } from "react";
 import { motion, useReducedMotion, useScroll, useSpring, useTransform, type MotionValue } from "motion/react";
-import { MapPin, MessageCircle, PackageCheck, Users } from "lucide-react";
+import { MapPin, PackageCheck, Users } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
 import { Eyebrow } from "@/components/Eyebrow";
+import { WhatsappIcon } from "@/components/WhatsappIcon";
 
 /**
  * Seção "Prontos para te atender": texto + motivos + CTA acima e, abaixo, a
@@ -112,7 +113,7 @@ function SupportButton({ supportUrl }: { supportUrl: string }) {
       rel="noopener noreferrer"
       className="inline-flex h-11 items-center justify-center gap-2 rounded-full bg-red px-5 text-sm font-semibold text-white transition hover:bg-red-bright"
     >
-      <MessageCircle size={18} aria-hidden="true" /> Falar com a equipe
+      <WhatsappIcon className="h-[18px] w-[18px]" /> Falar com a equipe
     </a>
   );
 }

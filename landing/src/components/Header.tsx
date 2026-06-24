@@ -1,5 +1,5 @@
 /* eslint-disable @next/next/no-img-element */
-import { MessageCircle } from "lucide-react";
+import { WhatsappIcon } from "@/components/WhatsappIcon";
 
 /**
  * Cabeçalho enxuto da landing: logo + um CTA de WhatsApp. Sem carrinho e sem
@@ -18,7 +18,7 @@ export function Header({ supportUrl }: { supportUrl: string }) {
           rel="noopener noreferrer"
           className="inline-flex h-10 items-center justify-center gap-2 rounded-full bg-red px-4 text-sm font-semibold text-white transition hover:bg-red-bright sm:px-5"
         >
-          <MessageCircle size={16} aria-hidden="true" /> <span className="hidden sm:inline">Falar no WhatsApp</span>
+          <WhatsappIcon className="h-4 w-4" /> <span className="hidden sm:inline">Falar no WhatsApp</span>
           <span className="sm:hidden">WhatsApp</span>
         </a>
       </div>
