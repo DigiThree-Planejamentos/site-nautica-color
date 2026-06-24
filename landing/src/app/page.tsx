@@ -1,4 +1,4 @@
-import { Anchor, ArrowRight, MapPin, MessageCircle, ShieldCheck } from "lucide-react";
+import { Anchor, MapPin, MessageCircle, ShieldCheck } from "lucide-react";
 import { Header } from "@/components/Header";
 import { HeroWave } from "@/components/HeroWave";
 import { StoreExperience } from "@/components/StoreExperience";
@@ -56,12 +56,6 @@ export default function LandingPage() {
                 className="inline-flex h-12 items-center justify-center gap-2 rounded-full bg-red px-7 text-sm font-semibold text-white shadow-soft transition hover:bg-red-bright"
               >
                 <WhatsappIcon className="h-[18px] w-[18px]" /> Falar com o atendimento
-              </a>
-              <a
-                href="#produtos"
-                className="inline-flex h-12 items-center justify-center gap-2 rounded-full border border-white/30 bg-white/10 px-7 text-sm font-semibold text-white backdrop-blur transition hover:bg-white hover:text-navy"
-              >
-                Ver produtos <ArrowRight size={16} aria-hidden="true" />
               </a>
             </div>
 
