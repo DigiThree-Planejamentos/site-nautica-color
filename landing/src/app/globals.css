@@ -94,3 +94,19 @@ section[id] {
   animation-delay: -4s;
   animation-duration: 10s;
 }
+
+/* Onda vertical da borda do preenchimento do header. Desliza na vertical um
+   comprimento de onda (22 unidades do viewBox) de forma contínua, ecoando o
+   movimento da onda do hero. */
+@keyframes header-wave-flow {
+  from {
+    transform: translateY(0);
+  }
+  to {
+    transform: translateY(-22px);
+  }
+}
+
+.header-wave {
+  animation: header-wave-flow 2.6s linear infinite;
+}
