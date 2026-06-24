@@ -121,8 +121,17 @@ export const showcaseProducts: ShowcaseProduct[] = [
   }
 ];
 
-// Marcas parceiras exibidas na seção "Marcas".
-export const partnerBrands: string[] = ["3M", "Awlgrip", "Norton", "PropGlide", "Sika", "Sikkens", "WEG"];
+// Marcas parceiras exibidas na seção "Marcas" (logos em public/brand/marcas).
+export const partnerBrands: { name: string; logo: string }[] = [
+  { name: "3M", logo: "/brand/marcas/3m.webp" },
+  { name: "Awlgrip", logo: "/brand/marcas/awlgrip.webp" },
+  { name: "International", logo: "/brand/marcas/international.webp" },
+  { name: "Norton", logo: "/brand/marcas/norton-saint-gobain.webp" },
+  { name: "PropGlide", logo: "/brand/marcas/propglide-preto.webp" },
+  { name: "Sika", logo: "/brand/marcas/sika.webp" },
+  { name: "Sikkens", logo: "/brand/marcas/sikkens.webp" },
+  { name: "WEG", logo: "/brand/marcas/weg.webp" }
+];
 
 // Informações da loja (mesmos valores do e-commerce).
 export const store = {

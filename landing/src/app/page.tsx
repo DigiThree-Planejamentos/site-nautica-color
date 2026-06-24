@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 import { Anchor, MapPin, MessageCircle, ShieldCheck } from "lucide-react";
 import { Header } from "@/components/Header";
 import { HeroWave } from "@/components/HeroWave";
@@ -104,11 +105,16 @@ export default function LandingPage() {
           <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
             <Eyebrow>Marcas parceiras</Eyebrow>
             <h2 className="mt-3 font-heading text-3xl font-extrabold leading-tight text-navy sm:text-4xl">Linhas profissionais em um catálogo único.</h2>
-            <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-6">
+            <div className="mt-8 grid gap-4 grid-cols-2 sm:grid-cols-3 lg:grid-cols-4">
               {partnerBrands.map((brand, index) => (
-                <Reveal key={brand} delay={(index % 6) * 120} className="h-full">
-                  <div className="grid h-full place-items-center rounded-lg bg-white p-6 text-center font-heading text-base font-semibold text-navy shadow-sm ring-1 ring-navy/5 transition-all hover:-translate-y-1 hover:text-red hover:shadow-soft">
-                    {brand}
+                <Reveal key={brand.name} delay={(index % 4) * 120} className="h-full">
+                  <div className="grid h-full place-items-center rounded-lg bg-white p-6 shadow-sm ring-1 ring-navy/5 transition-all hover:-translate-y-1 hover:shadow-soft">
+                    <img
+                      src={brand.logo}
+                      alt={brand.name}
+                      loading="lazy"
+                      className="max-h-12 w-auto max-w-full object-contain"
+                    />
                   </div>
                 </Reveal>
               ))}
