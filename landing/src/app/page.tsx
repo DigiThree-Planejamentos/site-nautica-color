@@ -87,8 +87,8 @@ export default function LandingPage() {
                 Escolha o produto e fale com o atendimento.
               </h2>
               <p className="mt-4 text-ink/70">
-                Seleção de itens profissionais para a manutenção da sua embarcação. Clique em{" "}
-                <strong className="font-semibold text-navy">Falar no WhatsApp</strong> para tirar dúvidas e confirmar disponibilidade direto com a equipe.
+                Tintas, antifouling, abrasivos, selantes e acabamentos: a Náutica Color tem uma linha completa para atender
+                sua embarcação. Nossa equipe ajuda você a encontrar tudo o que precisa para cada etapa do serviço.
               </p>
             </div>
             <ProductShowcase />
