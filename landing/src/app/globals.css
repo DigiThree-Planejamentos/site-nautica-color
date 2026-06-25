@@ -128,3 +128,14 @@ section[id] {
   animation-delay: -4s;
   animation-duration: 11s;
 }
+
+/* Carrossel infinito das marcas parceiras. A trilha tem duas cópias da lista;
+   deslizar -50% avança exatamente uma cópia, fechando o loop sem emenda. */
+@keyframes marquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}

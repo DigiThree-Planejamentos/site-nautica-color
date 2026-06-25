@@ -4,12 +4,12 @@ import { Header } from "@/components/Header";
 import { HeroWave } from "@/components/HeroWave";
 import { StoreExperience } from "@/components/StoreExperience";
 import { ProductShowcase } from "@/components/ProductShowcase";
+import { BrandsMarquee } from "@/components/BrandsMarquee";
 import { Eyebrow } from "@/components/Eyebrow";
-import { Reveal } from "@/components/Reveal";
 import { ScrollReveal } from "@/components/ScrollReveal";
 import { WhatsappIcon } from "@/components/WhatsappIcon";
 import { buildSupportMessage, resolveWhatsappNumber, whatsappUrl } from "@/lib/whatsapp";
-import { partnerBrands, store } from "@/data/showcase";
+import { store } from "@/data/showcase";
 
 /**
  * LANDING PAGE — app independente do e-commerce.
@@ -102,24 +102,11 @@ export default function LandingPage() {
           <StoreExperience supportUrl={supportUrl} />
 
           <section id="marcas" className="relative z-10 bg-white py-20">
-          <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-            <Eyebrow>Marcas parceiras</Eyebrow>
-            <h2 className="mt-3 font-heading text-3xl font-extrabold leading-tight text-navy sm:text-4xl">Linhas profissionais em um catálogo único.</h2>
-            <div className="mt-8 grid gap-4 grid-cols-2 sm:grid-cols-3 lg:grid-cols-4">
-              {partnerBrands.map((brand, index) => (
-                <Reveal key={brand.name} delay={(index % 4) * 120} className="h-full">
-                  <div className="grid h-full place-items-center rounded-lg bg-white p-6 shadow-sm ring-1 ring-navy/5 transition-all hover:-translate-y-1 hover:shadow-soft">
-                    <img
-                      src={brand.logo}
-                      alt={brand.name}
-                      loading="lazy"
-                      className="max-h-12 w-auto max-w-full object-contain"
-                    />
-                  </div>
-                </Reveal>
-              ))}
+            <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+              <Eyebrow>Marcas parceiras</Eyebrow>
+              <h2 className="mt-3 font-heading text-3xl font-extrabold leading-tight text-navy sm:text-4xl">Linhas profissionais em um catálogo único.</h2>
             </div>
-          </div>
+            <BrandsMarquee />
           </section>
         </div>
 
