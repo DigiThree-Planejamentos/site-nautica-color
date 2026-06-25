@@ -36,7 +36,7 @@ export default function LandingPage() {
           <div aria-hidden="true" className="absolute inset-0 -z-10 bg-gradient-to-br from-navy/95 via-navy/70 to-navy-light/55" />
           <div aria-hidden="true" className="absolute -right-24 top-4 -z-10 h-80 w-80 rounded-full bg-red/20 blur-3xl" />
 
-          <div className="mx-auto flex min-h-[680px] max-w-7xl flex-col items-center justify-center gap-8 px-4 pb-52 pt-24 text-center sm:px-6 lg:px-8">
+          <div className="relative z-10 mx-auto flex min-h-[680px] max-w-7xl flex-col items-center justify-center gap-8 px-4 pb-52 pt-24 text-center sm:px-6 lg:px-8">
             <div className="mx-auto max-w-3xl">
               <p className="mb-5 inline-flex animate-fade-up items-center gap-2 text-xs font-semibold uppercase tracking-[0.2em] text-red">
                 <Anchor size={14} aria-hidden="true" /> Náutica Color
