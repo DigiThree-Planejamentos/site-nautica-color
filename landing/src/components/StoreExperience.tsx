@@ -1,21 +1,15 @@
-"use client";
-
 /* eslint-disable @next/next/no-img-element */
 
-import { useEffect, useRef, useState } from "react";
-import { motion, useReducedMotion, useScroll, useSpring, useTransform, type MotionValue } from "motion/react";
 import { MapPin, PackageCheck, Users } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
 import { Eyebrow } from "@/components/Eyebrow";
+import { ScrollReveal } from "@/components/ScrollReveal";
 import { WhatsappIcon } from "@/components/WhatsappIcon";
 
 /**
- * Seção "Prontos para te atender": texto + motivos + CTA acima e, abaixo, a
- * fileira de fotos da loja dirigida pelo scroll. A seção inteira é a "trilha" de
- * scroll: enquanto ela atravessa a viewport, o conteúdo fica fixo (sticky) e as
- * fotos vão APARECENDO e se alocando da esquerda para a direita, uma por uma,
- * formando uma fileira horizontal de faixas (a última é a fachada, à direita).
- * Com `prefers-reduced-motion` tudo vira um layout estático.
+ * Seção "Atendimento": texto + motivos + CTA acima e, abaixo, uma fileira fixa
+ * de fotos da loja. Sem animação de scroll — passar o mouse (ou tocar) numa
+ * faixa a expande em acordeão, abrindo a foto.
  */
 
 type Photo = { src: string; alt: string };
@@ -29,48 +23,15 @@ const photos: Photo[] = [
   { src: "/experiencia/loja-06.webp", alt: "Balcão de atendimento da Náutica Color com selantes e acessórios" },
   { src: "/experiencia/loja-07.webp", alt: "Ambiente interno da Náutica Color com linha profissional de produtos" },
   { src: "/experiencia/marine-shop.webp", alt: "Expositor Sika Marine Shop com selantes e produtos náuticos" },
-  // Última = fica na frente.
+  // Última = a fachada.
   { src: "/experiencia/fachada-site.webp", alt: "Fachada da loja Náutica Color na Marina Verolme" }
 ];
-
-const total = photos.length;
 
 const reasons: { icon: LucideIcon; title: string; text: string }[] = [
   { icon: PackageCheck, title: "Estoque completo", text: "Tintas, antifouling, abrasivos, fiberglass e acabamentos na prateleira." },
   { icon: Users, title: "Equipe que entende de barco", text: "Indicação certa de produto, rendimento e preparação para cada caso." },
   { icon: MapPin, title: "Pertinho da sua embarcação", text: "Atendimento presencial na Marina Verolme, em Angra dos Reis." }
 ];
-
-function RowCard({ photo, index, progress }: { photo: Photo; index: number; progress: MotionValue<number> }) {
-  // Fileira: cada foto ocupa um slot fixo (flex-1) e DESLIZA entrando pela
-  // direita no seu trecho do scroll, viajando até parar no seu lugar — fade +
-  // escala — de modo que a fileira se preenche da esquerda (foto 1) para a direita
-  // (foto 9 = fachada). Cada foto tem zIndex pelo índice, então passa por cima da
-  // anterior ao chegar. A montagem acaba em FILL_END e o resto do scroll é pausa
-  // com a fileira completa. Janelas dentro de [0,1].
-  const FILL_END = 0.85;
-  const seg = FILL_END / total;
-  const start = index * seg;
-  const end = (index + 1) * seg;
-  const appear = seg * 0.6;
-
-  const x = useTransform(progress, [start, end], ["60%", "0%"]);
-  const scale = useTransform(progress, [start, end], [0.96, 1]);
-  const opacity = useTransform(progress, [start, start + appear], [0, 1]);
-
-  return (
-    <motion.figure
-      initial={false}
-      style={{ x, scale, opacity, zIndex: index }}
-      className="group relative h-full min-w-0 flex-1 cursor-pointer overflow-hidden rounded-lg shadow-sm ring-1 ring-navy/10 transition-[flex-grow] duration-500 ease-nautica hover:flex-[8] hover:shadow-soft hover:ring-navy/25"
-    >
-      <img src={photo.src} alt={photo.alt} loading={index < 2 ? "eager" : "lazy"} className="h-full w-full object-cover" />
-      <span className="absolute left-1.5 top-1.5 rounded-full bg-navy px-1.5 py-0.5 font-heading text-[9px] font-bold tabular-nums tracking-wide text-white">
-        {String(index + 1).padStart(2, "0")}
-      </span>
-    </motion.figure>
-  );
-}
 
 function Intro() {
   return (
@@ -100,7 +61,6 @@ function Intro() {
           </div>
         ))}
       </div>
-
     </div>
   );
 }
@@ -119,79 +79,29 @@ function SupportButton({ supportUrl }: { supportUrl: string }) {
 }
 
 export function StoreExperience({ supportUrl }: { supportUrl: string }) {
-  const reduce = useReducedMotion();
-  const ref = useRef<HTMLDivElement>(null);
-  // ref fica na trilha de scroll (abaixo do estágio fixo); o progresso vai de 0
-  // (quando a trilha entra, logo após o estágio pinar) a 1 (fim da trilha).
-  const { scrollYProgress } = useScroll({ target: ref, offset: ["start end", "end end"] });
-  // Suavização: a animação "persegue" o scroll com mola (stiffness baixa = mais
-  // lenta e amanteigada) em vez de seguir o scroll 1:1.
-  const progress = useSpring(scrollYProgress, { stiffness: 40, damping: 24, mass: 0.6 });
-
-  // A animação de scroll (sticky + fileira que entra) roda só no desktop. No
-  // mobile (< 768px) as fotos ficam FIXAS num grid estático. Começa assumindo
-  // desktop no SSR e ajusta no cliente — sem mismatch de hidratação.
-  const [isDesktop, setIsDesktop] = useState(true);
-  useEffect(() => {
-    const mq = window.matchMedia("(min-width: 768px)");
-    const apply = () => setIsDesktop(mq.matches);
-    apply();
-    mq.addEventListener("change", apply);
-    return () => mq.removeEventListener("change", apply);
-  }, []);
-
-  // Layout estático (mobile ou prefers-reduced-motion): texto + cards e um grid
-  // fixo de fotos, sem animação de scroll.
-  if (reduce || !isDesktop) {
-    return (
-      <section id="atendimento" className="bg-white py-20">
-        <div className="mx-auto flex max-w-5xl flex-col items-center gap-7 px-4 sm:px-6 lg:px-8">
-          <Intro />
-          {/* Fileira FIXA (estado final da animação do desktop), sem scroll. O
-              toque/hover numa faixa a expande (acordeão) pra abrir a foto. */}
-          <div className="flex h-[34vh] w-full gap-1.5">
-            {photos.map((photo, index) => (
-              <figure
-                key={photo.src}
-                className="group relative h-full min-w-0 flex-1 cursor-pointer overflow-hidden rounded-lg shadow-sm ring-1 ring-navy/10 transition-[flex-grow] duration-500 ease-nautica hover:flex-[8] hover:shadow-soft hover:ring-navy/25"
-              >
-                <img src={photo.src} alt={photo.alt} loading="lazy" className="h-full w-full object-cover" />
-                <span className="absolute left-1.5 top-1.5 rounded-full bg-navy px-1.5 py-0.5 font-heading text-[9px] font-bold tabular-nums tracking-wide text-white">
-                  {String(index + 1).padStart(2, "0")}
-                </span>
-              </figure>
-            ))}
-          </div>
-          <SupportButton supportUrl={supportUrl} />
-        </div>
-      </section>
-    );
-  }
-
   return (
-    <>
-      {/* Estágio fixo (sticky top-0): fica pinado enquanto a trilha de scroll
-          abaixo rola e PERMANECE fixo enquanto a próxima seção sobe por cima
-          (as duas estão no mesmo container relativo em page.tsx). */}
-      <section id="atendimento" className="sticky top-0 flex h-screen items-center overflow-hidden bg-white py-12">
-        <div className="mx-auto flex w-full max-w-6xl flex-col items-center gap-7 px-4 sm:px-6 lg:px-8">
+    <section id="atendimento" className="bg-white py-20">
+      <div className="mx-auto flex max-w-5xl flex-col items-center gap-7 px-4 sm:px-6 lg:px-8">
+        <ScrollReveal className="w-full">
           <Intro />
-
-          {/* Fileira de fotos dirigida pelo scroll, abaixo do texto. Cada foto é
-              uma faixa de largura igual (flex-1) que vai aparecendo da esquerda
-              para a direita. Altura contida pra fileira caber na tela. */}
-          <div className="flex h-[30vh] w-full gap-1.5 sm:h-[34vh] sm:gap-2">
-            {photos.map((photo, index) => (
-              <RowCard key={photo.src} photo={photo} index={index} progress={progress} />
-            ))}
-          </div>
-          <SupportButton supportUrl={supportUrl} />
-        </div>
-      </section>
-
-      {/* Trilha de scroll (vazia) que dirige a montagem da pilha. Sua altura
-          define quanto scroll a animação ocupa antes da próxima seção cobrir. */}
-      <div ref={ref} aria-hidden style={{ height: `${total * 25}vh` }} />
-    </>
+        </ScrollReveal>
+        {/* Fileira fixa de fotos. Hover/toque numa faixa a expande (acordeão),
+            abrindo a foto. */}
+        <ScrollReveal delay={180} className="flex h-[34vh] w-full gap-1.5">
+          {photos.map((photo, index) => (
+            <figure
+              key={photo.src}
+              className="group relative h-full min-w-0 flex-1 cursor-pointer overflow-hidden rounded-lg shadow-sm ring-1 ring-navy/10 transition-[flex-grow] duration-500 ease-nautica hover:flex-[8] hover:shadow-soft hover:ring-navy/25"
+            >
+              <img src={photo.src} alt={photo.alt} loading="lazy" className="h-full w-full object-cover" />
+              <span className="absolute left-1.5 top-1.5 rounded-full bg-navy px-1.5 py-0.5 font-heading text-[9px] font-bold tabular-nums tracking-wide text-white">
+                {String(index + 1).padStart(2, "0")}
+              </span>
+            </figure>
+          ))}
+        </ScrollReveal>
+        <SupportButton supportUrl={supportUrl} />
+      </div>
+    </section>
   );
 }

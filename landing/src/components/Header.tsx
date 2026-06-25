@@ -4,6 +4,14 @@
 import { useEffect, useState } from "react";
 import { WhatsappIcon } from "@/components/WhatsappIcon";
 
+// Seções do site para a navegação do header.
+const SECTIONS = [
+  { href: "#marcas", label: "Marcas" },
+  { href: "#produtos", label: "Produtos" },
+  { href: "#atendimento", label: "Atendimento" },
+  { href: "#contato", label: "Contato" },
+] as const;
+
 /**
  * Cabeçalho enxuto da landing: logo + um CTA de WhatsApp.
  *
@@ -67,10 +75,20 @@ export function Header({ supportUrl }: { supportUrl: string }) {
         }}
       />
 
-      <div className="relative mx-auto flex h-14 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
+      <div className="relative mx-auto flex h-14 max-w-7xl items-center justify-between gap-4 px-4 sm:px-6 lg:px-8">
         <a href="#topo" className="flex items-center gap-3" aria-label="Náutica Color">
           <img src="/brand/nautica-color-logo.png" alt="Náutica Color" className="h-8 w-auto" />
         </a>
+
+        {/* Navegação para as seções (desktop). */}
+        <nav className="hidden items-center gap-6 text-sm font-medium text-ink/80 md:flex">
+          {SECTIONS.map((s) => (
+            <a key={s.href} href={s.href} className="transition hover:text-red">
+              {s.label}
+            </a>
+          ))}
+        </nav>
+
         <a
           href={supportUrl}
           target="_blank"

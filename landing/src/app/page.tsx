@@ -76,7 +76,18 @@ export default function LandingPage() {
           <HeroWave />
         </section>
 
-        <section id="produtos" className="scroll-mt-20 bg-white pb-20 pt-28">
+        {/* Marcas parceiras — movida para cima, logo após o hero. */}
+        <section id="marcas" className="scroll-mt-20 bg-white pb-20 pt-28">
+          <ScrollReveal className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+            <Eyebrow>Marcas parceiras</Eyebrow>
+            <h2 className="mt-3 font-heading text-3xl font-extrabold leading-tight text-navy sm:text-4xl">Linhas profissionais em um catálogo único.</h2>
+          </ScrollReveal>
+          <ScrollReveal delay={180}>
+            <BrandsMarquee />
+          </ScrollReveal>
+        </section>
+
+        <section id="produtos" className="scroll-mt-20 bg-white py-20">
           <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
             <ScrollReveal className="mx-auto max-w-2xl text-center">
               <Eyebrow>Produtos em destaque</Eyebrow>
@@ -95,23 +106,10 @@ export default function LandingPage() {
           </div>
         </section>
 
-        {/* Estágio fixo (atendimento) + marcas no mesmo pai relativo: a seção
-            de marcas (opaca, z-10) sobe POR CIMA das fotos fixadas, sem margem
-            negativa — então o fluxo de baixo não quebra. */}
-        <div className="relative">
-          <StoreExperience supportUrl={supportUrl} />
-
-          <section id="marcas" className="relative z-10 bg-white py-20">
-            <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-              <Eyebrow>Marcas parceiras</Eyebrow>
-              <h2 className="mt-3 font-heading text-3xl font-extrabold leading-tight text-navy sm:text-4xl">Linhas profissionais em um catálogo único.</h2>
-            </div>
-            <BrandsMarquee />
-          </section>
-        </div>
+        <StoreExperience supportUrl={supportUrl} />
 
         <section id="contato" className="bg-white py-20">
-          <div className="mx-auto max-w-5xl px-4 text-center sm:px-6 lg:px-8">
+          <ScrollReveal className="mx-auto max-w-5xl px-4 text-center sm:px-6 lg:px-8">
             <MapPin className="mx-auto mb-5 text-red" size={34} aria-hidden="true" />
             <div className="flex justify-center">
               <Eyebrow>Contato</Eyebrow>
@@ -144,7 +142,7 @@ export default function LandingPage() {
             <a href={supportUrl} target="_blank" rel="noopener noreferrer" className="mt-7 inline-flex h-11 items-center justify-center gap-2 rounded-full bg-red px-5 text-sm font-semibold text-white transition hover:bg-red-bright">
               <WhatsappIcon className="h-[18px] w-[18px]" /> Chamar no WhatsApp
             </a>
-          </div>
+          </ScrollReveal>
         </section>
 
         <footer className="bg-navy py-8 text-center text-xs text-white/60">
