@@ -7,9 +7,9 @@ import { WhatsappIcon } from "@/components/WhatsappIcon";
 // Seções do site para a navegação do header.
 const SECTIONS = [
   { href: "#produtos", label: "Produtos" },
+  { href: "#marcas", label: "Marcas" },
   { href: "#atendimento", label: "Atendimento" },
   { href: "#contato", label: "Contato" },
-  { href: "#marcas", label: "Marcas" },
 ] as const;
 
 /**
