@@ -76,18 +76,7 @@ export default function LandingPage() {
           <HeroWave />
         </section>
 
-        {/* Marcas parceiras — movida para cima, logo após o hero. */}
-        <section id="marcas" className="scroll-mt-20 bg-white pb-20 pt-28">
-          <ScrollReveal className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-            <Eyebrow>Marcas parceiras</Eyebrow>
-            <h2 className="mt-3 font-heading text-3xl font-extrabold leading-tight text-navy sm:text-4xl">Linhas profissionais em um catálogo único.</h2>
-          </ScrollReveal>
-          <ScrollReveal delay={180}>
-            <BrandsMarquee />
-          </ScrollReveal>
-        </section>
-
-        <section id="produtos" className="scroll-mt-20 bg-white py-20">
+        <section id="produtos" className="scroll-mt-20 bg-white pb-20 pt-28">
           <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
             <ScrollReveal className="mx-auto max-w-2xl text-center">
               <Eyebrow>Produtos em destaque</Eyebrow>
@@ -142,6 +131,16 @@ export default function LandingPage() {
             <a href={supportUrl} target="_blank" rel="noopener noreferrer" className="mt-7 inline-flex h-11 items-center justify-center gap-2 rounded-full bg-red px-5 text-sm font-semibold text-white transition hover:bg-red-bright">
               <WhatsappIcon className="h-[18px] w-[18px]" /> Chamar no WhatsApp
             </a>
+          </ScrollReveal>
+        </section>
+
+        <section id="marcas" className="scroll-mt-20 bg-white py-20">
+          <ScrollReveal className="mx-auto max-w-2xl px-4 text-center sm:px-6 lg:px-8">
+            <Eyebrow>Marcas parceiras</Eyebrow>
+            <h2 className="mt-3 font-heading text-3xl font-extrabold leading-tight text-navy sm:text-4xl">Linhas profissionais em um catálogo único.</h2>
+          </ScrollReveal>
+          <ScrollReveal delay={180}>
+            <BrandsMarquee />
           </ScrollReveal>
         </section>
 
